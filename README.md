@@ -21,3 +21,6 @@ SF User Switcher boasts a user-friendly interface that minimizes the learning cu
 By streamlining the user-switching process, SF User Switcher contributes to increased productivity. Whether you're a developer testing different user scenarios or a manager overseeing various accounts, this extension empowers you to work more efficiently.
 
 In conclusion, SF User Switcher is the ultimate solution for users seeking a straightforward and efficient way to manage multiple accounts in Google Chrome. Embrace the power of LoginAs functionality with this extension, and experience a new level of user-switching simplicity. Try [Extension Name] today and elevate your Chrome browsing experience.
+
+[Policy](Policy.md)
+[Changelog](changelog.md)
