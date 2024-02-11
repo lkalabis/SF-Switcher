@@ -1,0 +1,243 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    display: flex;
+    width: 645px;
+    text-rendering: optimizeSpeed;
+    background-color: #2f6690;
+}
+
+.root {
+    width: 100%;
+}
+
+.header {
+    background-color: #867f8d; /* Add background color as needed */
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px; /* Add padding for spacing */
+    margin-top: auto;
+    padding-right: 10px; /* Add padding for spacing */
+    background-color: #d9dcd6;
+    padding-bottom: 0px;
+    padding-top: 2px;
+    width: 645px;
+}
+
+.info {
+    display: flex;
+    color: black;
+    gap: 10px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 10px; /* Adjust spacing between icons */
+}
+
+.social-icons a {
+    text-decoration: none;
+    color: #333; /* Adjust color as needed */
+}
+
+.social-icons img {
+    width: 24px; /* Adjust icon size as needed */
+    height: 24px;
+    border-radius: 50%; /* Optional: Add border-radius for rounded icons */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 220px;
+}
+
+.addButtonContainer {
+    /* margin-top: 4px; */
+    width: 100%;
+    background-color: #3a7ca5; /* Add background color as needed */
+}
+
+.editButtonContainer {
+    display: flex;
+    background-color: #3a7ca5; /* Add background color as needed */
+}
+
+.gridContainer {
+    flex-direction: column;
+    margin-top: 4px;
+    display: flex;
+}
+
+.grid {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 3px 0 3px 16px;
+}
+.editGrid {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 3px 0 3px 16px;
+}
+.filteredEntries {
+    display: flex;
+}
+.entry.even {
+    background-color: #f4f4f4; /* Even entries background color */
+    padding: 3px;
+}
+
+.entry.odd {
+    background-color: #e0e0e0; /* Odd entries background color */
+    padding: 3px;
+}
+
+.line {
+    margin-bottom: 5px; /* Adjust spacing between lines as needed */
+}
+
+.name {
+    font-weight: bold;
+    font-size: 12px;
+    color: #333;
+}
+
+.username {
+    font-style: italic;
+    color: #666;
+}
+
+.email {
+    color: #999;
+}
+.filteredEntriesList {
+    position: absolute;
+    top: 33px;
+    left: 246px;
+    width: 350px;
+    border-radius: 6px;
+    background-color: #fff;
+    max-height: 200px;
+    overflow: scroll;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: black;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.filteredEntriesList li {
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filteredEntriesList li:hover {
+    background-color: #f2f2f2;
+}
+
+.editLabel {
+    width: 220px;
+}
+
+.editUsername {
+    width: 280px;
+}
+
+.editLabel,
+.editUsername {
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: black;
+    background-color: white;
+}
+.labelEntry {
+    width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.usernameEntry {
+    width: 280px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.shortcutEntry {
+    width: 50px;
+}
+.labelEntry,
+.usernameEntry,
+.shortcutEntry {
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+.profileName {
+    font-weight: 600;
+}
+
+.editEntryButtons {
+    margin-left: 0px;
+}
+.buttons {
+    margin-left: 0px;
+}
+
+.grid-btn {
+    background-color: #2f6690;
+    color: white; /* White text */
+    padding: 8px 10px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    border: none;
+}
+
+.grid-btn:hover {
+    background-color: #3a7ca5; /* Add background color as needed */
+}
+.btn {
+    background-color: #3a7ca5;
+    color: white; /* White text */
+    padding: 8px 10px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    border: none;
+}
+
+.addEntryButton {
+    /* width: 100%; */
+    width: 645px;
+    height: 35px;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+    background-color: #16425b; /* Add background color as needed */
+}
