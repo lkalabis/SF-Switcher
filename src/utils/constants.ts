@@ -1,7 +1,10 @@
 const APP_VERSION = "V 0.1";
 const APP_AUTHOR = "Lukas Kalabis";
+const APP_ABOUT = "About";
+const ABOUT_URL = "https://lkalabis.github.io/SF-Switcher";
 const CHANGELOG = "Changelog";
 const CHANGELOG_URL = "https://github.com/lkalabis/SF-Switcher/blob/master/changelog.md";
+const EMAIL = "mailto:developer.kalabis.lukas@gmail.com";
 
 const STORAGE_KEY = "sf-user-switcher";
 const REST_ENDPOINT = "/services/data/v58.0";
@@ -22,4 +25,7 @@ export {
     PRODUCTION_URL,
     CHANGELOG_URL,
     LOADING_MESSAGE,
+    APP_ABOUT,
+    ABOUT_URL,
+    EMAIL,
 };
