@@ -24,10 +24,8 @@ export default function App() {
     async function fetchData() {
         try {
             const currentURL = await getCurrentTabUrl();
-            // console.log("currentURL:", currentURL);
             const modifiedUrl = getModifiedUrl(currentURL);
             const currentOrgInfo = await sfConn.getSession(modifiedUrl);
-            // console.log("currentOrgInfo:", currentOrgInfo);
             setCurrentOrg(currentOrgInfo);
 
             const result = await chrome.storage.local.get(STORAGE_KEY);
@@ -42,7 +40,6 @@ export default function App() {
     }
 
     function transformEntries(currentOrgInfo: OrgInfo | null, storedEntries: Record<string, any>) {
-        // console.log("transformEntries:", currentOrgInfo);
         return (
             // @ts-ignore
             storedEntries[currentOrgInfo?.orgId]?.users.map((user: User) => ({
@@ -72,7 +69,6 @@ export default function App() {
     };
 
     const editEntry = (entryToEdit: User) => {
-        // console.log("entryToEdit:", entryToEdit);
         const index = entries?.findIndex((entry: User) => entry.UUID === entryToEdit.UUID);
         if (index !== undefined && index > -1 && entries) {
             setEditUsername(entries[index].Username);
@@ -109,8 +105,6 @@ export default function App() {
     };
 
     const updateExistingEntry = async (updateEntry: User) => {
-        // console.log("oldRecord:", editRecord);
-        // console.log("updateEntry:", updateEntry);
         try {
             if (editRecord) {
                 await deleteEntry(editRecord, false);
@@ -139,16 +133,11 @@ export default function App() {
     };
 
     const deleteTes = async (editRecord: User, withConfirmation: boolean) => {
-        // console.log("deleteTes:", editRecord);
         try {
             await deleteEntry(editRecord, withConfirmation);
             loadRecord();
         } catch (error) {
-            if ((error as Error).message === "Deletion canceled by user") {
-                // console.log("User canceled the deletion");
-            } else {
-                console.error(error);
-            }
+            console.error(error);
         }
     };
 
@@ -184,7 +173,6 @@ export default function App() {
                         console.error("Error:", chrome.runtime.lastError);
                         reject(new Error(chrome.runtime.lastError.message));
                     } else {
-                        // console.log("Entry deleted from storage");
                         resolve();
                     }
                 });

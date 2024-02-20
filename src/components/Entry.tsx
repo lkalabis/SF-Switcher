@@ -22,17 +22,14 @@ function Entry({
         const currentURL = await getCurrentTabUrl();
         const modifiedUrl = getModifiedUrl(currentURL);
         const target = encodeURIComponent(currentURL.split(".com")[1]);
-        // console.log(entry.OrgId, entry.Id, target, modifiedUrl);
         const properties = {
             active: true,
             url: `${modifiedUrl}/servlet/servlet.su?oid=${entry.OrgId}&suorgadminid=${entry.Id}&targetURL=${target}&retURL=${target}`,
         };
-        // console.log(target, properties);
         chrome.tabs.create(properties);
     };
 
     return (
-        // console.log("Entry:", entry),
         <div className="grid">
             <div className="labelEntry">
                 {entry.Label} <span className="profileName">({entry.Profile?.Name})</span>

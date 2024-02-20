@@ -20,8 +20,6 @@ export const addOrgId = function (
 const handleStorageResult = (error: chrome.runtime.LastError | undefined, message: string, data: User) => {
     if (error) {
         console.error("Error:", error);
-    } else {
-        // console.log(message, data);
     }
 };
 
@@ -41,8 +39,12 @@ export const getCurrentTabUrl = () => {
 
 export const getModifiedUrl = (url: string) => {
     const index = url.indexOf(".");
-    const modifiedUrl = url.slice(0, index) + (url.includes(SANDBOX) ? SANDBOX_URL : PRODUCTION_URL);
-    // console.log("Modified tab URL:", modifiedUrl);
+    let modifiedUrl = "";
+    if (url.includes("trailblaze")) {
+        modifiedUrl = url.slice(0, index) + ".trailblaze" + PRODUCTION_URL;
+    } else {
+        modifiedUrl = url.slice(0, index) + (url.includes(SANDBOX) ? SANDBOX_URL : PRODUCTION_URL);
+    }
     return modifiedUrl;
 };
 
@@ -61,7 +63,6 @@ export const createUUID = () => {
 export const writeNewEntryToStorage = (newEntry: User, currentOrg: OrgInfo) => {
     return new Promise<void>((resolve, reject) => {
         const orgId = currentOrg.orgId;
-        // console.log("## : " + orgId);
 
         chrome.storage.local.get(STORAGE_KEY, (result) => {
             if (chrome.runtime.lastError) {

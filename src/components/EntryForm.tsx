@@ -27,7 +27,6 @@ function EntryForm({
         try {
             const soqlQuery = `SELECT Id,UserName,FirstName,LastName,Name,Email,Profile.Name FROM User WHERE isActive=true AND (Username LIKE '%${input}%' OR Name LIKE '%${input}%' OR Email LIKE '%${input}%')`;
             const result = await sfConn.rest(`${REST_ENDPOINT}/query?q=${encodeURIComponent(soqlQuery)}`);
-            // console.log("result", result.records);
             setFilteredEntries(result.records);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -53,7 +52,6 @@ function EntryForm({
     }, 500); // 500ms delay
 
     useEffect(() => {
-        // console.log("useEffect is called");
         if (!isNewEntry) {
             setNewEntry((prevEntry) => ({
                 ...record,
@@ -66,7 +64,6 @@ function EntryForm({
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const input = e.target.value;
         const { name, value } = e.target;
-        // console.log("handleUsernameChange", name, value);
         setNewEntry({ ...newEntry, [name]: value });
 
         if (input.length >= LIMIT) {
@@ -78,12 +75,10 @@ function EntryForm({
 
     const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        // console.log("handleLabelChange", name, value);
         setNewEntry({ ...newEntry, [name]: value });
     };
 
     const updateExistingEntry = () => {
-        // console.log("existing entry", newEntry);
         if (Object.keys(newEntry).length !== 0) {
             newEntry.UUID = createUUID();
             onSaveExisting(newEntry);
@@ -91,7 +86,6 @@ function EntryForm({
     };
 
     const saveNewEntry = () => {
-        // console.log("new entry", newEntry);
         if (Object.keys(newEntry).length !== 0) {
             newEntry.UUID = createUUID();
             onSaveNew(newEntry);
@@ -99,7 +93,6 @@ function EntryForm({
     };
 
     const handleSelectEntry = (entry: User) => {
-        // console.log("selected entry " + JSON.stringify(entry));
         setNewEntry(entry);
         setFilteredEntries([]);
     };

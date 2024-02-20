@@ -1,15 +1,15 @@
 export let apiVersion = "56.0";
 export const sfConn = {
     getSession(sfHost) {
-        // console.log("getSession called with: " + sfHost);
         return new Promise((resolve, reject) => {
             chrome.runtime.sendMessage({ message: "getSession", sfHost }, (message) => {
                 if (chrome.runtime.lastError) {
                     reject(new Error(chrome.runtime.lastError));
                 } else if (message) {
-                    // console.log("message " + JSON.stringify(message));
                     this.orgId = message.orgId;
-                    this.instanceHostname = message.hostname;
+                    this.instanceHostname = message.hostname
+                        .replace(/\.lightning\.force\./, ".my.salesforce.") //avoid HTTP redirect (that would cause Authorization header to be dropped)
+                        .replace(/\.mcas\.ms$/, ""); //remove trailing .mcas.ms if the client uses Microsoft Defender for Cloud Apps
                     this.sessionId = message.key;
                     resolve(message);
                 } else {

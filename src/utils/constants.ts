@@ -3,7 +3,7 @@ const APP_AUTHOR = "Lukas Kalabis";
 const APP_ABOUT = "About";
 const ABOUT_URL = "https://lkalabis.github.io/SF-Switcher";
 const CHANGELOG = "Changelog";
-const CHANGELOG_URL = "https://github.com/lkalabis/SF-Switcher/blob/master/changelog.md";
+const CHANGELOG_URL = "https://lkalabis.github.io/SF-Switcher/changelog.html";
 const EMAIL = "mailto:developer.kalabis.lukas@gmail.com";
 
 const STORAGE_KEY = "sf-user-switcher";
