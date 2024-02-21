@@ -62,9 +62,9 @@ function EntryForm({
     }, [label, username]);
 
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const input = e.target.value;
+        const input = e.target.value.trim();
         const { name, value } = e.target;
-        setNewEntry({ ...newEntry, [name]: value });
+        setNewEntry({ ...newEntry, [name]: value.trim() });
 
         if (input.length >= LIMIT) {
             debounceFetchData(input);
@@ -131,7 +131,7 @@ function EntryForm({
                     type="text"
                     name="Username"
                     value={newEntry.Username}
-                    placeholder="Username"
+                    placeholder="Search by Username, Name, or Email"
                     onChange={handleUsernameChange}
                 />
                 <div className="editEntryButtons">

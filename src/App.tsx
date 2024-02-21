@@ -8,6 +8,8 @@ import { sfConn } from "./utils/inspector";
 import { User } from "./types/User";
 import { OrgInfo } from "./types/OrgInfo";
 import { LOADING_MESSAGE, STORAGE_KEY } from "./utils/constants";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
     const [showAddEntryForm, setShowAddEntryForm] = useState(false);
@@ -93,6 +95,18 @@ export default function App() {
     };
 
     const saveNewEntry = async (newEntry: User) => {
+        if (!newEntry.Id) {
+            return toast.error("This is not a valid User", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
         setEntries([...(entries || []), newEntry]);
         setShowEditEntryForm(false);
         setShowEditButtonContainer(false);
@@ -101,6 +115,16 @@ export default function App() {
         if (currentOrg) {
             await writeNewEntryToStorage(newEntry, currentOrg);
             await fetchData();
+            toast.success("Entry Saved", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
         }
     };
 
@@ -182,29 +206,41 @@ export default function App() {
 
     const renderAddEntryForm = () => {
         return (
-            <div className="addButtonContainer">
-                {!showAddEntryForm && (
-                    <button title="Add Entry" className="btn addEntryButton" onClick={addEntry}>
-                        <i className="fa fa-plus"></i>
-                    </button>
-                )}
-                {showAddEntryForm && (
-                    <EntryForm
-                        isNewEntry={true}
-                        currentOrg={currentOrg!}
-                        onSaveNew={saveNewEntry}
-                        onCancelAdd={cancelAddEntry}
-                        onCancelEdit={cancelEditEntry}
-                        username={""}
-                        label={""}
-                        // @ts-ignore
-                        record={""}
-                        onSaveExisting={function (entry: User): void {
-                            throw new Error("Function not implemented.");
-                        }}
-                    />
-                )}
-            </div>
+            <>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    theme="dark"
+                />
+                <div className="addButtonContainer">
+                    {!showAddEntryForm && (
+                        <button title="Add Entry" className="btn addEntryButton" onClick={addEntry}>
+                            <i className="fa fa-plus"></i>
+                        </button>
+                    )}
+                    {showAddEntryForm && (
+                        <EntryForm
+                            isNewEntry={true}
+                            currentOrg={currentOrg!}
+                            onSaveNew={saveNewEntry}
+                            onCancelAdd={cancelAddEntry}
+                            onCancelEdit={cancelEditEntry}
+                            username={""}
+                            label={""}
+                            // @ts-ignore
+                            record={""}
+                            onSaveExisting={function (entry: User): void {
+                                throw new Error("Function not implemented.");
+                            }}
+                        />
+                    )}
+                </div>
+            </>
         );
     };
 
