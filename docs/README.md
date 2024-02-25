@@ -39,5 +39,5 @@ All entries that you save are **Org-specific**. This means that you can configur
 
 If you are on the current tab in Org A, you will only see entries for this specific Org. If you switch to an other tab where you are in Org B, you will **not** see entries from Org A when you open the extension.
 
-[Privacy Policy](PRIVACY.md)
+[Privacy Policy](PRIVACY.md) | 
 [Changelog](changelog.md)
