@@ -1,4 +1,4 @@
-const APP_VERSION = "V 0.4";
+const APP_VERSION = "V 0.5";
 const APP_AUTHOR = "Lukas Kalabis";
 const APP_ABOUT = "About";
 const ABOUT_URL = "https://lkalabis.github.io/SF-Switcher";

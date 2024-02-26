@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 -   Add error message when user is not on a salesforce domain in the current tab
+-   Fix bug related to edit of entries. Now the changes are updated without the need of re-open the popup.
 
 ## [0.4] - 26.02.2024
 
