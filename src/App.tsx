@@ -121,7 +121,7 @@ export default function App() {
             await fetchData();
             toast.success("Entry Saved", {
                 position: "top-right",
-                autoClose: 2000,
+                autoClose: 1500,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -144,6 +144,16 @@ export default function App() {
             setShowAddEntryForm(false);
             if (currentOrg) {
                 await writeNewEntryToStorage(updateEntry, currentOrg);
+                toast.success("Entry Changed", {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
                 loadRecord();
             }
         } catch (error) {
@@ -160,9 +170,19 @@ export default function App() {
         setEntries(transformedEntries);
     };
 
-    const deleteTes = async (editRecord: User, withConfirmation: boolean) => {
+    const deleteExistingEntry = async (editRecord: User, withConfirmation: boolean) => {
         try {
             await deleteEntry(editRecord, withConfirmation);
+            toast.info("Entry Deleted", {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
             loadRecord();
         } catch (error) {
             console.error(error);
@@ -290,7 +310,12 @@ export default function App() {
                         ) : (
                             <>
                                 {entries?.map((entry) => (
-                                    <Entry key={entry.Id} entry={entry} onDelete={deleteTes} onEdit={editEntry} />
+                                    <Entry
+                                        key={entry.Id}
+                                        entry={entry}
+                                        onDelete={deleteExistingEntry}
+                                        onEdit={editEntry}
+                                    />
                                 ))}
                             </>
                         )}
