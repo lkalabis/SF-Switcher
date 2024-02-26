@@ -34,7 +34,7 @@ for input_image in "$@"; do
         output_file="${output_dir}/$(basename "$input_image" .png)-${size}.png"
         
         # Resize the image
-        convert "$input_image" -resize "${size}!" "$output_file"
+        convert "$input_image" -resize "${size}^" "$output_file"
         echo "Resized image to $size: $output_file"
     done
 done
