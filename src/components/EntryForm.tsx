@@ -65,7 +65,6 @@ function EntryForm({
         const input = e.target.value.trim();
         const { name, value } = e.target;
         setNewEntry({ ...newEntry, [name]: value.trim() });
-
         if (input.length >= LIMIT) {
             debounceFetchData(input);
         } else {
@@ -75,7 +74,7 @@ function EntryForm({
 
     const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setNewEntry({ ...newEntry, [name]: value });
+        setNewEntry({ ...newEntry, [name]: value.trim() });
     };
 
     const updateExistingEntry = () => {
@@ -92,8 +91,14 @@ function EntryForm({
         }
     };
 
-    const handleSelectEntry = (entry: User) => {
-        setNewEntry(entry);
+    const handleSelectEntry = (filteredEntry: User) => {
+        const updatedEntry = {
+            ...newEntry,
+            ...filteredEntry, // Copy all values from filteredEntry
+            Label: newEntry.Label, // Preserve the Label value from newEntry
+        };
+
+        setNewEntry(updatedEntry);
         setFilteredEntries([]);
     };
 
@@ -149,22 +154,23 @@ function EntryForm({
             {filteredEntries.length > 0 && (
                 <div className="filteredEntries">
                     <div className="filteredEntriesList">
-                        {filteredEntries.map((entry, index) => (
+                        {filteredEntries.map((filteredEntry, index) => (
                             <div
-                                onClick={() => handleSelectEntry(entry)}
+                                onClick={() => handleSelectEntry(filteredEntry)}
                                 className={`entry ${index % 2 === 0 ? "even" : "odd"}`}
                                 key={index}
                             >
                                 <div className="line name" style={{ cursor: "pointer" }}>
                                     <span>
-                                        {entry.FirstName} {entry.LastName} ({entry.Profile?.Name})
+                                        {filteredEntry.FirstName} {filteredEntry.LastName} (
+                                        {filteredEntry.Profile?.Name})
                                     </span>
                                 </div>
                                 <div className="line username" style={{ cursor: "pointer" }}>
-                                    <span>{entry.Username}</span>
+                                    <span>{filteredEntry.Username}</span>
                                 </div>
                                 <div className="line email" style={{ cursor: "pointer" }}>
-                                    <span>{entry.Email}</span>
+                                    <span>{filteredEntry.Email}</span>
                                 </div>
                             </div>
                         ))}

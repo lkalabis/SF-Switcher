@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "SF User Switcher",
     "description": "Switch easy and fast your Salesforce User",
-    "version": "0.2",
+    "version": "0.4",
     "action": {
         "default_icon": {
             "16": "images/icon-16.png",
@@ -22,6 +22,12 @@
         "service_worker": "./background.js",
         "type": "module"
     },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ],
     "host_permissions": [
         "https://*.salesforce.com/*",
         "https://*.force.com/*",
@@ -30,5 +36,5 @@
         "https://*.salesforce.mil/*",
         "https://*.force.mil/*"
     ],
-    "permissions": ["cookies", "storage"]
+    "permissions": ["cookies", "storage", "tabs", "activeTab", "scripting"]
 }
