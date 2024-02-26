@@ -275,7 +275,7 @@ export default function App() {
             {showEditButtonContainer && renderEditEntryForm()}
 
             <div className="gridContainer">
-                {!isValidURL && (
+                {!isValidURL ? (
                     <div className="invalidURLMessage">
                         <h3>Invalid URL</h3>
                         <p>
@@ -283,18 +283,21 @@ export default function App() {
                             domain.
                         </p>
                     </div>
+                ) : (
+                    <>
+                        {loading ? (
+                            LOADING_MESSAGE
+                        ) : (
+                            <>
+                                {entries?.map((entry) => (
+                                    <Entry key={entry.Id} entry={entry} onDelete={deleteTes} onEdit={editEntry} />
+                                ))}
+                            </>
+                        )}
+                    </>
                 )}
-                {!isValidURL &&
-                    !loading && ( // Check if both isValidURL is false and loading is false
-                        <>
-                            {" "}
-                            {/* React fragment */}
-                            {entries?.map((entry) => (
-                                <Entry key={entry.Id} entry={entry} onDelete={deleteTes} onEdit={editEntry} />
-                            ))}
-                        </>
-                    )}
             </div>
+
             <Footer />
         </div>
     );
