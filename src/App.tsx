@@ -143,7 +143,7 @@ export default function App() {
             setShowAddButtonContainer(true);
             setShowAddEntryForm(false);
             if (currentOrg) {
-                writeNewEntryToStorage(updateEntry, currentOrg);
+                await writeNewEntryToStorage(updateEntry, currentOrg);
                 loadRecord();
             }
         } catch (error) {
