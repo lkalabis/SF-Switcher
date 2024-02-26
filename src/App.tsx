@@ -21,6 +21,7 @@ export default function App() {
     const [editRecord, setEditRecord] = useState<User>();
     const [currentOrg, setCurrentOrg] = useState<OrgInfo | null>(null);
     const [loading, setLoading] = useState(true);
+    const [isValidURL, setisValidURL] = useState(true);
     const [entries, setEntries] = useState<User[] | null>(null);
 
     async function fetchData() {
@@ -37,7 +38,10 @@ export default function App() {
             setEntries(transformedEntries);
             setLoading(false);
         } catch (error) {
-            console.error("Error in fetchData:", error);
+            setLoading(false);
+            setisValidURL(false);
+            setShowAddButtonContainer(false);
+            setShowEditButtonContainer(false);
         }
     }
 
@@ -271,15 +275,25 @@ export default function App() {
             {showEditButtonContainer && renderEditEntryForm()}
 
             <div className="gridContainer">
-                {loading ? (
-                    LOADING_MESSAGE
-                ) : (
-                    <>
-                        {entries?.map((entry) => (
-                            <Entry key={entry.Id} entry={entry} onDelete={deleteTes} onEdit={editEntry} />
-                        ))}
-                    </>
+                {!isValidURL && (
+                    <div className="invalidURLMessage">
+                        <h3>Invalid URL</h3>
+                        <p>
+                            This extension only works on Salesforce domains. Please navigate to a valid Salesforce
+                            domain.
+                        </p>
+                    </div>
                 )}
+                {!isValidURL &&
+                    !loading && ( // Check if both isValidURL is false and loading is false
+                        <>
+                            {" "}
+                            {/* React fragment */}
+                            {entries?.map((entry) => (
+                                <Entry key={entry.Id} entry={entry} onDelete={deleteTes} onEdit={editEntry} />
+                            ))}
+                        </>
+                    )}
             </div>
             <Footer />
         </div>

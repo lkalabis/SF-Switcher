@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5] - 26.02.2024
+
+### Added
+
+-   Add error message when user is not on a salesforce domain in the current tab
+
 ## [0.4] - 26.02.2024
 
 ### Added
