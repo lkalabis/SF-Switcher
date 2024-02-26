@@ -22,12 +22,6 @@
         "service_worker": "./background.js",
         "type": "module"
     },
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "js": ["content.js"]
-        }
-    ],
     "host_permissions": [
         "https://*.salesforce.com/*",
         "https://*.force.com/*",
@@ -36,5 +30,5 @@
         "https://*.salesforce.mil/*",
         "https://*.force.mil/*"
     ],
-    "permissions": ["cookies", "storage", "tabs", "activeTab", "scripting"]
+    "permissions": ["cookies", "storage"]
 }
