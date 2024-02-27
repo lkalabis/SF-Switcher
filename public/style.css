@@ -213,6 +213,35 @@ footer {
     background-color: white;
 }
 
+.settingsIcon img {
+    width: 15px;
+    height: 15px;
+}
+
+.settingsIcon button {
+    border: none;
+}
+
+.settings {
+}
+
+.headerSettingsSection {
+    width: 645px;
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding-top: 15px;
+}
+nav ul li {
+    margin-right: 10px;
+}
+
 .invalidURLMessage {
     color: rgb(7, 7, 7);
     font-size: 12px;

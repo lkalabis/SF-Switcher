@@ -10,6 +10,7 @@ import { OrgInfo } from "./types/OrgInfo";
 import { LOADING_MESSAGE, STORAGE_KEY } from "./utils/constants";
 import { ToastContainer, ToastOptions, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Settings from "./components/Settings";
 
 export default function App() {
     const [showAddEntryForm, setShowAddEntryForm] = useState(false);
@@ -23,6 +24,7 @@ export default function App() {
     const [loading, setLoading] = useState(true);
     const [isValidURL, setisValidURL] = useState(true);
     const [entries, setEntries] = useState<User[] | null>(null);
+    const [showSettings, setShowSettings] = useState(true);
 
     async function fetchData() {
         try {
@@ -217,6 +219,11 @@ export default function App() {
         });
     };
 
+    const toggleView = () => {
+        console.log("Switching to settings");
+        setShowSettings((prevShowAddEntryForm) => !prevShowAddEntryForm);
+    };
+
     const renderAddEntryForm = () => {
         return (
             <>
@@ -280,39 +287,45 @@ export default function App() {
     };
     return (
         <div className="container">
-            {showAddButtonContainer && renderAddEntryForm()}
-            {showEditButtonContainer && renderEditEntryForm()}
+            {showSettings ? (
+                // Render what you want to show when showSettings is true
+                <Settings />
+            ) : (
+                <>
+                    {showAddButtonContainer && renderAddEntryForm()}
+                    {showEditButtonContainer && renderEditEntryForm()}
 
-            <div className="gridContainer">
-                {!isValidURL ? (
-                    <div className="invalidURLMessage">
-                        <h3>Invalid URL</h3>
-                        <p>
-                            This extension only works on Salesforce domains. Please navigate to a valid Salesforce
-                            domain.
-                        </p>
-                    </div>
-                ) : (
-                    <>
-                        {loading ? (
-                            LOADING_MESSAGE
+                    <div className="gridContainer">
+                        {!isValidURL ? (
+                            <div className="invalidURLMessage">
+                                <h3>Invalid URL</h3>
+                                <p>
+                                    This extension only works on Salesforce domains. Please navigate to a valid
+                                    Salesforce domain.
+                                </p>
+                            </div>
                         ) : (
                             <>
-                                {entries?.map((entry) => (
-                                    <Entry
-                                        key={entry.Id}
-                                        entry={entry}
-                                        onDelete={deleteExistingEntry}
-                                        onEdit={editEntry}
-                                    />
-                                ))}
+                                {loading ? (
+                                    LOADING_MESSAGE
+                                ) : (
+                                    <>
+                                        {entries?.map((entry) => (
+                                            <Entry
+                                                key={entry.Id}
+                                                entry={entry}
+                                                onDelete={deleteExistingEntry}
+                                                onEdit={editEntry}
+                                            />
+                                        ))}
+                                    </>
+                                )}
                             </>
                         )}
-                    </>
-                )}
-            </div>
-
-            <Footer />
+                    </div>
+                </>
+            )}
+            <Footer doShowSettings={showSettings} onShowSetings={toggleView} />
         </div>
     );
 }

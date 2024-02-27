@@ -1,9 +1,24 @@
 import React from "react";
 import { APP_VERSION, APP_ABOUT, ABOUT_URL, EMAIL, CHANGELOG, CHANGELOG_URL } from "../utils/constants";
-export default function Footer() {
+export default function Footer({
+    onShowSetings,
+    doShowSettings,
+}: {
+    onShowSetings: () => void;
+    doShowSettings: boolean;
+}) {
     return (
         <>
             <footer>
+                <div className="settingsIcon">
+                    <button title="Settings Icon" onClick={onShowSetings}>
+                        <img
+                            src={doShowSettings === true ? "images/settings.png" : "images/home.png"}
+                            alt="Settings Icon"
+                        />
+                    </button>
+                </div>
+
                 <div className="info">
                     <div className="version">{APP_VERSION}</div>
                 </div>
