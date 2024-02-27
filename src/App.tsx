@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import Entry from "./components/Entry";
 import Footer from "./components/Footer";
 import EntryForm from "./components/EntryForm";
-import { getCurrentTabUrl, getModifiedUrl, writeNewEntryToStorage } from "./utils/helper";
+import { getCurrentTabUrl, getModifiedUrl, toastConfig, writeNewEntryToStorage } from "./utils/helper";
 // @ts-ignore
 import { sfConn } from "./utils/inspector";
 import { User } from "./types/User";
 import { OrgInfo } from "./types/OrgInfo";
 import { LOADING_MESSAGE, STORAGE_KEY } from "./utils/constants";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, ToastOptions, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
@@ -35,7 +35,12 @@ export default function App() {
             const storedEntries = result[STORAGE_KEY] || {};
 
             const transformedEntries = transformEntries(currentOrgInfo, storedEntries);
-            setEntries(transformedEntries);
+            if (transformedEntries.length === 0) {
+                addEntry();
+            } else {
+                setEntries(transformedEntries);
+            }
+
             setLoading(false);
         } catch (error) {
             setLoading(false);
@@ -45,7 +50,7 @@ export default function App() {
         }
     }
 
-    function transformEntries(currentOrgInfo: OrgInfo | null, storedEntries: Record<string, any>) {
+    const transformEntries = (currentOrgInfo: OrgInfo | null, storedEntries: Record<string, any>): User[] => {
         return (
             // @ts-ignore
             storedEntries[currentOrgInfo?.orgId]?.users.map((user: User) => ({
@@ -62,7 +67,7 @@ export default function App() {
                 },
             })) || []
         );
-    }
+    };
 
     useEffect(() => {
         fetchData();
@@ -119,16 +124,7 @@ export default function App() {
         if (currentOrg) {
             await writeNewEntryToStorage(newEntry, currentOrg);
             await fetchData();
-            toast.success("Entry Saved", {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+            toast.success("Entry Saved", toastConfig as ToastOptions<unknown>);
         }
     };
 
@@ -144,46 +140,33 @@ export default function App() {
             setShowAddEntryForm(false);
             if (currentOrg) {
                 await writeNewEntryToStorage(updateEntry, currentOrg);
-                toast.success("Entry Changed", {
-                    position: "top-right",
-                    autoClose: 1500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-                loadRecord();
+                toast.success("Entry Changed", toastConfig as ToastOptions<unknown>);
+                loadRecords();
             }
         } catch (error) {
             console.error("Error deleting entry:", error);
         }
     };
 
-    const loadRecord = async () => {
+    const loadRecords = async () => {
         // Update state to remove the entry
         const result = await chrome.storage.local.get(STORAGE_KEY);
         const storedEntries = result[STORAGE_KEY] || {};
 
         const transformedEntries = transformEntries(currentOrg, storedEntries);
         setEntries(transformedEntries);
+        if (transformedEntries.length === 0) {
+            addEntry();
+        } else {
+            setEntries(transformedEntries);
+        }
     };
 
     const deleteExistingEntry = async (editRecord: User, withConfirmation: boolean) => {
         try {
             await deleteEntry(editRecord, withConfirmation);
-            toast.info("Entry Deleted", {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-            loadRecord();
+            toast.info("Entry Deleted", toastConfig as ToastOptions<unknown>);
+            loadRecords();
         } catch (error) {
             console.error(error);
         }

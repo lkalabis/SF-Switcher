@@ -23,6 +23,17 @@ const handleStorageResult = (error: chrome.runtime.LastError | undefined, messag
     }
 };
 
+export const toastConfig = {
+    position: "top-right",
+    autoClose: 1500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+};
+
 export const getCurrentTabUrl = () => {
     return new Promise<string>((resolve, reject) => {
         // Get the current tab URL
