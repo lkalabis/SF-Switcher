@@ -1,7 +1,8 @@
+import { OrgData } from "./OrgData";
 import { User } from "./User";
 
 export class JsonStructure {
-    orgIds: { [key: string]: any };
+    orgIds: { [key: string]: OrgData };
 
     constructor() {
         this.orgIds = {};
@@ -13,6 +14,7 @@ export class JsonStructure {
             url,
             lastModified,
             users: [],
+            loginAsNext: "",
         };
     }
 
