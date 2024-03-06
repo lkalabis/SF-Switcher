@@ -22,6 +22,19 @@
         "service_worker": "./background.js",
         "type": "module"
     },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://*.salesforce.com/*",
+                "https://*.force.com/*",
+                "https://*.visualforce.com/*",
+                "https://*.lightning.force.com/*",
+                "https://*.salesforce.mil/*",
+                "https://*.force.mil/*"
+            ],
+            "js": ["content.js"]
+        }
+    ],
     "host_permissions": [
         "https://*.salesforce.com/*",
         "https://*.force.com/*",
