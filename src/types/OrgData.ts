@@ -5,4 +5,5 @@ export interface OrgData {
     url: string;
     lastModified: string;
     users: User[];
+    loginAsNext: string;
 }

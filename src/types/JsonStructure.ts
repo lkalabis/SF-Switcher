@@ -17,6 +17,7 @@ export class JsonStructure {
             url,
             lastModified,
             users: [],
+            loginAsNext: "",
         };
     }
 
