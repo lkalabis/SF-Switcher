@@ -11,6 +11,7 @@ const REST_ENDPOINT = "/services/data/v58.0";
 const SANDBOX = "sandbox";
 const SANDBOX_URL = ".sandbox.my.salesforce.com";
 const PRODUCTION_URL = ".my.salesforce.com";
+const LOGOUT_URL = "/secur/logout.jsp";
 
 const LOADING_MESSAGE = "Loading...";
 
@@ -28,4 +29,5 @@ export {
     APP_ABOUT,
     ABOUT_URL,
     EMAIL,
+    LOGOUT_URL,
 };
