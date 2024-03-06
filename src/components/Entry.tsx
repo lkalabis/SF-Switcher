@@ -1,6 +1,7 @@
 import React from "react";
 import { getCurrentTabUrl, getModifiedUrl } from "../utils/helper";
 import { User } from "../types/User";
+import { LOGOUT_URL } from "../utils/constants";
 
 function Entry({
     entry,
@@ -36,13 +37,13 @@ function Entry({
                 const isUserLoggedIn = response.response;
                 if (isUserLoggedIn) {
                     // logout current user
-                    const url = `${modifiedUrl}/secur/logout.jsp`;
+                    const url = `${modifiedUrl}/${LOGOUT_URL}`;
 
                     chrome.tabs.sendMessage(
                         // @ts-ignore
                         activeTab.id,
-                        { message: "logoutURL", logoutUrl: url, loginUrl: properties.url });
-                    // login as the user that was clicked
+                        { message: "logoutURL", logoutUrl: url, loginUrl: properties.url },
+                    );
                 } else {
                     chrome.tabs.create(properties);
                 }
