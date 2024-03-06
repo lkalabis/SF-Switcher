@@ -9,6 +9,7 @@ export default defineConfig({
             input: {
                 index: "./index.html",
                 background: "./src/utils/background.js",
+                content: "./src/utils/content.js",
             },
             output: {
                 entryFileNames: ({ name }) => {

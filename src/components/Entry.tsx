@@ -31,7 +31,28 @@ function Entry({
             active: true,
             url: `${modifiedUrl}/servlet/servlet.su?oid=${entry.OrgId}&suorgadminid=${entry.Id}&targetURL=${target}&retURL=${target}`,
         };
-        chrome.tabs.create(properties);
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            // Query active tab
+            const activeTab = tabs[0];
+
+            // Send a message to the content script
+            // @ts-ignore
+            chrome.tabs.sendMessage(activeTab.id, { message: "Is User Logged In?" }, (response) => {
+                const isUserLoggedIn = response.response;
+                if (isUserLoggedIn) {
+                    // logout current user
+                    const url = `${modifiedUrl}/secur/logout.jsp`;
+
+                    chrome.tabs.sendMessage(
+                        // @ts-ignore
+                        activeTab.id,
+                        { message: "logoutURL", logoutUrl: url, loginUrl: properties.url });
+                    // login as the user that was clicked
+                } else {
+                    chrome.tabs.create(properties);
+                }
+            });
+        });
     };
 
     return (
