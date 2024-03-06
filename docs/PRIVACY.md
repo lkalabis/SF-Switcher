@@ -10,7 +10,6 @@ All Salesforce API calls from the SF User Switcher re-uses the access token/sess
 Local storage objects are sets of data that can be stored on your browser and/or hard drive by us.
 We use local storage objects to remember your :
 
--   Environment type (PROD or Sandbox)
--   Client Id @ Session Id (only if you're using Salesforce Extension with a connected App)
+-   Salesforce user entries (Username, Email, Id, etc.) that have been selected and saved by you.
 
 We do not use local storage objects for any other purpose. You may erase the local storage objects by deleting your browser's history.
