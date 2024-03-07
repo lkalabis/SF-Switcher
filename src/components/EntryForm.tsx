@@ -74,7 +74,7 @@ function EntryForm({
 
     const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setNewEntry({ ...newEntry, [name]: value.trim() });
+        setNewEntry({ ...newEntry, [name]: value });
     };
 
     const updateExistingEntry = () => {

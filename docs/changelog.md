@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+<!--
+## [0.6] - 07.03.2024
+
+### Added
+
+-   Bugfix: Spaces in the Label are possible now
+-   New feature: add the info tooltip box for each entry
+-->
+
 ## [0.5] - 26.02.2024
 
 ### Added

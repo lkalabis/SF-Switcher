@@ -116,6 +116,7 @@ export default function App() {
                 theme: "dark",
             });
         }
+        newEntry.Label = newEntry.Label.trim();
         setEntries([...(entries || []), newEntry]);
         setShowEditEntryForm(false);
         setShowEditButtonContainer(false);
@@ -133,6 +134,7 @@ export default function App() {
             if (editRecord) {
                 await deleteEntry(editRecord, false);
             }
+            updateEntry.Label = updateEntry.Label.trim();
             setEntries([...(entries || []), updateEntry]);
             setShowEditEntryForm(false);
             setShowEditButtonContainer(false);
