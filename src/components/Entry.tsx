@@ -34,7 +34,12 @@ function Entry({
             <div className="labelEntry">
                 {entry.Label} <span className="profileName">({entry.Profile?.Name})</span>
             </div>
-            <div className="usernameEntry">{entry.Username}</div>
+            <div className="usernameEntry">
+                <div>{entry.Username}</div>
+                <div>
+                    <i className="fa fa-info-circle information" aria-hidden="true"></i>
+                </div>
+            </div>
 
             <div className="buttons">
                 <button title="Open" className="grid-btn" onClick={openInNewTab}>
