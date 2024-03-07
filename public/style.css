@@ -224,15 +224,22 @@ footer {
     align-items: center;
 }
 
+.settings-text {
+    margin-left: 15px;
+    font-size: x-large;
+}
+
 .version {
     margin-left: 10px;
 }
 
 .headerSettingsSection {
+    align-items: center;
     width: 645px;
-    padding-top: 10px;
+    padding: 10px;
     display: flex;
-    justify-content: center;
+    justify-content: start;
+    background-color: white;
 }
 
 nav ul {
