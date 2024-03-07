@@ -1,3 +1,4 @@
+import { OrgData } from "./OrgData";
 import { User } from "./User";
 
 export class JsonStructure {
