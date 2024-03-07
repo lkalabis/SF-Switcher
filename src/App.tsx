@@ -117,7 +117,7 @@ export default function App() {
             });
         }
         newEntry.Label = newEntry.Label.trim();
-        setEntries([...(entries || []), newEntry]);
+        newEntry.Username = newEntry.Username.trim();
         setShowEditEntryForm(false);
         setShowEditButtonContainer(false);
         setShowAddButtonContainer(true);
@@ -135,7 +135,7 @@ export default function App() {
                 await deleteEntry(editRecord, false);
             }
             updateEntry.Label = updateEntry.Label.trim();
-            setEntries([...(entries || []), updateEntry]);
+            updateEntry.Username = updateEntry.Username.trim();
             setShowEditEntryForm(false);
             setShowEditButtonContainer(false);
             setShowAddButtonContainer(true);

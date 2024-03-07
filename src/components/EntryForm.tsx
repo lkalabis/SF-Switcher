@@ -62,9 +62,9 @@ function EntryForm({
     }, [label, username]);
 
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const input = e.target.value.trim();
+        const input = e.target.value;
         const { name, value } = e.target;
-        setNewEntry({ ...newEntry, [name]: value.trim() });
+        setNewEntry({ ...newEntry, [name]: value });
         if (input.length >= LIMIT) {
             debounceFetchData(input);
         } else {
