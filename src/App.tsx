@@ -143,7 +143,7 @@ export default function App() {
             if (currentOrg) {
                 await writeNewEntryToStorage(updateEntry, currentOrg);
                 toast.success("Entry Changed", toastConfig as ToastOptions<unknown>);
-                loadRecords();
+                await loadRecords();
             }
         } catch (error) {
             console.error("Error deleting entry:", error);
@@ -168,7 +168,7 @@ export default function App() {
         try {
             await deleteEntry(editRecord, withConfirmation);
             toast.info("Entry Deleted", toastConfig as ToastOptions<unknown>);
-            loadRecords();
+            await loadRecords();
         } catch (error) {
             console.error(error);
         }
