@@ -17,9 +17,6 @@ export default function Footer({
                             alt="Settings Icon"
                         />
                     </button>
-                </div>
-
-                <div className="info">
                     <div className="version">{APP_VERSION}</div>
                 </div>
 
