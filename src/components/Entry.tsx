@@ -46,7 +46,7 @@ function Entry({
                     chrome.tabs.sendMessage(
                         // @ts-ignore
                         activeTab.id,
-                        { message: "logoutURL", logoutUrl: url, loginUrl: properties.url },
+                        { message: "logoutUser", logoutUrl: url, loginUrl: properties.url },
                     );
                 } else {
                     chrome.tabs.create(properties);

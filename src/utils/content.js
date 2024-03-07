@@ -1,9 +1,9 @@
-import { LOGOUT_URL } from "./constants";
+const LOGOUT_URL = "/secur/logout.jsp";
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.message === "Is User Logged In?") {
         sendResponse({ response: isUserLoggedIn() });
     }
-    if (request.message === "logoutURL") {
+    if (request.message === "logoutUser") {
         const logoutUrl = request.logoutUrl;
         const loginURL = request.loginUrl;
         // send message to background script to logout
@@ -13,20 +13,24 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
 });
 
-chrome.runtime.sendMessage({ message: "getLoginURL" }, function (response) {
+chrome.runtime.sendMessage({ message: "getLoginURL" }, (response) => {
     if (response && !isUserLoggedIn()) {
         setTimeout(() => {
-            chrome.storage.local.remove("kee", function () {
-                if (chrome.runtime.lastError) {
-                    console.error("Error removing data: " + chrome.runtime.lastError.message);
-                } else {
-                    console.log("Data removed successfully");
-                }
-            });
+            removeEntry();
+
             window.location.href = response;
         }, "1000");
     }
 });
+
+const removeEntry = () => {
+    const kee = "kee";
+    chrome.storage.local.remove(`sf-user-switcher-${kee}`, () => {
+        if (chrome.runtime.lastError) {
+            console.error("Error removing data: " + chrome.runtime.lastError.message);
+        }
+    });
+};
 
 const isUserLoggedIn = () => {
     const lightningIcon = document.querySelector('lightning-icon[icon-name="utility:user"]');
@@ -34,7 +38,7 @@ const isUserLoggedIn = () => {
 };
 
 // Add a click event listener to the document
-document.addEventListener("click", function (event) {
+document.addEventListener("click", (event) => {
     // Check if the clicked element is an anchor tag (a link)
     if (event.target.tagName === "A") {
         // Get the href attribute of the clicked link
@@ -42,13 +46,7 @@ document.addEventListener("click", function (event) {
 
         if (clickedLink.includes(LOGOUT_URL)) {
             // Do something when the specific link is clicked
-            chrome.storage.local.remove("kee", function () {
-                if (chrome.runtime.lastError) {
-                    console.error("Error removing data: " + chrome.runtime.lastError.message);
-                } else {
-                    console.log("Data removed successfully");
-                }
-            });
+            removeEntry();
         }
     }
 });

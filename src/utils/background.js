@@ -2,24 +2,37 @@
 import { JsonStructure } from "../types/JsonStructure";
 import { STORAGE_KEY } from "./constants";
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    const kee = "kee";
     if (request.message === "getLoginURL") {
-        // sendResponse(loginURL);
-        chrome.storage.local.get("kee", function (result) {
-            console.log("Value currently is " + result.kee);
-            sendResponse(result.kee);
+        chrome.storage.local.get(`sf-user-switcher-${kee}`, (result) => {
+            console.log("Value currently is " + result[`sf-user-switcher-${kee}`]);
+            sendResponse(result[`sf-user-switcher-${kee}`]);
         });
         return true;
     }
     if (request.message === "login") {
-        console.log("login", request.loginURL);
-        // loginURL = request.loginURL;
-        chrome.storage.local.set({ kee: request.loginURL }, function () {
+        chrome.cookies.get(
+            { url: request.sfHost, name: "sid" }, (cookie) => {
+
+                if (cookie) {
+                    let session = {
+                        orgId: sessionCookie.value.split("!")[0],
+                        key: sessionCookie.value,
+                        hostname: sessionCookie.domain,
+                    };
+
+                    const key = `sf-user-switcher-${kee}`;
+        const data = {};
+        data[key] = request.loginURL;
+
+        chrome.storage.local.set(data, () => {
             if (chrome.runtime.lastError) {
                 console.error("Error storing data: " + chrome.runtime.lastError.message);
-            } else {
-                console.log("Data stored successfully");
             }
         });
+                }
+        );
+        
     }
     if (request.message === "getSession") {
         chrome.cookies.get(
