@@ -28,6 +28,11 @@ body {
     background-color: #867f8d; /* Add background color as needed */
 }
 
+.logo {
+    width: 24px;
+    height: 24px;
+}
+
 footer {
     display: flex;
     justify-content: space-between;
@@ -225,8 +230,23 @@ footer {
 }
 
 .settings-text {
+    margin-left: 12px;
+    font-size: large;
+}
+
+.lookAndFeelSettingsButtons {
+    display: flex;
+    justify-content: center;
+}
+
+.lookAndFeelInputs {
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+}
+
+.lookAndFeelInputs label {
     margin-left: 15px;
-    font-size: x-large;
 }
 
 .version {
@@ -236,7 +256,7 @@ footer {
 .headerSettingsSection {
     align-items: center;
     width: 645px;
-    padding: 10px;
+    padding: 5px;
     display: flex;
     justify-content: start;
     background-color: white;

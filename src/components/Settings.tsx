@@ -14,13 +14,16 @@ export default function Settings() {
         setShowLookFeelSection(true);
     };
 
+    const saveSettings = () => {};
+
+    const cancelSettings = () => {};
+
     return (
         <div className="settings">
             <header className="headerSettingsSection">
                 <img src="images/icon-48.png" alt="Logo" className="logo" />
                 <div className="settings-text">Settings</div>
-            </header>
-            <nav className="navbarSettingsSection">
+                <nav className="navbarSettingsSection">
                 <ul>
                     <li>
                         <button onClick={showDataSectionPart}>Data</button>
@@ -30,11 +33,32 @@ export default function Settings() {
                     </li>
                 </ul>
             </nav>
+            </header>
+            
             <main className="mainSettingsSection">
-                
-                <p>Settings content</p>
                 {shoDataSection && <div>Data Section</div>}
-                {showLookFeelSection && <div>Look & Feel Section</div>}
+
+                {showLookFeelSection && (
+                    <>
+                        <h2>Look & Feel Section</h2>
+                        <div className="lookAndFeelInputs">
+                            <label>
+                                <input type="checkbox" name="showProfileNames" />
+                                Show Profile Names in Label?
+                            </label>
+                            <label>
+                                <input type="checkbox" name="showAtTopBottom" />
+                                Show at top/bottom
+                            </label>
+                            <div className="lookAndFeelSettingsButtons">
+                            <button onClick={() => saveSettings} style={{ marginRight: "15px" }}>
+                                Save
+                            </button>
+                            <button onClick={() => cancelSettings}>Cancel</button>
+                            </div>
+                        </div>
+                    </>
+                )}
             </main>
         </div>
     );
