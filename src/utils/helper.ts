@@ -2,20 +2,6 @@ import { JsonStructure } from "../types/JsonStructure";
 import { OrgInfo } from "../types/OrgInfo";
 import { User } from "../types/User";
 import { PRODUCTION_URL, SANDBOX, SANDBOX_URL, STORAGE_KEY } from "./constants";
-export const addOrgId = function (
-    orgIds: { sessionId: string; url: URL; lastModified: Date; users: never[] }[],
-    orgId: number,
-    sessionId: string,
-    url: URL,
-    lastModified: Date,
-) {
-    orgIds[orgId] = {
-        sessionId,
-        url,
-        lastModified,
-        users: [],
-    };
-};
 
 const handleStorageResult = (error: chrome.runtime.LastError | undefined, message: string, data: User) => {
     if (error) {

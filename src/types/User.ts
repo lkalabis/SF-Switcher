@@ -6,10 +6,18 @@ export type User = {
     Email: string;
     OrgId: string | number;
     Label: string;
-    Shortcut: string | null;
+    Shortcut?: string | null;
     IsActive: boolean;
     Profile: {
         Name: string;
     };
     UUID: string;
+    Position?: number;
+    ColorCode?: string;
+    Group?: {
+        Id: string | number;
+        Label: string;
+        Position: number;
+        ColorCode: string;
+    }
 };
