@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { getCurrentTabUrl, getModifiedUrl } from "../utils/helper";
 import { User } from "../types/User";
+import { SettingsType } from "../types/SettingsType";
 
 function Entry({
     settings,
@@ -8,7 +9,7 @@ function Entry({
     onDelete,
     onEdit,
 }: {
-    settings: any;
+    settings: SettingsType;
     entry: User;
     onDelete: (entry: User, withConfirmation: boolean) => void;
     onEdit: (entry: User) => void;
@@ -36,8 +37,26 @@ function Entry({
     return (
         <div className="grid">
             <div className="labelEntry">
-            {settings?.label}
-                {entry.Label} {settings?.label === true ? <span className="profileName">({entry.Profile?.Name})</span> : ""}
+                {entry.Label}
+                {settings?.ShowProfileNameInLabel === true ? (
+                    <span className="profileName">({entry.Profile?.Name})</span>
+                ) : (
+                    ""
+                )}
+            </div>
+
+            <div className="usernameEntry">
+                <div>{entry.Username}</div>
+                {settings?.ShowTooltip === true && (
+                    <div className="tooltip">
+                        <i
+                            onMouseEnter={() => setShowTooltip(true)}
+                            onMouseLeave={() => setShowTooltip(false)}
+                            className="fa fa-info-circle information"
+                            aria-hidden="true"
+                        ></i>
+                    </div>
+                )}
             </div>
 
             <div className="usernameEntry">

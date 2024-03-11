@@ -6,6 +6,7 @@ import { getCurrentTabUrl, getModifiedUrl, toastConfig, writeNewEntryToStorage }
 // @ts-ignore
 import { sfConn } from "./utils/inspector";
 import { User } from "./types/User";
+import { SettingsType } from "./types/SettingsType";
 import { OrgInfo } from "./types/OrgInfo";
 import { LOADING_MESSAGE, STORAGE_KEY } from "./utils/constants";
 import { ToastContainer, ToastOptions, toast } from "react-toastify";
@@ -25,7 +26,7 @@ export default function App() {
     const [isValidURL, setisValidURL] = useState(true);
     const [entries, setEntries] = useState<User[] | null>(null);
     const [showSettings, setShowSettings] = useState(false);
-    const [settings, setSettings] = useState({} as Record<string, any>);
+    const [settings, setSettings] = useState<SettingsType>({ ShowProfileNameInLabel: true, ShowTooltip: true });
 
     async function fetchData() {
         try {
@@ -37,7 +38,7 @@ export default function App() {
             const result = await chrome.storage.local.get(STORAGE_KEY);
             console.log("result", result);
             const storedEntries = result[STORAGE_KEY] || {};
-            setSettings(result[STORAGE_KEY].settings || {})
+            //setSettings(result[STORAGE_KEY].settings || {});
 
             const transformedEntries = transformEntries(currentOrgInfo, storedEntries);
             if (transformedEntries.length === 0) {
