@@ -3,10 +3,12 @@ import { getCurrentTabUrl, getModifiedUrl } from "../utils/helper";
 import { User } from "../types/User";
 
 function Entry({
+    settings,
     entry,
     onDelete,
     onEdit,
 }: {
+    settings: any;
     entry: User;
     onDelete: (entry: User, withConfirmation: boolean) => void;
     onEdit: (entry: User) => void;
@@ -34,7 +36,8 @@ function Entry({
     return (
         <div className="grid">
             <div className="labelEntry">
-                {entry.Label} <span className="profileName">({entry.Profile?.Name})</span>
+            {settings?.label}
+                {entry.Label} {settings?.label === true ? <span className="profileName">({entry.Profile?.Name})</span> : ""}
             </div>
 
             <div className="usernameEntry">

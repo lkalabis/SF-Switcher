@@ -24,7 +24,8 @@ export default function App() {
     const [loading, setLoading] = useState(true);
     const [isValidURL, setisValidURL] = useState(true);
     const [entries, setEntries] = useState<User[] | null>(null);
-    const [showSettings, setShowSettings] = useState(true);
+    const [showSettings, setShowSettings] = useState(false);
+    const [settings, setSettings] = useState({} as Record<string, any>);
 
     async function fetchData() {
         try {
@@ -34,7 +35,9 @@ export default function App() {
             setCurrentOrg(currentOrgInfo);
 
             const result = await chrome.storage.local.get(STORAGE_KEY);
+            console.log("result", result);
             const storedEntries = result[STORAGE_KEY] || {};
+            setSettings(result[STORAGE_KEY].settings || {})
 
             const transformedEntries = transformEntries(currentOrgInfo, storedEntries);
             if (transformedEntries.length === 0) {
@@ -312,6 +315,7 @@ export default function App() {
                                     <>
                                         {entries?.map((entry) => (
                                             <Entry
+                                                settings={settings}
                                                 key={entry.Id}
                                                 entry={entry}
                                                 onDelete={deleteExistingEntry}
