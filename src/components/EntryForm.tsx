@@ -23,6 +23,8 @@ function EntryForm({
 
     const [newEntry, setNewEntry] = useState<User>(record);
 
+    const [showEntrySettings, setShowEntrySettings] = useState(false);
+
     const fetchData = async (input: string) => {
         try {
             const soqlQuery = `SELECT Id,UserName,FirstName,LastName,Name,Email,Profile.Name FROM User WHERE isActive=true AND (Username LIKE '%${input}%' OR Name LIKE '%${input}%' OR Email LIKE '%${input}%')`;
@@ -103,21 +105,22 @@ function EntryForm({
     };
 
     const resetEntry = () => {
-        setNewEntry({
-            Id: "",
-            FirstName: "",
-            LastName: "",
-            Email: "",
-            Label: "",
-            Username: "",
-            OrgId: "", // Add OrgId property with appropriate value
-            Shortcut: "", // Add Shortcut property with appropriate value
-            IsActive: false, // Add IsActive property with appropriate value
-            UUID: "", // Add UUID property with appropriate value
-            Profile: {
-                Name: "",
-            },
-        });
+        setShowEntrySettings(!showEntrySettings);
+        // setNewEntry({
+        //     Id: "",
+        //     FirstName: "",
+        //     LastName: "",
+        //     Email: "",
+        //     Label: "",
+        //     Username: "",
+        //     OrgId: "", // Add OrgId property with appropriate value
+        //     Shortcut: "", // Add Shortcut property with appropriate value
+        //     IsActive: false, // Add IsActive property with appropriate value
+        //     UUID: "", // Add UUID property with appropriate value
+        //     Profile: {
+        //         Name: "",
+        //     },
+        // });
     };
 
     return (
@@ -144,13 +147,18 @@ function EntryForm({
                         <i className="fa fa-check fa-2xs"></i>
                     </button>
                     <button title="Reset" className="btn" onClick={resetEntry}>
-                        <i className="fa fa-trash fa-2xs"></i>
+                        <i className="fa fa-cogs fa-2xs"></i>
                     </button>
                     <button title="Cancel" className="btn" onClick={isNewEntry ? onCancelAdd : onCancelEdit}>
                         <i className="fa fa-minus fa-2xs"></i>
                     </button>
                 </div>
             </div>
+            {showEntrySettings && (
+                <>
+                hello world
+                </>
+            ):
             {filteredEntries.length > 0 && (
                 <div className="filteredEntries">
                     <div className="filteredEntriesList">

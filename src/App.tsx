@@ -26,7 +26,7 @@ export default function App() {
     const [isValidURL, setisValidURL] = useState(true);
     const [entries, setEntries] = useState<User[] | null>(null);
     const [showSettings, setShowSettings] = useState(false);
-    const [settings, setSettings] = useState<SettingsType>({ ShowProfileNameInLabel: true, ShowTooltip: true });
+    const [settings, setSettings] = useState<SettingsType>({ ShowProfileNameInLabel: false, ShowTooltip: true, ShowAddFormAtTop: true});
 
     async function fetchData() {
         try {
@@ -296,7 +296,7 @@ export default function App() {
                 <Settings />
             ) : (
                 <>
-                    {showAddButtonContainer && renderAddEntryForm()}
+                    {settings.ShowAddFormAtTop && showAddButtonContainer && renderAddEntryForm()}
                     {showEditButtonContainer && renderEditEntryForm()}
 
                     <div className="gridContainer">
@@ -328,6 +328,7 @@ export default function App() {
                             </>
                         )}
                     </div>
+                    {!settings.ShowAddFormAtTop && showAddButtonContainer && renderAddEntryForm()}
                 </>
             )}
             <Footer doShowSettings={showSettings} onShowSetings={toggleView} />
