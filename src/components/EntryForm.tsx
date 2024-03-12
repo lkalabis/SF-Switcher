@@ -8,7 +8,7 @@ import { createUUID } from "../utils/helper";
 
 const LIMIT = 2;
 
-function EntryForm({
+export default function EntryForm({
     username,
     label,
     record,
@@ -154,11 +154,7 @@ function EntryForm({
                     </button>
                 </div>
             </div>
-            {showEntrySettings && (
-                <>
-                hello world
-                </>
-            ):
+            {showEntrySettings && <>hello world</>}
             {filteredEntries.length > 0 && (
                 <div className="filteredEntries">
                     <div className="filteredEntriesList">
@@ -188,5 +184,3 @@ function EntryForm({
         </>
     );
 }
-
-export default EntryForm;

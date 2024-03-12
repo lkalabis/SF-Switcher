@@ -240,23 +240,76 @@ footer {
     font-size: large;
 }
 
-.lookAndFeelSettingsButtons {
+.mainSettingsSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.saveButtonContainer {
+    position: fixed;
+    bottom: 25px;
+    left: 300px;
     display: flex;
     justify-content: center;
+}
+
+.saveButtonContainer button {
+    padding: 2px 6px;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.saveButtonContainer button:disabled {
+    background: #ccc; /* Gray background when disabled */
+    cursor: not-allowed;
+}
+
+.saveButtonContainer button:hover:not(:disabled) {
+    background: #0056b3; /* Darker blue background when hovered */
 }
 
 .lookAndFeelInputs {
     display: flex;
     flex-direction: column;
-    padding-left: 5px;
+}
+
+.reLoginTimeInput {
+    margin-left: 25px;
+}
+
+.spanInput {
+    margin-left: 5px;
 }
 
 .lookAndFeelInputs label {
     margin-left: 15px;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 
 .version {
     margin-left: 10px;
+}
+
+.navbarSettingsSection {
+    margin-left: 150px;
+}
+
+.showLookFeelSectionPartButton {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.LookAndFeelHeader {
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+    font-size: 16px;
 }
 
 .headerSettingsSection {
@@ -266,16 +319,6 @@ footer {
     display: flex;
     justify-content: start;
     background-color: white;
-}
-
-nav ul {
-    display: flex;
-    justify-content: center;
-    list-style-type: none;
-    padding-top: 15px;
-}
-nav ul li {
-    margin-right: 10px;
 }
 
 .invalidURLMessage {

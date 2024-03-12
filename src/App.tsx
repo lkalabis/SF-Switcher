@@ -26,7 +26,12 @@ export default function App() {
     const [isValidURL, setisValidURL] = useState(true);
     const [entries, setEntries] = useState<User[] | null>(null);
     const [showSettings, setShowSettings] = useState(false);
-    const [settings, setSettings] = useState<SettingsType>({ ShowProfileNameInLabel: false, ShowTooltip: true, ShowAddFormAtTop: true});
+    const [settings, setSettings] = useState<SettingsType>({
+        ShowProfileNameInLabel: false,
+        ShowTooltip: true,
+        ShowAddFormAtTop: true,
+        UseReLoginFeature: true,
+    });
 
     async function fetchData() {
         try {
@@ -38,7 +43,7 @@ export default function App() {
             const result = await chrome.storage.local.get(STORAGE_KEY);
             console.log("result", result);
             const storedEntries = result[STORAGE_KEY] || {};
-            //setSettings(result[STORAGE_KEY].settings || {});
+            setSettings(result[STORAGE_KEY].settings || {});
 
             const transformedEntries = transformEntries(currentOrgInfo, storedEntries);
             if (transformedEntries.length === 0) {
@@ -293,7 +298,7 @@ export default function App() {
         <div className="container">
             {showSettings ? (
                 // Render what you want to show when showSettings is true
-                <Settings />
+                <Settings settings={settings} onSetSettings={setSettings} />
             ) : (
                 <>
                     {settings.ShowAddFormAtTop && showAddButtonContainer && renderAddEntryForm()}
