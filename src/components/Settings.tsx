@@ -59,15 +59,19 @@ export default function Settings({
     return (
         <div className="settings">
             <header className="headerSettingsSection">
-                <img src="images/icon-48.png" alt="Logo" className="logo" />
-                <div className="settings-text">Settings</div>
+                <div className="headerSettingsSectionContainer">
+                    <img src="images/icon-48.png" alt="Logo" className="logo" />
+                    <div className="settings-text">Settings</div>
+                </div>
                 <nav className="navbarSettingsSection">
                     {/*<li>
                             <button onClick={showDataSectionPart}>Data</button>
                         </li>
                         */}
 
-                    <button className="showLookFeelSectionPartButton" onClick={showLookFeelSectionPart}>Look & Feel</button>
+                    <button className="showLookFeelSectionPartButton" onClick={showLookFeelSectionPart}>
+                        Look & Feel
+                    </button>
                 </nav>
             </header>
 
@@ -116,8 +120,14 @@ export default function Settings({
                             </label>
                             {settings.UseReLoginFeature && (
                                 <label>
-                                    <input className="reLoginTimeInput" type="number" min="500" max="10000" onChange={handleNumberChange} />
-                                    <span className="spanInput">Enter a number between 500 and 10000</span>
+                                    <input
+                                        className="reLoginTimeInput"
+                                        type="number"
+                                        min="500"
+                                        max="10000"
+                                        onChange={handleNumberChange}
+                                        placeholder="500-10000"
+                                    />
                                 </label>
                             )}
                             <div className="saveButtonContainer">
