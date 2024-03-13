@@ -2,7 +2,7 @@ import { User } from "./User";
 
 export class JsonStructure {
     orgIds: { [key: string]: any };
-    config: { [key: string]: any};
+    config: { [key: string]: any };
 
     constructor() {
         this.orgIds = {};

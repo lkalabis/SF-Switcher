@@ -19,5 +19,5 @@ export type User = {
         Label: string;
         Position: number;
         ColorCode: string;
-    }
+    };
 };
