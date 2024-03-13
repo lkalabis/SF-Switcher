@@ -225,8 +225,7 @@ footer {
 
 .settingsIcon button {
     border: none;
-    width: 15px;
-    height: 15px;
+    background-color: #d9dcd6;
 }
 
 .settingsIcon {
@@ -234,7 +233,15 @@ footer {
     justify-content: center;
     align-items: center;
 }
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
 .settings-text {
     margin-left: 12px;
     font-size: large;
@@ -267,13 +274,26 @@ footer {
     cursor: not-allowed;
 }
 
-.saveButtonContainer button:hover:not(:disabled) {
-    background: #0056b3; /* Darker blue background when hovered */
+.informationIconLink {
+    text-decoration: none;
+    color: inherit;
+}
+.informationIcon {
+    padding-left: 3px;
+    cursor: pointer;
+}
+
+.showHelpContainer {
+    position: fixed;
+    top: 50px;
+    left: 250px;
+    border-radius: 5px;
+    border-style: solid;
 }
 
 .lookAndFeelInputs {
     padding: 20px;
-    background: #f8f8f8; /* Light gray background */
+    background: #dfdfdf; /* Light gray background */
 }
 
 .lookAndFeelInputs label {
@@ -286,9 +306,16 @@ footer {
     margin-right: 10px;
 }
 
+.reLoginTimeInput {
+    margin-left: 15px;
+    width: 65px;
+    text-align: right;
+}
+
 .lookAndFeelInputs .reLoginTimeInput {
     margin-right: 10px;
     width: 100px;
+    padding-right: 5px;
 }
 
 .version {
