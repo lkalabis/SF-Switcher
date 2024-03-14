@@ -43,7 +43,7 @@ export default function App() {
             const result = await chrome.storage.local.get(STORAGE_KEY);
             console.log("result", result);
             const storedEntries = result[STORAGE_KEY] || {};
-            setSettings(result[STORAGE_KEY].settings || {});
+            // setSettings(result[STORAGE_KEY].settings || {});
 
             const transformedEntries = transformEntries(currentOrgInfo, storedEntries);
             if (transformedEntries.length === 0) {
