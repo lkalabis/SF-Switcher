@@ -116,7 +116,9 @@ export default function App() {
                 theme: "dark",
             });
         }
-        newEntry.Label = newEntry.Label.trim();
+        if (newEntry.Label) {
+            newEntry.Label = newEntry.Label.trim();
+        }
         newEntry.Username = newEntry.Username.trim();
         setShowEditEntryForm(false);
         setShowEditButtonContainer(false);
@@ -134,7 +136,9 @@ export default function App() {
             if (editRecord) {
                 await deleteEntry(editRecord, false);
             }
-            updateEntry.Label = updateEntry.Label.trim();
+            if (updateEntry.Label) {
+                updateEntry.Label = updateEntry.Label.trim();
+            }
             updateEntry.Username = updateEntry.Username.trim();
             setShowEditEntryForm(false);
             setShowEditButtonContainer(false);
