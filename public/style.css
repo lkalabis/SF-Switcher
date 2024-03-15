@@ -180,6 +180,7 @@ footer {
 }
 .labelEntry {
     width: 220px;
+    height: 24px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -294,6 +295,7 @@ input[type="number"] {
 .lookAndFeelInputs {
     padding: 20px;
     background: #dfdfdf; /* Light gray background */
+    height: 166px;
 }
 
 .lookAndFeelInputs label {
