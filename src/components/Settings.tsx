@@ -53,6 +53,9 @@ export default function Settings({
             // Update the settings part
             data.settings = settings;
 
+            if (!settings.UseReLoginFeature) {
+                data.loginURLs = [];
+            }
             // Set the updated data
             chrome.storage.local.set({ "sf-user-switcher": data }, () => {
                 console.log("Settings saved");

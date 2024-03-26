@@ -213,7 +213,7 @@ export default function App() {
                 // Delete the entry with the matching ID
                 Object.keys(storageData).forEach((OrgId) => {
                     storageData[OrgId].users = storageData[OrgId].users.filter(
-                        (user: User) => user.Id !== entryToDelete.Id || user.Label !== entryToDelete.Label,
+                        (user: User) => user.UUID !== entryToDelete.UUID,
                     );
                 });
 

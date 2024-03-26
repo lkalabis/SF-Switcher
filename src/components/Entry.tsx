@@ -80,19 +80,7 @@ function Entry({
                 )}
             </div>
 
-            <div className="usernameEntry">
-                <div>{entry.Username}</div>
-                <div className="tooltip">
-                    <i
-                        onMouseEnter={() => setShowTooltip(true)}
-                        onMouseLeave={() => setShowTooltip(false)}
-                        className="fa fa-info-circle information"
-                        aria-hidden="true"
-                    ></i>
-                </div>
-            </div>
-
-            {showTooltip && (
+            {settings?.ShowTooltip === true && showTooltip && (
                 <div className="info-container">
                     <div>
                         <strong>First Name:</strong> {entry.FirstName}
