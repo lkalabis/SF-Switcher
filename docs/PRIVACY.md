@@ -13,3 +13,6 @@ We use local storage objects to remember your :
 -   Salesforce user entries (Username, Email, Id, etc.) that have been selected and saved by you.
 
 We do not use local storage objects for any other purpose. You may erase the local storage objects by deleting your browser's history.
+
+[Index](README.md) |
+[Changelog](changelog.md)
