@@ -38,7 +38,24 @@
           <li><a href="{{ site.github.repository_url }}">View On <strong>GitHub</strong></a></li>
         </ul>
         {% endif %}
+        <nav class="navbar">
+          <ul>
+          {% for item in site.data.navigation %}
+            <li>
+              <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+              {% if item.submenu %}
+                <ul class="submenu">
+                  {% for subitem in item.submenu %}
+                    <li><a href="{{ subitem.url | relative_url }}">{{ subitem.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endfor %}
+          </ul>
+        </nav>
       </header>
+      
       <section>
 
       {{ content }}

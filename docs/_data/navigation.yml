@@ -1,0 +1,13 @@
+- title: Home
+  url: /
+- title: Documentation
+  url: /pages/docu
+  submenu:
+      - title: Settings
+        url: /pages/settings
+- title: Changelog
+  url: /pages/changelog
+- title: Privacy Policy
+  url: /pages/policy
+- title: Contact
+  url: /contact
