@@ -1,7 +1,7 @@
 - title: Home
   url: /
 - title: Documentation
-  url: /pages/docu
+  url: /pages/documentation
   submenu:
       - title: Settings
         url: /pages/settings
@@ -9,5 +9,3 @@
   url: /pages/changelog
 - title: Privacy Policy
   url: /pages/policy
-- title: Contact
-  url: /contact
