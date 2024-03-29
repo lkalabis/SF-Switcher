@@ -209,13 +209,17 @@ export default function App() {
                 }
 
                 const storageData = result[STORAGE_KEY] || {};
+                console.log("current org ID " + currentOrg?.orgId);
 
                 // Delete the entry with the matching ID
-                Object.keys(storageData).forEach((OrgId) => {
-                    storageData[OrgId].users = storageData[OrgId].users.filter(
-                        (user: User) => user.UUID !== entryToDelete.UUID,
-                    );
-                });
+                // @ts-ignore
+                const validUsers = storageData[currentOrg?.orgId].users.filter(
+                    (user: User) => user.UUID !== entryToDelete.UUID,
+                );
+                if (validUsers) {
+                    // @ts-ignore
+                    storageData[currentOrg?.orgId].users = validUsers;
+                }
 
                 chrome.storage.local.set({ [STORAGE_KEY]: storageData }, () => {
                     if (chrome.runtime.lastError) {

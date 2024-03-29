@@ -6,7 +6,7 @@ import { User } from "../types/User";
 import { EntryFormProps } from "../types/EntryProps";
 import { createUUID } from "../utils/helper";
 
-const LIMIT = 2;
+const LIMIT = 3;
 
 export default function EntryForm({
     username,
