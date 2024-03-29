@@ -2,9 +2,6 @@
   url: /
 - title: Documentation
   url: /pages/documentation
-  submenu:
-      - title: Settings
-        url: /pages/settings
 - title: Changelog
   url: /pages/changelog
 - title: Privacy Policy
