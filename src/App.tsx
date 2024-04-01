@@ -115,6 +115,18 @@ export default function App() {
     };
 
     const saveNewEntry = async (newEntry: User) => {
+        if (!newEntry.Id) {
+            return toast.error("This is not a valid User", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
         if (newEntry.Label) {
             newEntry.Label = newEntry.Label.trim();
         }
@@ -182,7 +194,7 @@ export default function App() {
             if (withConfirmation) {
                 const isConfirmed = window.confirm("Are you sure you want to delete this entry?");
                 if (!isConfirmed) {
-                    reject(new Error("Deletion canceled by user"));
+                    reject();
                     return;
                 }
             }
@@ -265,23 +277,35 @@ export default function App() {
 
     const renderEditEntryForm = () => {
         return (
-            <div className="editButtonContainer">
-                {showEditEntryForm && (
-                    <EntryForm
-                        isNewEntry={false}
-                        username={editUsername}
-                        record={editRecord!}
-                        label={editLabel}
-                        onSaveExisting={updateExistingEntry}
-                        onCancelAdd={cancelAddEntry}
-                        onCancelEdit={cancelEditEntry}
-                        currentOrg={currentOrg!}
-                        onSaveNew={function (entry: User): void {
-                            throw new Error("Function not implemented.");
-                        }}
-                    />
-                )}
-            </div>
+            <>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    theme="dark"
+                />
+                <div className="editButtonContainer">
+                    {showEditEntryForm && (
+                        <EntryForm
+                            isNewEntry={false}
+                            username={editUsername}
+                            record={editRecord!}
+                            label={editLabel}
+                            onSaveExisting={updateExistingEntry}
+                            onCancelAdd={cancelAddEntry}
+                            onCancelEdit={cancelEditEntry}
+                            currentOrg={currentOrg!}
+                            onSaveNew={function (entry: User): void {
+                                throw new Error("Function not implemented.");
+                            }}
+                        />
+                    )}
+                </div>
+            </>
         );
     };
     return (

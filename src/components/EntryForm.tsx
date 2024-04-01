@@ -103,19 +103,6 @@ export default function EntryForm({
 
     const saveNewEntry = () => {
         if (Object.keys(newEntry).length !== 0) {
-            if (!newEntry.Id) {
-                return toast.error("This is not a valid User", {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-            }
-
             newEntry.UUID = createUUID();
             onSaveNew(newEntry);
         }
