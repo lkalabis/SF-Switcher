@@ -237,57 +237,35 @@ export default function App() {
 
     const renderAddEntryForm = () => {
         return (
-            <>
-                <ToastContainer
-                    position="top-right"
-                    autoClose={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    theme="dark"
-                />
-                <div className="addButtonContainer">
-                    {!showAddEntryForm && (
-                        <button title="Add Entry" className="btn addEntryButton" onClick={addEntry}>
-                            <i className="fa fa-plus"></i>
-                        </button>
-                    )}
-                    {showAddEntryForm && (
-                        <EntryForm
-                            isNewEntry={true}
-                            currentOrg={currentOrg!}
-                            onSaveNew={saveNewEntry}
-                            onCancelAdd={cancelAddEntry}
-                            onCancelEdit={cancelEditEntry}
-                            username={""}
-                            label={""}
-                            // @ts-ignore
-                            record={""}
-                            onSaveExisting={function (entry: User): void {
-                                throw new Error("Function not implemented.");
-                            }}
-                        />
-                    )}
-                </div>
-            </>
+            <div className="addButtonContainer">
+                {!showAddEntryForm && (
+                    <button title="Add Entry" className="btn addEntryButton" onClick={addEntry}>
+                        <i className="fa fa-plus"></i>
+                    </button>
+                )}
+                {showAddEntryForm && (
+                    <EntryForm
+                        isNewEntry={true}
+                        currentOrg={currentOrg!}
+                        onSaveNew={saveNewEntry}
+                        onCancelAdd={cancelAddEntry}
+                        onCancelEdit={cancelEditEntry}
+                        username={""}
+                        label={""}
+                        // @ts-ignore
+                        record={""}
+                        onSaveExisting={function (entry: User): void {
+                            throw new Error("Function not implemented.");
+                        }}
+                    />
+                )}
+            </div>
         );
     };
 
     const renderEditEntryForm = () => {
         return (
             <>
-                <ToastContainer
-                    position="top-right"
-                    autoClose={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    theme="dark"
-                />
                 <div className="editButtonContainer">
                     {showEditEntryForm && (
                         <EntryForm
@@ -309,47 +287,59 @@ export default function App() {
         );
     };
     return (
-        <div className="container">
-            {showSettings ? (
-                // Render what you want to show when showSettings is true
-                <Settings settings={settings} onSetSettings={setSettings} />
-            ) : (
-                <>
-                    {showAddButtonContainer && renderAddEntryForm()}
-                    {showEditButtonContainer && renderEditEntryForm()}
+        <>
+            <div className="container">
+                {showSettings ? (
+                    // Render what you want to show when showSettings is true
+                    <Settings settings={settings} onSetSettings={setSettings} />
+                ) : (
+                    <>
+                        <ToastContainer
+                            position="top-right"
+                            autoClose={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            theme="dark"
+                        />
+                        {showAddButtonContainer && renderAddEntryForm()}
+                        {showEditButtonContainer && renderEditEntryForm()}
 
-                    <div className="gridContainer">
-                        {!isValidURL ? (
-                            <div className="invalidURLMessage">
-                                <h3>Invalid URL</h3>
-                                <p>
-                                    This extension only works on Salesforce domains. Please navigate to a valid
-                                    Salesforce domain.
-                                </p>
-                            </div>
-                        ) : (
-                            <>
-                                {loading ? (
-                                    LOADING_MESSAGE
-                                ) : (
-                                    <>
-                                        {entries?.map((entry) => (
-                                            <Entry
-                                                settings={settings}
-                                                key={entry.Id}
-                                                entry={entry}
-                                                onDelete={deleteExistingEntry}
-                                                onEdit={editEntry}
-                                            />
-                                        ))}
-                                    </>
-                                )}
-                            </>
-                        )}
-                    </div>
-                </>
-            )}
-            <Footer doShowSettings={showSettings} onShowSetings={toggleView} />
-        </div>
+                        <div className="gridContainer">
+                            {!isValidURL ? (
+                                <div className="invalidURLMessage">
+                                    <h3>Invalid URL</h3>
+                                    <p>
+                                        This extension only works on Salesforce domains. Please navigate to a valid
+                                        Salesforce domain.
+                                    </p>
+                                </div>
+                            ) : (
+                                <>
+                                    {loading ? (
+                                        LOADING_MESSAGE
+                                    ) : (
+                                        <>
+                                            {entries?.map((entry) => (
+                                                <Entry
+                                                    settings={settings}
+                                                    key={entry.Id}
+                                                    entry={entry}
+                                                    onDelete={deleteExistingEntry}
+                                                    onEdit={editEntry}
+                                                />
+                                            ))}
+                                        </>
+                                    )}
+                                </>
+                            )}
+                        </div>
+                    </>
+                )}
+                <Footer doShowSettings={showSettings} onShowSetings={toggleView} />
+            </div>
+        </>
     );
 }

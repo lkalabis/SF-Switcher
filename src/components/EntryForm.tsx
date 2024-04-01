@@ -171,7 +171,7 @@ export default function EntryForm({
                         <i className="fa fa-check fa-2xs"></i>
                     </button>
                     <button title="Reset" className="btn" onClick={resetEntry}>
-                        <i className="fa fa-cogs fa-2xs"></i>
+                        <i className="fa fa-trash fa-2xs"></i>
                     </button>
                     <button title="Cancel" className="btn" onClick={isNewEntry ? onCancelAdd : onCancelEdit}>
                         <i className="fa fa-minus fa-2xs"></i>
