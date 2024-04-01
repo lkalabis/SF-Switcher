@@ -194,7 +194,7 @@ export default function App() {
             if (withConfirmation) {
                 const isConfirmed = window.confirm("Are you sure you want to delete this entry?");
                 if (!isConfirmed) {
-                    reject();
+                    reject(new Error("Deletion canceled by user"));
                     return;
                 }
             }
@@ -208,6 +208,8 @@ export default function App() {
                 }
 
                 const storageData = result[STORAGE_KEY] || {};
+                console.log("current org ID " + currentOrg?.orgId);
+
                 // Delete the entry with the matching ID
                 // @ts-ignore
                 const validUsers = storageData[currentOrg?.orgId].users.filter(
@@ -237,47 +239,25 @@ export default function App() {
 
     const renderAddEntryForm = () => {
         return (
-            <div className="addButtonContainer">
-                {!showAddEntryForm && (
-                    <button title="Add Entry" className="btn addEntryButton" onClick={addEntry}>
-                        <i className="fa fa-plus"></i>
-                    </button>
-                )}
-                {showAddEntryForm && (
-                    <EntryForm
-                        isNewEntry={true}
-                        currentOrg={currentOrg!}
-                        onSaveNew={saveNewEntry}
-                        onCancelAdd={cancelAddEntry}
-                        onCancelEdit={cancelEditEntry}
-                        username={""}
-                        label={""}
-                        // @ts-ignore
-                        record={""}
-                        onSaveExisting={function (entry: User): void {
-                            throw new Error("Function not implemented.");
-                        }}
-                    />
-                )}
-            </div>
-        );
-    };
-
-    const renderEditEntryForm = () => {
-        return (
             <>
-                <div className="editButtonContainer">
-                    {showEditEntryForm && (
+                <div className="addButtonContainer">
+                    {!showAddEntryForm && (
+                        <button title="Add Entry" className="btn addEntryButton" onClick={addEntry}>
+                            <i className="fa fa-plus"></i>
+                        </button>
+                    )}
+                    {showAddEntryForm && (
                         <EntryForm
-                            isNewEntry={false}
-                            username={editUsername}
-                            record={editRecord!}
-                            label={editLabel}
-                            onSaveExisting={updateExistingEntry}
+                            isNewEntry={true}
+                            currentOrg={currentOrg!}
+                            onSaveNew={saveNewEntry}
                             onCancelAdd={cancelAddEntry}
                             onCancelEdit={cancelEditEntry}
-                            currentOrg={currentOrg!}
-                            onSaveNew={function (entry: User): void {
+                            username={""}
+                            label={""}
+                            // @ts-ignore
+                            record={""}
+                            onSaveExisting={function (entry: User): void {
                                 throw new Error("Function not implemented.");
                             }}
                         />
@@ -286,60 +266,80 @@ export default function App() {
             </>
         );
     };
-    return (
-        <>
-            <div className="container">
-                {showSettings ? (
-                    // Render what you want to show when showSettings is true
-                    <Settings settings={settings} onSetSettings={setSettings} />
-                ) : (
-                    <>
-                        <ToastContainer
-                            position="top-right"
-                            autoClose={false}
-                            newestOnTop={false}
-                            closeOnClick
-                            rtl={false}
-                            pauseOnFocusLoss
-                            draggable
-                            theme="dark"
-                        />
-                        {showAddButtonContainer && renderAddEntryForm()}
-                        {showEditButtonContainer && renderEditEntryForm()}
 
-                        <div className="gridContainer">
-                            {!isValidURL ? (
-                                <div className="invalidURLMessage">
-                                    <h3>Invalid URL</h3>
-                                    <p>
-                                        This extension only works on Salesforce domains. Please navigate to a valid
-                                        Salesforce domain.
-                                    </p>
-                                </div>
-                            ) : (
-                                <>
-                                    {loading ? (
-                                        LOADING_MESSAGE
-                                    ) : (
-                                        <>
-                                            {entries?.map((entry) => (
-                                                <Entry
-                                                    settings={settings}
-                                                    key={entry.Id}
-                                                    entry={entry}
-                                                    onDelete={deleteExistingEntry}
-                                                    onEdit={editEntry}
-                                                />
-                                            ))}
-                                        </>
-                                    )}
-                                </>
-                            )}
-                        </div>
-                    </>
+    const renderEditEntryForm = () => {
+        return (
+            <div className="editButtonContainer">
+                {showEditEntryForm && (
+                    <EntryForm
+                        isNewEntry={false}
+                        username={editUsername}
+                        record={editRecord!}
+                        label={editLabel}
+                        onSaveExisting={updateExistingEntry}
+                        onCancelAdd={cancelAddEntry}
+                        onCancelEdit={cancelEditEntry}
+                        currentOrg={currentOrg!}
+                        onSaveNew={function (entry: User): void {
+                            throw new Error("Function not implemented.");
+                        }}
+                    />
                 )}
-                <Footer doShowSettings={showSettings} onShowSetings={toggleView} />
             </div>
-        </>
+        );
+    };
+    return (
+        <div className="container">
+            {showSettings ? (
+                // Render what you want to show when showSettings is true
+                <Settings settings={settings} onSetSettings={setSettings} />
+            ) : (
+                <>
+                    <ToastContainer
+                        position="top-right"
+                        autoClose={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        theme="dark"
+                    />
+                    {showAddButtonContainer && renderAddEntryForm()}
+                    {showEditButtonContainer && renderEditEntryForm()}
+
+                    <div className="gridContainer">
+                        {!isValidURL ? (
+                            <div className="invalidURLMessage">
+                                <h3>Invalid URL</h3>
+                                <p>
+                                    This extension only works on Salesforce domains. Please navigate to a valid
+                                    Salesforce domain.
+                                </p>
+                            </div>
+                        ) : (
+                            <>
+                                {loading ? (
+                                    LOADING_MESSAGE
+                                ) : (
+                                    <>
+                                        {entries?.map((entry) => (
+                                            <Entry
+                                                settings={settings}
+                                                key={entry.Id}
+                                                entry={entry}
+                                                onDelete={deleteExistingEntry}
+                                                onEdit={editEntry}
+                                            />
+                                        ))}
+                                    </>
+                                )}
+                            </>
+                        )}
+                    </div>
+                </>
+            )}
+            <Footer doShowSettings={showSettings} onShowSetings={toggleView} />
+        </div>
     );
 }

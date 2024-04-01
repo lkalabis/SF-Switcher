@@ -139,16 +139,6 @@ export default function EntryForm({
 
     return (
         <>
-            <ToastContainer
-                position="top-right"
-                autoClose={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                theme="dark"
-            />
             <div className="editGrid">
                 <input
                     className="editLabel"
