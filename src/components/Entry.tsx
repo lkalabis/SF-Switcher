@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { getCurrentTabUrl, getModifiedUrl } from "../utils/helper";
 import { User } from "../types/User";
+import { LOGOUT_URL, STORAGE_KEY } from "../utils/constants";
 import { SettingsType } from "../types/SettingsType";
 
 function Entry({
@@ -31,29 +32,70 @@ function Entry({
             active: true,
             url: `${modifiedUrl}/servlet/servlet.su?oid=${entry.OrgId}&suorgadminid=${entry.Id}&targetURL=${target}&retURL=${target}`,
         };
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            // Query active tab
-            const activeTab = tabs[0];
 
-            // Send a message to the content script
-            // @ts-ignore
-            chrome.tabs.sendMessage(activeTab.id, { message: "Is User Logged In?" }, (response) => {
-                const isUserLoggedIn = response.response;
-                if (isUserLoggedIn) {
-                    // logout current user
-                    const url = `${modifiedUrl}/${LOGOUT_URL}`;
+        if (settings?.UseReLoginFeature === false || settings?.UseReLoginFeature === undefined) {
+            chrome.tabs.create(properties);
+        } else {
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                // Query active tab
+                const activeTab = tabs[0];
 
-                    chrome.tabs.sendMessage(
+                // Send a message to the content script
+                // @ts-ignore
+                chrome.tabs.sendMessage(activeTab.id, { message: "Is User Logged In?" }, (response) => {
+                    const isUserLoggedIn = response.isLoggedIn;
+                    if (isUserLoggedIn) {
+                        // logout current user
+                        const logoutUrl = `${modifiedUrl}/${LOGOUT_URL}`;
                         // @ts-ignore
-                        activeTab.id,
-                        { message: "logoutUser", logoutUrl: url, loginUrl: properties.url },
-                    );
-                } else {
-                    chrome.tabs.create(properties);
-                }
+                        chrome.tabs.sendMessage(activeTab.id, { message: "logoutUser", logoutUrl }, (response) => {
+                            if (response.response === "OK") {
+                                chrome.storage.local.get(STORAGE_KEY, (result) => {
+                                    const res = result[STORAGE_KEY];
+                                    if (!res.loginURLs) {
+                                        res.loginURLs = [];
+                                    }
+                                    // Check if properties.url is already in res.loginURLs array
+                                    if (res.loginURLs.indexOf(properties.url) === -1) {
+                                        res.loginURLs.push(properties.url);
+                                    }
+                                    chrome.storage.local.set({ [STORAGE_KEY]: res });
+                                });
+                            }
+                        });
+                    } else {
+                        chrome.tabs.create(properties);
+                    }
+                });
             });
-        });
+        }
     };
+
+    const ToolTippContainer = ({ entry }: { entry: User }) => (
+        <div className="info-container">
+            <div>
+                <strong>First Name:</strong> {entry.FirstName}
+            </div>
+            <div>
+                <strong>Last Name:</strong> {entry.LastName}
+            </div>
+            <div>
+                <strong>Email:</strong> {entry.Email}
+            </div>
+            <div>
+                <strong>Profile:</strong> {entry.Profile?.Name}
+            </div>
+            <div>
+                <div>
+                    <strong>Username:</strong> {entry.Username}
+                </div>
+                <strong>Org:</strong> {entry.OrgId}
+            </div>
+            <div>
+                <strong>Id:</strong> {entry.Id}
+            </div>
+        </div>
+    );
 
     return (
         <div className="grid">
@@ -80,31 +122,7 @@ function Entry({
                 )}
             </div>
 
-            {settings?.ShowTooltip === true && showTooltip && (
-                <div className="info-container">
-                    <div>
-                        <strong>First Name:</strong> {entry.FirstName}
-                    </div>
-                    <div>
-                        <strong>Last Name:</strong> {entry.LastName}
-                    </div>
-                    <div>
-                        <strong>Email:</strong> {entry.Email}
-                    </div>
-                    <div>
-                        <strong>Profile:</strong> {entry.Profile?.Name}
-                    </div>
-                    <div>
-                        <div>
-                            <strong>Username:</strong> {entry.Username}
-                        </div>
-                        <strong>Org:</strong> {entry.OrgId}
-                    </div>
-                    <div>
-                        <strong>Id:</strong> {entry.Id}
-                    </div>
-                </div>
-            )}
+            {settings?.ShowTooltip === true && showTooltip && <ToolTippContainer entry={entry} />}
             <div className="buttons">
                 <button title="Open" className="grid-btn" onClick={openInNewTab}>
                     <i className="fa fa-home fa-sm"></i>

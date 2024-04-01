@@ -115,18 +115,6 @@ export default function App() {
     };
 
     const saveNewEntry = async (newEntry: User) => {
-        if (!newEntry.Id) {
-            return toast.error("This is not a valid User", {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-        }
         if (newEntry.Label) {
             newEntry.Label = newEntry.Label.trim();
         }

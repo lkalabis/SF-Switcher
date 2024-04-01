@@ -5,6 +5,9 @@ import { REST_ENDPOINT } from "../utils/constants";
 import { User } from "../types/User";
 import { EntryFormProps } from "../types/EntryProps";
 import { createUUID } from "../utils/helper";
+import { toastConfig } from "../utils/helper";
+
+import { ToastContainer, toast } from "react-toastify";
 
 const LIMIT = 3;
 
@@ -81,6 +84,18 @@ export default function EntryForm({
 
     const updateExistingEntry = () => {
         if (Object.keys(newEntry).length !== 0) {
+            if (newEntry.Username === "" || newEntry.Id === "") {
+                return toast.error("This is not a valid User", {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
             newEntry.UUID = createUUID();
             onSaveExisting(newEntry);
         }
@@ -88,6 +103,19 @@ export default function EntryForm({
 
     const saveNewEntry = () => {
         if (Object.keys(newEntry).length !== 0) {
+            if (!newEntry.Id) {
+                return toast.error("This is not a valid User", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
+
             newEntry.UUID = createUUID();
             onSaveNew(newEntry);
         }
@@ -124,6 +152,16 @@ export default function EntryForm({
 
     return (
         <>
+            <ToastContainer
+                position="top-right"
+                autoClose={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                theme="dark"
+            />
             <div className="editGrid">
                 <input
                     className="editLabel"
