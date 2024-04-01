@@ -16,7 +16,7 @@ export class JsonStructure {
             sessionId,
             url,
             lastModified,
-            users: []
+            users: [],
         };
     }
 

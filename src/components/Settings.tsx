@@ -164,22 +164,6 @@ export default function Settings({
                                 <label>
                                     <input
                                         type="checkbox"
-                                        name="ShowAddFormAtTop"
-                                        checked={settings.ShowAddFormAtTop}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    <span className="spanInput">Show 'Add Entry' at top?</span>
-                                    <a
-                                        className="informationIconLink"
-                                        href="https://lkalabis.github.io/SF-Switcher/#addEntryatTop"
-                                        target="_blank"
-                                    >
-                                        <i className="informationIcon fa fa-question-circle" aria-hidden="true"></i>
-                                    </a>
-                                </label>
-                                <label>
-                                    <input
-                                        type="checkbox"
                                         name="ShowTooltip"
                                         checked={settings.ShowTooltip}
                                         onChange={handleCheckboxChange}
