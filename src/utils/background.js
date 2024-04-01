@@ -62,7 +62,6 @@ chrome.runtime.onInstalled.addListener(async () => {
         jsonStructure.settings = {
             ShowTooltip: true,
             ShowProfileNameInLabel: true,
-            ShowAddFormAtTop: true,
             UseReLoginFeature: true,
             MillisecondsToWaitTillRelogin: 1000,
         };

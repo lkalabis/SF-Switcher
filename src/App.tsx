@@ -29,7 +29,6 @@ export default function App() {
     const [settings, setSettings] = useState<SettingsType>({
         ShowProfileNameInLabel: false,
         ShowTooltip: true,
-        ShowAddFormAtTop: true,
         UseReLoginFeature: true,
         MillisecondsToWaitTillRelogin: 1000,
     });
@@ -209,8 +208,6 @@ export default function App() {
                 }
 
                 const storageData = result[STORAGE_KEY] || {};
-                console.log("current org ID " + currentOrg?.orgId);
-
                 // Delete the entry with the matching ID
                 // @ts-ignore
                 const validUsers = storageData[currentOrg?.orgId].users.filter(
@@ -306,7 +303,7 @@ export default function App() {
                 <Settings settings={settings} onSetSettings={setSettings} />
             ) : (
                 <>
-                    {settings.ShowAddFormAtTop && showAddButtonContainer && renderAddEntryForm()}
+                    {showAddButtonContainer && renderAddEntryForm()}
                     {showEditButtonContainer && renderEditEntryForm()}
 
                     <div className="gridContainer">
@@ -338,7 +335,6 @@ export default function App() {
                             </>
                         )}
                     </div>
-                    {!settings.ShowAddFormAtTop && showAddButtonContainer && renderAddEntryForm()}
                 </>
             )}
             <Footer doShowSettings={showSettings} onShowSetings={toggleView} />

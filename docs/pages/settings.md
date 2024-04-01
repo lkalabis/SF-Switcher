@@ -6,7 +6,7 @@ layout: default
 
 ## Settings
 
-Since version **0.6** different settings are availalbe for the SF-User-Switcher. 
+Since version **0.6** different settings are availalbe for the SF-User-Switcher.
 
 ### Profil Name in Label
 

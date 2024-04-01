@@ -105,22 +105,21 @@ export default function EntryForm({
     };
 
     const resetEntry = () => {
-        setShowEntrySettings(!showEntrySettings);
-        // setNewEntry({
-        //     Id: "",
-        //     FirstName: "",
-        //     LastName: "",
-        //     Email: "",
-        //     Label: "",
-        //     Username: "",
-        //     OrgId: "", // Add OrgId property with appropriate value
-        //     Shortcut: "", // Add Shortcut property with appropriate value
-        //     IsActive: false, // Add IsActive property with appropriate value
-        //     UUID: "", // Add UUID property with appropriate value
-        //     Profile: {
-        //         Name: "",
-        //     },
-        // });
+        setNewEntry({
+            Id: "",
+            FirstName: "",
+            LastName: "",
+            Email: "",
+            Label: "",
+            Username: "",
+            OrgId: "", // Add OrgId property with appropriate value
+            Shortcut: "", // Add Shortcut property with appropriate value
+            IsActive: false, // Add IsActive property with appropriate value
+            UUID: "", // Add UUID property with appropriate value
+            Profile: {
+                Name: "",
+            },
+        });
     };
 
     return (
@@ -154,7 +153,7 @@ export default function EntryForm({
                     </button>
                 </div>
             </div>
-            {showEntrySettings && <>hello world</>}
+            {showEntrySettings}
             {filteredEntries.length > 0 && (
                 <div className="filteredEntries">
                     <div className="filteredEntriesList">
