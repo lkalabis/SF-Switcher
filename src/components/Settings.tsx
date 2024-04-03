@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SettingsType } from "../types/SettingsType";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, ToastOptions, toast } from "react-toastify";
+import { toastConfig } from "../utils/helper";
 
 export default function Settings({
     settings,
@@ -9,32 +10,15 @@ export default function Settings({
     settings: SettingsType;
     onSetSettings: (settings: SettingsType) => void;
 }) {
-    const [showDataSection, setShowDataSection] = useState(false);
     const [showLookFeelSection, setShowLookFeelSection] = useState(true);
     const [isChanged, setIsChanged] = useState(false);
 
-    const showDataSectionPart = () => {
-        setShowDataSection(true);
-        setShowLookFeelSection(false);
-    };
-
     const showLookFeelSectionPart = () => {
-        setShowDataSection(false);
         setShowLookFeelSection(true);
     };
 
-    const handleSave = async () => {
-        console.log("Settings saved");
-        console.log(settings);
-
-        if (
-            settings.UseReLoginFeature &&
-            ((settings.MillisecondsToWaitTillRelogin && settings.MillisecondsToWaitTillRelogin < 500) ||
-                (settings.MillisecondsToWaitTillRelogin && settings.MillisecondsToWaitTillRelogin > 10000))
-        ) {
-            // @ts-ignore
-            return toast.error("Value must be between 500 - 10000", {
-                position: "top-right",
+    const errorConfig = {
+        position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -42,9 +26,17 @@ export default function Settings({
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-            });
+    };
+
+    const handleSave = async () => {
+        if (
+            settings.UseReLoginFeature &&
+            ((settings.MillisecondsToWaitTillRelogin && settings.MillisecondsToWaitTillRelogin < 500) ||
+                (settings.MillisecondsToWaitTillRelogin && settings.MillisecondsToWaitTillRelogin > 10000))
+        ) {
+            // @ts-ignore
+            return toast.error("Value must be between 500 - 10000", errorConfig as ToastOptions<unknown>);
         }
-        // await chrome.storage.local.set({ "sf-user-switcher": { settings: settings } });
 
         chrome.storage.local.get("sf-user-switcher", (result) => {
             // Get the existing data
@@ -58,29 +50,10 @@ export default function Settings({
             }
             // Set the updated data
             chrome.storage.local.set({ "sf-user-switcher": data }, () => {
-                console.log("Settings saved");
                 if (chrome.runtime.lastError) {
-                    return toast.error("The settings couln't be saved", {
-                        position: "top-right",
-                        autoClose: 2000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "dark",
-                    });
+                    return toast.error("The settings couln't be saved", errorConfig as ToastOptions<unknown>);
                 }
-                toast.success("Settings Saved", {
-                    position: "top-right",
-                    autoClose: 1500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
+                toast.success("Settings Saved", toastConfig as ToastOptions<unknown>);
             });
         });
         setIsChanged(false);
@@ -130,11 +103,6 @@ export default function Settings({
                         <div className="settings-text">Settings</div>
                     </div>
                     <nav className="navbarSettingsSection">
-                        {/*<li>
-                            <button onClick={showDataSectionPart}>Data</button>
-                        </li>
-                        */}
-
                         <button className="showLookFeelSectionPartButton" onClick={showLookFeelSectionPart}>
                             Look & Feel
                         </button>
@@ -155,7 +123,7 @@ export default function Settings({
                                     <span className="spanInput">Show Profile Name in Label?</span>
                                     <a
                                         className="informationIconLink"
-                                        href="https://lkalabis.github.io/SF-Switcher/#profileNameInLabel"
+                                        href="https://lkalabis.github.io/SF-Switcher/pages/settings#label"
                                         target="_blank"
                                     >
                                         <i className="informationIcon fa fa-question-circle" aria-hidden="true"></i>
@@ -171,7 +139,7 @@ export default function Settings({
                                     <span className="spanInput">Show Tooltip?</span>
                                     <a
                                         className="informationIconLink"
-                                        href="https://lkalabis.github.io/SF-Switcher/#showTooltip"
+                                        href="https://lkalabis.github.io/SF-Switcher/pages/settings#tooltips"
                                         target="_blank"
                                     >
                                         <i className="informationIcon fa fa-question-circle" aria-hidden="true"></i>
@@ -184,10 +152,10 @@ export default function Settings({
                                         checked={settings.UseReLoginFeature}
                                         onChange={handleCheckboxChange}
                                     />
-                                    <span className="spanInput">Use relogin feature?</span>
+                                    <span className="spanInput">Use Re-Login feature?</span>
                                     <a
                                         className="informationIconLink"
-                                        href="https://lkalabis.github.io/SF-Switcher/#useReloginFeature"
+                                        href="https://lkalabis.github.io/SF-Switcher/pages/settings#relogin"
                                         target="_blank"
                                     >
                                         <i className="informationIcon fa fa-question-circle" aria-hidden="true"></i>

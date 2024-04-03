@@ -41,7 +41,6 @@ export default function App() {
             setCurrentOrg(currentOrgInfo);
 
             const result = await chrome.storage.local.get(STORAGE_KEY);
-            console.log("result", result);
             const storedEntries = result[STORAGE_KEY] || {};
             setSettings(result[STORAGE_KEY].settings || {});
 
@@ -208,7 +207,6 @@ export default function App() {
                 }
 
                 const storageData = result[STORAGE_KEY] || {};
-                console.log("current org ID " + currentOrg?.orgId);
 
                 // Delete the entry with the matching ID
                 // @ts-ignore
