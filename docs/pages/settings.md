@@ -10,17 +10,17 @@ Since version **0.6** different settings are availalbe for the SF-User-Switcher.
 
 ### <a name="labels">Profil Name in Label
 
-![Profile Label Setting](/assets/img/label0.png)
-![Profile Label View](/assets/img/label1.png)
+![Profile Label Setting](./assets/img/label0.png)
+![Profile Label View](./assets/img/label1.png)
 
 ### <a name="tooltips">Tooltips
 
-![Tooltip Setting](/assets/img/tooltip0.png)
-![Plugin View](/assets/img/tooltip1.png)
+![Tooltip Setting](./assets/img/tooltip0.png)
+![Plugin View](./assets/img/tooltip1.png)
 
 If the mouse is on the 'info' element you can see additional information related to the user record.
 
-![Tooltip View](/assets/img/tooltip2.png)
+![Tooltip View](./assets/img/tooltip2.png)
 
 ### <a name="relogin">Re-Login
 
