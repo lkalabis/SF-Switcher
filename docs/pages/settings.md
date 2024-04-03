@@ -10,8 +10,8 @@ Since version **0.6** different settings are availalbe for the SF-User-Switcher.
 
 ### <a name="labels">Profil Name in Label
 
-![Profile Label Setting](../assets/img/label0.png)
-![Profile Label View](../assets/img/label1.png)
+![Profile Label Setting]({{ '/assets/img/label0.png' | relative_url }})
+![Profile Label View]({{ '/assets/img/label1.png' | relative_url }})
 
 ### <a name="tooltips">Tooltips
 
