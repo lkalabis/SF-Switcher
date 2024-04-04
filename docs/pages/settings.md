@@ -10,10 +10,14 @@ Since version **0.6** different settings are availalbe for the SF-User-Switcher.
 
 ### <a name="labels">Profil Name in Label
 
+If this feature is active you can see the profile name in the label of the user record.
+
 ![Profile Label Setting]({{ '/assets/img/label0.png' | relative_url }})
 ![Profile Label View]({{ '/assets/img/label1.png' | relative_url }})
 
 ### <a name="tooltips">Tooltips
+
+If this feature is active you can see a small 'info' icon next to the username.
 
 ![Tooltip Setting](../assets/img/tooltip0.png)
 ![Plugin View](../assets/img/tooltip1.png)
