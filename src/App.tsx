@@ -231,7 +231,6 @@ export default function App() {
     };
 
     const toggleView = () => {
-        console.log("Switching to settings");
         setShowSettings((prevShowAddEntryForm) => !prevShowAddEntryForm);
     };
 
