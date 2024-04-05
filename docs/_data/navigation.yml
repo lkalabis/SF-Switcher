@@ -2,6 +2,9 @@
   url: /
 - title: Documentation
   url: /pages/documentation
+  submenu:
+    - title: Settings
+      url: /docs/pages/settings
 - title: Feature Requests
   url: /pages/requests
 - title: Changelog
