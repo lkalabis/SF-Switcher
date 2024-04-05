@@ -11,16 +11,12 @@ layout: default
 
 ## Current Feature Requests
 
-| Request No. | Description                     | Status      | Priority | Proposed by                                        |
-|-------------|---------------------------------|-------------|----------|----------------------------------------------------|
-| 1           | Allow users to re-login         | In Proggres | High     | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
-| 2           | Allow reordering of entries     | Open        | High     | Different users                                    |
-| 3           | Allow to set colors to entries  | Open        | Medium   | Different users                                    |
-| 4           | Allow to group entries          | Open        | Medium   | Different users                                    |
-| 5           | Add dark mode to docu           | Open        | Low      | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
-
-
-
-
-
+| Request No. | Description                    | Status        | Priority | Proposed by                                        |
+| ----------- | ------------------------------ | -----------   | -------- | -------------------------------------------------- |
+| 1           | Allow users to re-login        | Done (V 0.60) | High     | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
+| 2           | Allow reordering of entries    | Open          | High     | Different users                                    |
+| 3           | Allow to set colors to entries | Open          | Medium   | Different users                                    |
+| 4           | Allow to group entries         | Open          | Medium   | Different users                                    |
+| 5           | Add dark mode to docu          | Open          | Low      | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
+| 6           | Keep order of entry after edit | Open          | High     | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
 
