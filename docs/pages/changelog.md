@@ -1,4 +1,6 @@
---- layout: default ---
+---
+layout: default
+---
 
 # Changelog
 
@@ -9,6 +11,7 @@ All notable changes to this project will be documented in this file.
 
 -   🚀 Re-Login feature is now available
 -   🚀 Add settings option to enable/disable all features
+
 -->
 
 ## [0.53] - 14.03.2024
