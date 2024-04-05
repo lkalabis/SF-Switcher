@@ -17,6 +17,7 @@ layout: default
 | 2           | Allow reordering of entries     | Open        | High     | Different users                                    |
 | 3           | Allow to set colors to entries  | Open        | Medium   | Different users                                    |
 | 4           | Allow to group entries          | Open        | Medium   | Different users                                    |
+| 5           | Add dark mode to docu           | Open        | Low      | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
 
 
 
