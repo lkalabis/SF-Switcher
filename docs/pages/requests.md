@@ -19,4 +19,5 @@ layout: default
 | 4           | Allow to group entries         | Open          | Medium   | Different users                                    |
 | 5           | Add dark mode to docu          | In Progress   | Low      | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
 | 6           | Keep order of entry after edit | In Progress   | High     | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
+| 7           | Add i18n to plugin             | Open          | Low      | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
 
