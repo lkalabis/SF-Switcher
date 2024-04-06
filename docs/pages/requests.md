@@ -20,4 +20,5 @@ layout: default
 | 5           | Add dark mode to docu          | In Progress   | Low      | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
 | 6           | Keep order of entry after edit | In Progress   | High     | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
 | 7           | Add i18n to plugin             | Open          | Low      | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
+| 8           | Release Plugin for Firefox     | In Progress   | Medium   | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
 
