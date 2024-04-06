@@ -4,7 +4,7 @@
   url: /pages/documentation
   submenu:
     - title: Settings
-      url: /docs/pages/settings
+      url: /pages/settings
 - title: Feature Requests
   url: /pages/requests
 - title: Changelog
