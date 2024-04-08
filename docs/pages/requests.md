@@ -11,14 +11,13 @@ layout: default
 
 ## Current Feature Requests
 
-| No.  | Description                    | Status        | Priority | Proposed by                                        |
-| ---- | ------------------------------ | -----------   | -------- | -------------------------------------------------- |
-| 1    | Allow users to re-login        | Done (V 0.60) | High     | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
-| 2    | Allow reordering of entries    | In Progress   | High     | Different users                                    |
-| 3    | Allow to set colors to entries | Open          | Medium   | Different users                                    |
-| 4    | Allow to group entries         | Open          | Medium   | Different users                                    |
-| 5    | Add dark mode to docu          | In Progress   | Low      | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
-| 6    | Keep order of entry after edit | In Progress   | High     | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
-| 7    | Add i18n to plugin             | Open          | Low      | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
-| 8    | Release Plugin for Firefox     | In Progress   | Medium   | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
-
+| No. | Description                    | Status        | Priority | Proposed by                                        |
+| --- | ------------------------------ | ------------- | -------- | -------------------------------------------------- |
+| 1   | Allow users to re-login        | Done (V 0.60) | High     | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
+| 2   | Allow reordering of entries    | In Progress   | High     | Different users                                    |
+| 3   | Allow to set colors to entries | Open          | Medium   | Different users                                    |
+| 4   | Allow to group entries         | Open          | Medium   | Different users                                    |
+| 5   | Add dark mode to docu          | In Progress   | Low      | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
+| 6   | Keep order of entry after edit | In Progress   | High     | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
+| 7   | Add i18n to plugin             | Open          | Low      | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
+| 8   | Release Plugin for Firefox     | In Progress   | Medium   | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |

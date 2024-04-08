@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 ## [0.61] - 08.04.2024
 
 -   🎯 Switch state of settings button. Now it makes more sense :)
- 
+
 ## [0.60] - 06.04.2024
 
 -   🚀 Re-Login feature is now available
