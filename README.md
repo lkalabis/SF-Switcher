@@ -1,0 +1,1 @@
+# SF-User-Switcher Plugin
