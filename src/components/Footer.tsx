@@ -13,7 +13,7 @@ export default function Footer({
                 <div className="settingsIcon">
                     <button title="Settings Icon" onClick={onShowSetings}>
                         <img
-                            src={doShowSettings === true ? "images/settings.png" : "images/home.png"}
+                            src={doShowSettings === true ? "images/home.png" : "images/settings.png"}
                             alt="Settings Icon"
                         />
                     </button>
