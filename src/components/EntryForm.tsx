@@ -5,7 +5,7 @@ import { REST_ENDPOINT } from "../utils/constants";
 import { User } from "../types/User";
 import { EntryFormProps } from "../types/EntryProps";
 import { createUUID } from "../utils/helper";
-
+import { toast } from "react-toastify";
 const LIMIT = 3;
 
 export default function EntryForm({
