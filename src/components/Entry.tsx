@@ -23,8 +23,9 @@ function Entry({
     const style = transform
         ? {
             transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+            cursor: 'grab', // Change cursor to hand
         }
-        : undefined;
+        : { cursor: 'pointer' }; // Change cursor to hand if there's no transformation, adjust as needed
 
     const handleDelete = () => {
         onDelete(entry, true);

@@ -8,13 +8,13 @@ layout: default
 
 Since version **0.6** different settings are availalbe for the SF-User-Switcher.
 
-In order to access the settings, click on the 'gear' icon in the left bottom corner. 
+In order to access the settings, click on the 'gear' icon in the left bottom corner.
 
 ![Setting]({{ '/assets/img/settings.png' | relative_url }})
 
 ### <a name="relogin">Re-Login
 
-**If you come from a version before 0.6 you have to activate this feature in the settings first.**
+**If you come from a version before 0.6\* you have to activate this feature in the settings first.**
 
 If this feature is active you can Re-Login into an other user via the plugin wihtout the need to logout first. This will be handled by the plugin itself.
 If you select this feature you can additionally specify the time (in milliseconds). The value **must be** between 500 and 10.000.
