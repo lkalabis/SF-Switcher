@@ -2,7 +2,7 @@ theme: jekyll-theme-minimal
 title: SF User Switcher
 email: developer.kalabis.lukas@gmail.com
 chrome: /images/chrome1.png
-edge: /imgages/edge.png
+edge: /images/edge.png
 firefox: /imgages/firefox.png
 github_username: lkalabis
 logo: /images/icon-128.png
