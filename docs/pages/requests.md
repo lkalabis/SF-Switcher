@@ -21,3 +21,4 @@ layout: default
 | 6   | Keep order of entry after edit | In Progress   | High     | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
 | 7   | Add i18n to plugin             | Open          | Low      | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
 | 8   | Release Plugin for Firefox     | In Progress   | Medium   | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
+| 9   | Release Plugin for Edge        | Done          | Medium   | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
