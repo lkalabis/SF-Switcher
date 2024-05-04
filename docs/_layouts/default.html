@@ -54,6 +54,21 @@
           {% endfor %}
           </ul>
         </nav>
+        {% if site.show_support%}
+            <p>Supported Browsers</p>
+            <div class="browser-support">
+                <a href="https://chromewebstore.google.com/detail/sf-user-switcher/ecneigmfnmojdihhceikmaafjhhbohon">
+                    <img src="{{site.chrome | relative_url}}" alt="Logo Google Chrome" style="width: 25px; height: 25px;" />
+                </a>
+                <a href="https://microsoftedge.microsoft.com/addons/detail/sf-user-switcher/bnpadcihbfeddfghkibelapljcndkafm">
+                    <img src="{{site.edge | relative_url}}" alt="Logo Edge" style="width: 25px; height: 25px;" />
+                </a>
+                <!-- <a href="link_to_firefox"> -->
+                <!--     <img src="{{site.firefox | relative_url}}" alt="Logo Firefox" style="width: 25px; height: 25px;" /> -->
+                <!-- </a> -->
+            </div>
+        {% endif %}
+
       </header>
       
       <section>

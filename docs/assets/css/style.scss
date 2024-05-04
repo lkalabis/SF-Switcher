@@ -15,3 +15,15 @@
 .navbar li {
     list-style-type: disc;
 }
+.browser-support {
+    display: flex;
+    justify-content: center;
+}
+.browser-support a {
+    margin-right: 15px; /* Adjust this value as needed */
+}
+
+/* Optional: To remove margin-right from the last image */
+.browser-support a:last-child {
+    margin-right: 0;
+}
