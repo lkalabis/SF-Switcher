@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import Entry from "./components/Entry";
 import Footer from "./components/Footer";
 import EntryForm from "./components/EntryForm";
-import { getCurrentTabUrl, getModifiedUrl, toastConfig, writeNewEntryToStorage } from "./utils/helper";
+import {
+    getCurrentTabUrl,
+    getModifiedUrl,
+    toastConfig,
+    writeNewEntryToStorage,
+    writeAllEntriesToStorage,
+} from "./utils/helper";
 // @ts-ignore
 import { sfConn } from "./utils/inspector";
 import { User } from "./types/User";
@@ -12,6 +18,8 @@ import { LOADING_MESSAGE, STORAGE_KEY } from "./utils/constants";
 import { ToastContainer, ToastOptions, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Settings from "./components/Settings";
+import { DndContext, DragOverlay, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { arrayMove, SortableContext, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 
 export default function App() {
     const [showAddEntryForm, setShowAddEntryForm] = useState(false);
@@ -24,7 +32,7 @@ export default function App() {
     const [currentOrg, setCurrentOrg] = useState<OrgInfo | null>(null);
     const [loading, setLoading] = useState(true);
     const [isValidURL, setisValidURL] = useState(true);
-    const [entries, setEntries] = useState<User[] | null>(null);
+    const [entries, setEntries] = useState<User[]>([]);
     const [showSettings, setShowSettings] = useState(false);
     const [settings, setSettings] = useState<SettingsType>({
         ShowProfileNameInLabel: false,
@@ -32,6 +40,15 @@ export default function App() {
         UseReLoginFeature: true,
         MillisecondsToWaitTillRelogin: 1000,
     });
+
+    const [activeId, setActiveId] = useState(null);
+
+    const sensors = useSensors(
+        useSensor(PointerSensor),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        }),
+    );
 
     async function fetchData() {
         try {
@@ -59,6 +76,34 @@ export default function App() {
             setShowEditButtonContainer(false);
         }
     }
+
+    // @ts-ignore
+    const handleDragStart = (event ) => {
+        setActiveId(event.active.id);
+    };
+
+    // @ts-ignore
+    const handleDragEnd = async (event) => {
+        setActiveId(null);
+        const { active, over } = event;
+
+        if (active.id !== over.id) {
+            const oldIndex = entries.findIndex((entry) => {
+                return entry.Id === active.id;
+            });
+            const newIndex = entries.findIndex((entry) => {
+                return entry.Id === over.id;
+            });
+
+            const a = arrayMove(entries, oldIndex, newIndex);
+            setEntries(a);
+
+            if (currentOrg) {
+                await writeAllEntriesToStorage(a, currentOrg);
+                await fetchData();
+            }
+        }
+    };
 
     const transformEntries = (currentOrgInfo: OrgInfo | null, storedEntries: Record<string, any>): User[] => {
         return (
@@ -254,7 +299,7 @@ export default function App() {
                             label={""}
                             // @ts-ignore
                             record={""}
-                            onSaveExisting={function (entry: User): void {
+                            onSaveExisting={function(entry: User): void {
                                 throw new Error("Function not implemented.");
                             }}
                         />
@@ -277,7 +322,7 @@ export default function App() {
                         onCancelAdd={cancelAddEntry}
                         onCancelEdit={cancelEditEntry}
                         currentOrg={currentOrg!}
-                        onSaveNew={function (entry: User): void {
+                        onSaveNew={function(entry: User): void {
                             throw new Error("Function not implemented.");
                         }}
                     />
@@ -286,57 +331,81 @@ export default function App() {
         );
     };
     return (
-        <div className="container">
-            {showSettings ? (
-                // Render what you want to show when showSettings is true
-                <Settings settings={settings} onSetSettings={setSettings} />
-            ) : (
-                <>
-                    <ToastContainer
-                        position="top-right"
-                        autoClose={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        theme="dark"
-                    />
-                    {showAddButtonContainer && renderAddEntryForm()}
-                    {showEditButtonContainer && renderEditEntryForm()}
+        // @ts-ignore
+        <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+        >
+            <div className="container">
+                {showSettings ? (
+                    // Render what you want to show when showSettings is true
+                    <Settings settings={settings} onSetSettings={setSettings} />
+                ) : (
+                    <>
+                        <ToastContainer
+                            position="top-right"
+                            autoClose={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            theme="dark"
+                        />
+                        {showAddButtonContainer && renderAddEntryForm()}
+                        {showEditButtonContainer && renderEditEntryForm()}
 
-                    <div className="gridContainer">
-                        {!isValidURL ? (
-                            <div className="invalidURLMessage">
-                                <h3>Invalid URL</h3>
-                                <p>
-                                    This extension only works on Salesforce domains. Please navigate to a valid
-                                    Salesforce domain.
-                                </p>
-                            </div>
-                        ) : (
-                            <>
-                                {loading ? (
-                                    LOADING_MESSAGE
-                                ) : (
-                                    <>
-                                        {entries?.map((entry) => (
-                                            <Entry
-                                                settings={settings}
-                                                key={entry.Id}
-                                                entry={entry}
-                                                onDelete={deleteExistingEntry}
-                                                onEdit={editEntry}
-                                            />
-                                        ))}
-                                    </>
-                                )}
-                            </>
-                        )}
-                    </div>
-                </>
-            )}
-            <Footer doShowSettings={showSettings} onShowSetings={toggleView} />
-        </div>
+                        <div className="gridContainer">
+                            {!isValidURL ? (
+                                <div className="invalidURLMessage">
+                                    <h3>Invalid URL</h3>
+                                    <p>
+                                        This extension only works on Salesforce domains. Please navigate to a valid
+                                        Salesforce domain.
+                                    </p>
+                                </div>
+                            ) : (
+                                <>
+                                    {loading ? (
+                                        LOADING_MESSAGE
+                                    ) : (
+                                        <>
+                                            <SortableContext items={entries}>
+                                                {entries?.map((entry) => (
+                                                    <Entry
+                                                        settings={settings}
+                                                        key={entry.Id}
+                                                        entry={entry}
+                                                        onDelete={deleteExistingEntry}
+                                                        onEdit={editEntry}
+                                                    />
+                                                ))}
+                                                <DragOverlay>
+                                                    <div
+                                                        style={{
+                                                            position: 'fixed',
+                                                            top: 0,
+                                                            left: 0,
+                                                            width: '100%',
+                                                            height: '100%',
+                                                            background: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
+                                                            zIndex: 1000, // Ensure it's above other elements
+                                                        }}
+                                                    >
+                                                    </div>
+                                                </DragOverlay>
+                                            </SortableContext>
+                                        </>
+                                    )}
+                                </>
+                            )}
+                        </div>
+                    </>
+                )}
+                <Footer doShowSettings={showSettings} onShowSetings={toggleView} />
+            </div>
+        </DndContext>
     );
 }

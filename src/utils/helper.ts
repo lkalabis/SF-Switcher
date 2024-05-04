@@ -3,7 +3,7 @@ import { OrgInfo } from "../types/OrgInfo";
 import { User } from "../types/User";
 import { PRODUCTION_URL, SANDBOX, SANDBOX_URL, STORAGE_KEY } from "./constants";
 
-const handleStorageResult = (error: chrome.runtime.LastError | undefined, message: string, data: User) => {
+const handleStorageResult = (error: chrome.runtime.LastError | undefined, message: string, data: User | User[]) => {
     if (error) {
         console.error("Error:", error);
     }
@@ -73,6 +73,7 @@ export const writeNewEntryToStorage = (newEntry: User, currentOrg: OrgInfo) => {
             existingData.orgIds = storageData;
 
             const userData: User = {
+                id: newEntry.Id,
                 Id: newEntry.Id,
                 Username: newEntry.Username,
                 Email: newEntry.Email,
@@ -116,6 +117,34 @@ export const writeNewEntryToStorage = (newEntry: User, currentOrg: OrgInfo) => {
                     resolve();
                 });
             }
+        });
+    });
+};
+
+export const writeAllEntriesToStorage = (entries: User[], currentOrg: OrgInfo) => {
+    return new Promise<void>((resolve, reject) => {
+        const orgId = currentOrg.orgId;
+
+        chrome.storage.local.get(STORAGE_KEY, (result) => {
+            if (chrome.runtime.lastError) {
+                console.error("Error:", chrome.runtime.lastError);
+                reject(chrome.runtime.lastError);
+                return;
+            }
+
+            const storageData = result[STORAGE_KEY] || {};
+            const existingData = new JsonStructure();
+            existingData.orgIds = storageData;
+            existingData.orgIds[orgId].users = [];
+
+            entries.forEach((entry) => {
+                console.log(entry);
+                existingData.addUser(orgId, entry);
+            });
+            chrome.storage.local.set({ [STORAGE_KEY]: existingData.orgIds }, () => {
+                handleStorageResult(chrome.runtime.lastError, "Users added:", entries);
+                resolve();
+            });
         });
     });
 };

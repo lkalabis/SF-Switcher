@@ -4,6 +4,8 @@ import { User } from "../types/User";
 import { LOGOUT_URL, STORAGE_KEY } from "../utils/constants";
 import { SettingsType } from "../types/SettingsType";
 
+import { useSortable } from "@dnd-kit/sortable";
+
 function Entry({
     settings,
     entry,
@@ -16,6 +18,13 @@ function Entry({
     onEdit: (entry: User) => void;
 }) {
     const [showTooltip, setShowTooltip] = useState(false);
+    const { attributes, listeners, setNodeRef, transform } = useSortable({ id: entry.Id });
+
+    const style = transform
+        ? {
+            transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+        }
+        : undefined;
 
     const handleDelete = () => {
         onDelete(entry, true);
@@ -97,29 +106,32 @@ function Entry({
         </div>
     );
 
-    return (
-        <div className="grid">
-            <div className="labelEntry">
-                {entry.Label}
-                {settings?.ShowProfileNameInLabel === true ? (
-                    <span className="profileName">({entry.Profile?.Name})</span>
-                ) : (
-                    ""
-                )}
-            </div>
 
-            <div className="usernameEntry">
-                <div>{entry.Username}</div>
-                {settings?.ShowTooltip === true && (
-                    <div className="tooltip">
-                        <i
-                            onMouseEnter={() => setShowTooltip(true)}
-                            onMouseLeave={() => setShowTooltip(false)}
-                            className="fa fa-info-circle information"
-                            aria-hidden="true"
-                        ></i>
-                    </div>
-                )}
+    return (
+        <div className="grid" >
+            <div className="labelUsernameContainer" ref={setNodeRef} style={style} {...listeners} {...attributes}>
+                <div className="labelEntry">
+                    {entry.Label}
+                    {settings?.ShowProfileNameInLabel === true ? (
+                        <span className="profileName">({entry.Profile?.Name})</span>
+                    ) : (
+                        ""
+                    )}
+                </div>
+
+                <div className="usernameEntry">
+                    <div>{entry.Username}</div>
+                    {settings?.ShowTooltip === true && (
+                        <div className="tooltip">
+                            <i
+                                onMouseEnter={() => setShowTooltip(true)}
+                                onMouseLeave={() => setShowTooltip(false)}
+                                className="fa fa-info-circle information"
+                                aria-hidden="true"
+                            ></i>
+                        </div>
+                    )}
+                </div>
             </div>
 
             {settings?.ShowTooltip === true && showTooltip && <ToolTippContainer entry={entry} />}
@@ -139,3 +151,4 @@ function Entry({
 }
 
 export default Entry;
+

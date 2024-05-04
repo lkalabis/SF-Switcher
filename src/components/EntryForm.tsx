@@ -5,9 +5,6 @@ import { REST_ENDPOINT } from "../utils/constants";
 import { User } from "../types/User";
 import { EntryFormProps } from "../types/EntryProps";
 import { createUUID } from "../utils/helper";
-import { toastConfig } from "../utils/helper";
-
-import { ToastContainer, toast } from "react-toastify";
 
 const LIMIT = 3;
 
@@ -121,6 +118,7 @@ export default function EntryForm({
 
     const resetEntry = () => {
         setNewEntry({
+            id: "",
             Id: "",
             FirstName: "",
             LastName: "",

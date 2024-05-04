@@ -3,8 +3,8 @@
 - title: Documentation
   url: /pages/documentation
   submenu:
-    - title: Settings
-      url: /pages/settings
+      - title: Settings
+        url: /pages/settings
 - title: Feature Requests
   url: /pages/requests
 - title: Changelog

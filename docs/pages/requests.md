@@ -14,7 +14,7 @@ layout: default
 | No. | Description                    | Status        | Priority | Proposed by                                        |
 | --- | ------------------------------ | ------------- | -------- | -------------------------------------------------- |
 | 1   | Allow users to re-login        | Done (V 0.60) | High     | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
-| 2   | Allow reordering of entries    | In Progress   | High     | Different users                                    |
+| 2   | Allow reordering of entries    | Done (V 0.70) | High     | Different users                                    |
 | 3   | Allow to set colors to entries | Open          | Medium   | Different users                                    |
 | 4   | Allow to group entries         | Open          | Medium   | Different users                                    |
 | 5   | Add dark mode to docu          | In Progress   | Low      | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |

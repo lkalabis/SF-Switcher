@@ -6,6 +6,10 @@ layout: default
 
 All notable changes to this project will be documented in this file.
 
+## [0.70] - 04.05.2024
+ 
+-   🚀 Re-Order of entries is now possible
+
 ## [0.61] - 08.04.2024
 
 -   🎯 Switch state of settings button. Now it makes more sense :)

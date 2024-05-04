@@ -97,6 +97,12 @@ footer {
     gap: 10px;
     padding: 3px 0 3px 16px;
 }
+.labelUsernameContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .editGrid {
     display: flex;
     align-items: center;
