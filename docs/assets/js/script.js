@@ -1,5 +1,5 @@
 const isDarkMode = () => {
-    return localStorage.getItem('dark-mode' === 'enabled');
+    return localStorage.getItem('dark-mode') === 'enabled';
 }
 
 document.querySelector('.sun-moon-switcher').addEventListener('click', () => {
