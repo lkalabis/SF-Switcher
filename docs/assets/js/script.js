@@ -10,13 +10,13 @@ document.querySelector('.sun-moon-switcher').addEventListener('click', () => {
     } else {
         localStorage.setItem('dark-mode', 'disabled');
     }
-
-    // if dark mode is enabled, show the sun icon, else show the moon icon
-    if (isDarkMode() === 'enabled') {
-        document.querySelector('.sun').style.display = 'block';
-        document.querySelector('.moon').style.display = 'none';
-    } else {
-        document.querySelector('.sun').style.display = 'none';
-        document.querySelector('.moon').style.display = 'block';
-    }
 });
+
+// if dark mode is enabled, show the sun icon, else show the moon icon
+if (isDarkMode() === 'enabled') {
+    document.querySelector('.sun').style.display = 'block';
+    document.querySelector('.moon').style.display = 'none';
+} else {
+    document.querySelector('.sun').style.display = 'none';
+    document.querySelector('.moon').style.display = 'block';
+}
