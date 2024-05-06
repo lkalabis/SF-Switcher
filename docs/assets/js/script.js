@@ -1,7 +1,18 @@
+const isDarkMode = () => {
+    return localStorage.getItem('dark-mode' === 'enabled');
+}
+
 document.querySelector('.sun-moon-switcher').addEventListener('click', () => {
     document.body.classList.toggle('dark');
-    // if dark is active, set the css attribute of the 'moon' class to 'display: block'
+    // persist the dark mode preference in local storage
     if (document.body.classList.contains('dark')) {
+        localStorage.setItem('dark-mode', 'enabled');
+    } else {
+        localStorage.setItem('dark-mode', 'disabled');
+    }
+
+    // if dark mode is enabled, show the sun icon, else show the moon icon
+    if (isDarkMode() === 'enabled') {
         document.querySelector('.sun').style.display = 'block';
         document.querySelector('.moon').style.display = 'none';
     } else {
