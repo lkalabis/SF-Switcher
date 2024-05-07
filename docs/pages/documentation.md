@@ -18,3 +18,7 @@ Click the ‘+’ button at the very top and start searching for the users you w
 All entries that you save are **Org-specific**. This means that you can configure your logins depending on the Org that you are currently logged in.
 
 If you are on the current tab in Org A, you will only see entries for this specific Org. If you switch to an other tab where you are in Org B, you will **not** see entries from Org A when you open the extension.
+
+## Remarks
+
+Currently, its not possible to reorder the list of entries in the **Firefox Browser**. All other functionalities are supported.
