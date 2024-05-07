@@ -20,9 +20,13 @@ export class JsonStructure {
         };
     }
 
-    addUser(orgId: string, user: User) {
+    addUser(orgId: string, user: User, indexToAdd?: number) {
         if (this.orgIds[orgId]) {
-            this.orgIds[orgId].users.push(user);
+            if (indexToAdd !== undefined) {
+                this.orgIds[orgId].users.splice(indexToAdd, 0, user);
+            } else {
+                this.orgIds[orgId].users.push(user);
+            }
         } else {
             console.error(`OrgId "${orgId}" not found.`);
         }
