@@ -14,6 +14,11 @@ body {
     font-weight: var(--font-weight);
 }
 
+body h1, h2, h3, h4, h5, h6 {
+  color: #222;
+}
+
+
 body.dark {
     --background-color: rgb(24, 26, 27);
     --color: rgb(160, 152, 139);
