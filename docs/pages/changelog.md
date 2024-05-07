@@ -6,6 +6,10 @@ layout: default
 
 All notable changes to this project will be documented in this file.
 
+## [0.71] - 08.05.2024
+
+-   🎯 Keep order of entry after edit
+
 ## [0.70] - 04.05.2024
 
 -   🚀 Re-Order of entries is now possible
