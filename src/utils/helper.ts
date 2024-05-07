@@ -57,7 +57,28 @@ export const createUUID = () => {
     });
 };
 
-export const writeNewEntryToStorage = (newEntry: User, currentOrg: OrgInfo) => {
+
+const createNewUser = (newEntry: User, currentOrg: OrgInfo) => {
+    const userData: User = {
+        id: newEntry.id,
+        Id: newEntry.Id,
+        Username: newEntry.Username,
+        Email: newEntry.Email,
+        OrgId: currentOrg.orgId,
+        Label: newEntry.Label,
+        FirstName: newEntry.FirstName,
+        LastName: newEntry.LastName,
+        Shortcut: null,
+        IsActive: true,
+        UUID: newEntry.UUID,
+        Profile: {
+            Name: newEntry.Profile.Name,
+        },
+    };
+    return userData;
+}
+
+export const writeNewEntryToStorage = (newEntry: User, currentOrg: OrgInfo, indexToAdd?: number) => {
     return new Promise<void>((resolve, reject) => {
         const orgId = currentOrg.orgId;
 
@@ -71,23 +92,7 @@ export const writeNewEntryToStorage = (newEntry: User, currentOrg: OrgInfo) => {
             const storageData = result[STORAGE_KEY] || {};
             const existingData = new JsonStructure();
             existingData.orgIds = storageData;
-
-            const userData: User = {
-                id: newEntry.Id,
-                Id: newEntry.Id,
-                Username: newEntry.Username,
-                Email: newEntry.Email,
-                OrgId: orgId,
-                Label: newEntry.Label,
-                FirstName: newEntry.FirstName,
-                LastName: newEntry.LastName,
-                Shortcut: null,
-                IsActive: true,
-                UUID: newEntry.UUID,
-                Profile: {
-                    Name: newEntry.Profile.Name,
-                },
-            };
+                const userData = createNewUser(newEntry, currentOrg);
 
             if (!storageData[orgId]) {
                 // 'orgId' not found, create a basic structure
@@ -111,7 +116,7 @@ export const writeNewEntryToStorage = (newEntry: User, currentOrg: OrgInfo) => {
                     },
                 );
             } else {
-                existingData.addUser(orgId, userData);
+                existingData.addUser(orgId, userData, indexToAdd);
                 chrome.storage.local.set({ [STORAGE_KEY]: existingData.orgIds }, () => {
                     handleStorageResult(chrome.runtime.lastError, "User added:", userData);
                     resolve();
@@ -120,7 +125,6 @@ export const writeNewEntryToStorage = (newEntry: User, currentOrg: OrgInfo) => {
         });
     });
 };
-
 export const writeAllEntriesToStorage = (entries: User[], currentOrg: OrgInfo) => {
     return new Promise<void>((resolve, reject) => {
         const orgId = currentOrg.orgId;
