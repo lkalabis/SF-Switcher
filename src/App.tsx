@@ -78,7 +78,7 @@ export default function App() {
     }
 
     // @ts-ignore
-    const handleDragStart = (event ) => {
+    const handleDragStart = (event) => {
         setActiveId(event.active.id);
     };
 
@@ -189,26 +189,29 @@ export default function App() {
     const updateExistingEntry = async (updateEntry: User) => {
         try {
             if (editRecord) {
-                await deleteEntry(editRecord, false);
-            }
-            if (updateEntry.Label) {
-                updateEntry.Label = updateEntry.Label.trim();
-            }
-            updateEntry.Username = updateEntry.Username.trim();
-            setShowEditEntryForm(false);
-            setShowEditButtonContainer(false);
-            setShowAddButtonContainer(true);
-            setShowAddEntryForm(false);
-            if (currentOrg) {
-                await writeNewEntryToStorage(updateEntry, currentOrg);
-                toast.success("Entry Changed", toastConfig as ToastOptions<unknown>);
-                await loadRecords();
+                const indexOfEntry = await deleteEntry(editRecord, false);
+                if (indexOfEntry === -1) {
+                    return;
+                }
+
+                if (updateEntry.Label) {
+                    updateEntry.Label = updateEntry.Label.trim();
+                }
+                updateEntry.Username = updateEntry.Username.trim();
+                setShowEditEntryForm(false);
+                setShowEditButtonContainer(false);
+                setShowAddButtonContainer(true);
+                setShowAddEntryForm(false);
+                if (currentOrg) {
+                    await writeNewEntryToStorage(updateEntry, currentOrg, indexOfEntry);
+                    toast.success("Entry Changed", toastConfig as ToastOptions<unknown>);
+                    await loadRecords();
+                }
             }
         } catch (error) {
             console.error("Error deleting entry:", error);
         }
     };
-
     const loadRecords = async () => {
         // Update state to remove the entry
         const result = await chrome.storage.local.get(STORAGE_KEY);
@@ -233,7 +236,7 @@ export default function App() {
         }
     };
 
-    const deleteEntry = (entryToDelete: User, withConfirmation: boolean): Promise<void> => {
+    const deleteEntry = (entryToDelete: User, withConfirmation: boolean): Promise<number> => {
         return new Promise((resolve, reject) => {
             if (withConfirmation) {
                 const isConfirmed = window.confirm("Are you sure you want to delete this entry?");
@@ -255,12 +258,16 @@ export default function App() {
 
                 // Delete the entry with the matching ID
                 // @ts-ignore
-                const validUsers = storageData[currentOrg?.orgId].users.filter(
-                    (user: User) => user.UUID !== entryToDelete.UUID,
+                const indexOfEntry = storageData[currentOrg?.orgId].users.findIndex(
+                    (user: User) => user.UUID === entryToDelete.UUID,
                 );
-                if (validUsers) {
+                if (indexOfEntry > -1) {
                     // @ts-ignore
-                    storageData[currentOrg?.orgId].users = validUsers;
+                    const allUserEntries = storageData[currentOrg?.orgId].users;
+                    // @ts-ignore
+                    const updatedUserEntries = allUserEntries.slice(0, indexOfEntry).concat(allUserEntries.slice(indexOfEntry + 1));
+                    // @ts-ignore
+                    storageData[currentOrg?.orgId].users = updatedUserEntries;
                 }
 
                 chrome.storage.local.set({ [STORAGE_KEY]: storageData }, () => {
@@ -268,13 +275,12 @@ export default function App() {
                         console.error("Error:", chrome.runtime.lastError);
                         reject(new Error(chrome.runtime.lastError.message));
                     } else {
-                        resolve();
+                        resolve(indexOfEntry);
                     }
                 });
             });
         });
     };
-
     const toggleView = () => {
         setShowSettings((prevShowAddEntryForm) => !prevShowAddEntryForm);
     };
