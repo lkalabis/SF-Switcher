@@ -18,7 +18,15 @@ import { LOADING_MESSAGE, STORAGE_KEY } from "./utils/constants";
 import { ToastContainer, ToastOptions, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Settings from "./components/Settings";
-import { DndContext, DragOverlay, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import {
+    DndContext,
+    DragOverlay,
+    closestCenter,
+    KeyboardSensor,
+    PointerSensor,
+    useSensor,
+    useSensors,
+} from "@dnd-kit/core";
 import { arrayMove, SortableContext, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 
 export default function App() {
@@ -265,7 +273,9 @@ export default function App() {
                     // @ts-ignore
                     const allUserEntries = storageData[currentOrg?.orgId].users;
                     // @ts-ignore
-                    const updatedUserEntries = allUserEntries.slice(0, indexOfEntry).concat(allUserEntries.slice(indexOfEntry + 1));
+                    const updatedUserEntries = allUserEntries
+                        .slice(0, indexOfEntry)
+                        .concat(allUserEntries.slice(indexOfEntry + 1));
                     // @ts-ignore
                     storageData[currentOrg?.orgId].users = updatedUserEntries;
                 }
@@ -305,7 +315,7 @@ export default function App() {
                             label={""}
                             // @ts-ignore
                             record={""}
-                            onSaveExisting={function(entry: User): void {
+                            onSaveExisting={function (entry: User): void {
                                 throw new Error("Function not implemented.");
                             }}
                         />
@@ -328,7 +338,7 @@ export default function App() {
                         onCancelAdd={cancelAddEntry}
                         onCancelEdit={cancelEditEntry}
                         currentOrg={currentOrg!}
-                        onSaveNew={function(entry: User): void {
+                        onSaveNew={function (entry: User): void {
                             throw new Error("Function not implemented.");
                         }}
                     />
@@ -391,16 +401,15 @@ export default function App() {
                                                 <DragOverlay>
                                                     <div
                                                         style={{
-                                                            position: 'fixed',
+                                                            position: "fixed",
                                                             top: 0,
                                                             left: 0,
-                                                            width: '100%',
-                                                            height: '100%',
-                                                            background: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
+                                                            width: "100%",
+                                                            height: "100%",
+                                                            background: "rgba(0, 0, 0, 0.5)", // Semi-transparent black background
                                                             zIndex: 1000, // Ensure it's above other elements
                                                         }}
-                                                    >
-                                                    </div>
+                                                    ></div>
                                                 </DragOverlay>
                                             </SortableContext>
                                         </>

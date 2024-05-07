@@ -22,10 +22,10 @@ function Entry({
 
     const style = transform
         ? {
-            transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-            cursor: 'grab', // Change cursor to hand
-        }
-        : { cursor: 'pointer' }; // Change cursor to hand if there's no transformation, adjust as needed
+              transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+              cursor: "grab", // Change cursor to hand
+          }
+        : { cursor: "pointer" }; // Change cursor to hand if there's no transformation, adjust as needed
 
     const handleDelete = () => {
         onDelete(entry, true);
@@ -107,9 +107,8 @@ function Entry({
         </div>
     );
 
-
     return (
-        <div className="grid" >
+        <div className="grid">
             <div className="labelUsernameContainer" ref={setNodeRef} style={style} {...listeners} {...attributes}>
                 <div className="labelEntry">
                     {entry.Label}
@@ -152,4 +151,3 @@ function Entry({
 }
 
 export default Entry;
-

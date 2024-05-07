@@ -14,10 +14,14 @@ body {
     font-weight: var(--font-weight);
 }
 
-body h1, h2, h3, h4, h5, h6 {
+body h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     --color: black;
 }
-
 
 body.dark {
     --background-color: rgb(24, 26, 27);
@@ -34,16 +38,16 @@ body.dark h6 {
 }
 
 .logoImg {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 .submenu {
-      margin-bottom: 0;
+    margin-bottom: 0;
 }
 .navbar li {
-      list-style-type: disc;
+    list-style-type: disc;
 }
 .browser-support {
     display: flex;

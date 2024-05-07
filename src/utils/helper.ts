@@ -57,7 +57,6 @@ export const createUUID = () => {
     });
 };
 
-
 const createNewUser = (newEntry: User, currentOrg: OrgInfo) => {
     const userData: User = {
         id: newEntry.id,
@@ -76,7 +75,7 @@ const createNewUser = (newEntry: User, currentOrg: OrgInfo) => {
         },
     };
     return userData;
-}
+};
 
 export const writeNewEntryToStorage = (newEntry: User, currentOrg: OrgInfo, indexToAdd?: number) => {
     return new Promise<void>((resolve, reject) => {
@@ -92,7 +91,7 @@ export const writeNewEntryToStorage = (newEntry: User, currentOrg: OrgInfo, inde
             const storageData = result[STORAGE_KEY] || {};
             const existingData = new JsonStructure();
             existingData.orgIds = storageData;
-                const userData = createNewUser(newEntry, currentOrg);
+            const userData = createNewUser(newEntry, currentOrg);
 
             if (!storageData[orgId]) {
                 // 'orgId' not found, create a basic structure
