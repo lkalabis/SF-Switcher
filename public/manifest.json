@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "SF User Switcher",
     "description": "Switch easy and fast your Salesforce User",
-    "version": "0.71",
+    "version": "0.72",
     "action": {
         "default_icon": {
             "16": "images/icon-16.png",

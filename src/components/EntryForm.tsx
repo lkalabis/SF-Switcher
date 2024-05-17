@@ -62,7 +62,6 @@ export default function EntryForm({
             }));
         }
     }, [label, username]);
-
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const input = e.target.value;
         const { name, value } = e.target;
@@ -74,6 +73,27 @@ export default function EntryForm({
         }
     };
 
+    const handleSaveOnEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            if (newEntry.Username === "" || newEntry.Id === "") {
+                return toast.error("This is not a valid User", {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
+            if (isNewEntry) {
+                saveNewEntry();
+            } else {
+                updateExistingEntry();
+            }
+        }
+    }
     const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setNewEntry({ ...newEntry, [name]: value });
@@ -145,7 +165,8 @@ export default function EntryForm({
                     value={newEntry.Label}
                     placeholder="Label"
                     onChange={handleLabelChange}
-                />
+                    onKeyDown={(e) => handleSaveOnEnter(e)}
+                 />
                 <input
                     className="editUsername"
                     type="text"

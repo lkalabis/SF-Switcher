@@ -49,8 +49,6 @@ export default function App() {
         MillisecondsToWaitTillRelogin: 1000,
     });
 
-    const [activeId, setActiveId] = useState(null);
-
     const sensors = useSensors(
         useSensor(PointerSensor),
         useSensor(KeyboardSensor, {
@@ -86,13 +84,8 @@ export default function App() {
     }
 
     // @ts-ignore
-    const handleDragStart = (event) => {
-        setActiveId(event.active.id);
-    };
-
-    // @ts-ignore
     const handleDragEnd = async (event) => {
-        setActiveId(null);
+        // setActiveId(null);
         const { active, over } = event;
 
         if (active.id !== over.id) {
@@ -351,7 +344,6 @@ export default function App() {
         <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
-            onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
         >
             <div className="container">
@@ -399,17 +391,7 @@ export default function App() {
                                                     />
                                                 ))}
                                                 <DragOverlay>
-                                                    <div
-                                                        style={{
-                                                            position: "fixed",
-                                                            top: 0,
-                                                            left: 0,
-                                                            width: "100%",
-                                                            height: "100%",
-                                                            background: "rgba(0, 0, 0, 0.5)", // Semi-transparent black background
-                                                            zIndex: 1000, // Ensure it's above other elements
-                                                        }}
-                                                    ></div>
+                                                    <div className="dragOverlay">
                                                 </DragOverlay>
                                             </SortableContext>
                                         </>

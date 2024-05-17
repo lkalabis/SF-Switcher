@@ -6,6 +6,10 @@ layout: default
 
 All notable changes to this project will be documented in this file.
 
+## [0.72] - 18.05.2024
+ 
+-   🎯 Save entries by pressing `Enter` key in the input fields
+
 ## [0.71] - 08.05.2024
 
 -   🎯 Keep order of entry after edit
