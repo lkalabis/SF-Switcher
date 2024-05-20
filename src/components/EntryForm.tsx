@@ -174,6 +174,7 @@ export default function EntryForm({
                     value={newEntry.Username}
                     placeholder="Search by Username, Name, or Email"
                     onChange={handleUsernameChange}
+                    onKeyDown={(e) => handleSaveOnEnter(e)}
                 />
                 <div className="editEntryButtons">
                     <button title="Save" className="btn" onClick={isNewEntry ? saveNewEntry : updateExistingEntry}>

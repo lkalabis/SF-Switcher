@@ -391,7 +391,7 @@ export default function App() {
                                                     />
                                                 ))}
                                                 <DragOverlay>
-                                                    <div className="dragOverlay">
+                                                    <div className="dragOverlay" />
                                                 </DragOverlay>
                                             </SortableContext>
                                         </>
