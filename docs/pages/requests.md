@@ -22,3 +22,4 @@ layout: default
 | 7   | Add i18n to plugin             | Open          | Low      | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
 | 8   | Release Plugin for Firefox     | Done          | Medium   | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
 | 9   | Release Plugin for Edge        | Done          | Medium   | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
+| 10  | Allow import & export          | Open          | Medium   | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
