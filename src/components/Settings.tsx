@@ -10,12 +10,7 @@ export default function Settings({
     settings: SettingsType;
     onSetSettings: (settings: SettingsType) => void;
 }) {
-    const [showLookFeelSection, setShowLookFeelSection] = useState(true);
     const [isChanged, setIsChanged] = useState(false);
-
-    const showLookFeelSectionPart = () => {
-        setShowLookFeelSection(true);
-    };
 
     const errorConfig = {
         position: "top-right",
@@ -102,15 +97,9 @@ export default function Settings({
                         <img src="images/icon-48.png" alt="Logo" className="logo" />
                         <div className="settings-text">Settings</div>
                     </div>
-                    <nav className="navbarSettingsSection">
-                        <button className="showLookFeelSectionPartButton" onClick={showLookFeelSectionPart}>
-                            Look & Feel
-                        </button>
-                    </nav>
                 </header>
 
                 <main className="mainSettingsSection">
-                    {showLookFeelSection && (
                         <>
                             <div className="lookAndFeelInputs">
                                 <label>
@@ -182,7 +171,6 @@ export default function Settings({
                                 </div>
                             </div>
                         </>
-                    )}
                 </main>
             </div>
         </>

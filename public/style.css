@@ -262,7 +262,6 @@ input[type="number"] {
 .saveButtonContainer {
     position: fixed;
     bottom: 25px;
-    left: 300px;
     display: flex;
     justify-content: center;
 }
@@ -271,11 +270,16 @@ input[type="number"] {
     padding: 2px 6px;
     font-size: 15px;
     border: none;
+    width: 600px;
     border-radius: 5px;
+    background: #2f6690;
     cursor: pointer;
     transition: background 0.3s ease;
 }
 
+.saveButtonContainer button:hover {
+    background: #4e91de;
+}
 .saveButtonContainer button:disabled {
     background: #ccc; /* Gray background when disabled */
     cursor: not-allowed;
@@ -312,6 +316,7 @@ input[type="number"] {
 
 .lookAndFeelInputs input[type="checkbox"] {
     margin-right: 10px;
+    transform: scale(1.2);
 }
 
 .reLoginTimeInput {
@@ -356,6 +361,7 @@ input[type="number"] {
     display: flex;
     justify-content: space-between;
     background-color: white;
+    padding-left: 10px;
 }
 
 .headerSettingsSectionContainer {
