@@ -6,6 +6,10 @@ layout: default
 
 All notable changes to this project will be documented in this file.
 
+## [0.73] - 15.01.2025
+ 
+-   🎯 Add new Salesforce Setup Domain to the list of supported domains. See more infomration [here](https://help.salesforce.com/s/articleView?id=001395243&type=1)
+
 ## [0.72] - 18.05.2024
  
 -   🎯 Save entries by pressing `Enter` key in the input fields
