@@ -1,3 +1,47 @@
+:root {
+    --color-white: #fff;
+    --color-black: #000;
+    --color-blue: #2f6690;
+    --color-red: #ff0000;
+    --color-green: #00ff00;
+    --color-yellow: #ffff00;
+    --color-orange: #ffa500;
+    --color-blue-main: #2F6690;
+    --background-color-light: #DFDFDF;
+    --footer-color-light: #D7D5DC;
+    --spacing-small: 5px;
+    --spacing-medium: 10px;
+    --spacing-large: 20px;
+}
+
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+.root {
+    width: 100%;
+}
+
+.theme-light {
+    --background-color: var(--background-color-light);
+    --text-color: var(--color-2);
+    --button-color: var(--color-11);
+    --hover-color: var(--color-20);
+    --border-color: var(--color-22);
+    --highlight-color: var(--color-16);
+}
+
+/* Dark Theme */
+.theme-dark {
+    --background-color: var(--color-black);
+    --text-color: var(--color-2)fff;
+    --button-color: var(--color-11);
+    --hover-color: var(--color-20);
+    --border-color: var(--color-22);
+    --highlight-color: var(--color-16);
+}
+
 *,
 *::before,
 *::after {
@@ -9,41 +53,80 @@
     padding: 0;
 }
 
-html {
-    -webkit-text-size-adjust: 100%;
-}
 
 body {
     display: flex;
     width: 645px;
     text-rendering: optimizeSpeed;
-    background-color: #2f6690;
-}
-
-.root {
-    width: 100%;
+    /* background-color: var(--color-blue-main); */
+    background-color: var(--background-color);
 }
 
 .header {
     background-color: #867f8d; /* Add background color as needed */
 }
 
-.logo {
+.settings__logo {
     width: 24px;
     height: 24px;
 }
 
-footer {
+.footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 10px; /* Add padding for spacing */
-    margin-top: auto;
-    padding-right: 10px; /* Add padding for spacing */
-    background-color: #d9dcd6;
-    padding-bottom: 0px;
-    padding-top: 2px;
+    padding: 2px 10px;
+    background-color: var(--footer-color-light);
     width: 645px;
+}
+
+.footer__settings {
+    display: flex;
+    align-items: center;
+}
+
+.footer__settings-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.footer__settings-icon {
+    width: 15px;
+    height: 15px;
+}
+
+.footer__version {
+    margin-left: 10px;
+    color: var(--color-black);
+    font-size: 12px;
+}
+
+.footer__links {
+    display: flex;
+    gap: 10px;
+}
+
+.footer__link {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.footer__link:hover {
+    color: var(--color-blue);
+}
+
+.footer__link--about {
+    font-weight: bold;
+}
+
+.footer__link--email i {
+    font-size: 16px;
+}
+
+.footer__link--changelog {
+    font-style: italic;
 }
 
 .info {
@@ -52,17 +135,17 @@ footer {
     gap: 10px;
 }
 
-.social-icons {
+.footer__links {
     display: flex;
     gap: 10px; /* Adjust spacing between icons */
 }
 
-.social-icons a {
+.footer__links a {
     text-decoration: none;
     color: #333; /* Adjust color as needed */
 }
 
-.social-icons img {
+.footer__links img {
     width: 24px; /* Adjust icon size as needed */
     height: 24px;
     border-radius: 50%; /* Optional: Add border-radius for rounded icons */
@@ -77,7 +160,7 @@ footer {
 .addButtonContainer {
     /* margin-top: 4px; */
     width: 100%;
-    background-color: #3a7ca5; /* Add background color as needed */
+    background-color: var(--color-white);
 }
 
 .editButtonContainer {
@@ -87,8 +170,9 @@ footer {
 
 .gridContainer {
     flex-direction: column;
-    margin-top: 4px;
+    background-color: var(--background-color-light);
     display: flex;
+    height: 200px;
 }
 
 .grid {
@@ -182,7 +266,7 @@ footer {
     border-radius: 4px;
     box-sizing: border-box;
     color: black;
-    background-color: white;
+    background-color: var(--color-white);
 }
 .labelEntry {
     width: 220px;
@@ -205,7 +289,7 @@ footer {
     display: inline-block;
     top: 10px;
     left: 30px;
-    background-color: white;
+    background-color: var(--color-white);
     padding: 1%;
     border-radius: 4px;
     border-style: solid;
@@ -222,7 +306,7 @@ footer {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    background-color: white;
+    background-color: var(--color-white);
 }
 
 .settingsIcon img {
@@ -249,36 +333,35 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
     -moz-appearance: textfield; /* Firefox */
 }
-.settings-text {
+.settings__title {
     margin-left: 12px;
     font-size: large;
 }
 
-.mainSettingsSection {
+.settings__main {
     display: flex;
-    flex-direction: column;
+    height: 200px;
+    background-color: var(--background-color-light);
 }
 
 .saveButtonContainer {
     position: fixed;
-    bottom: 25px;
-    display: flex;
-    justify-content: center;
+    bottom: 35px;
+    margin-left: 253px;
 }
 
 .saveButtonContainer button {
     padding: 2px 6px;
     font-size: 15px;
     border: none;
-    width: 600px;
+    width: 100px;
     border-radius: 5px;
-    background: #2f6690;
     cursor: pointer;
     transition: background 0.3s ease;
 }
 
 .saveButtonContainer button:hover {
-    background: #4e91de;
+    background-color: var(--footer-color-light); /* Light blue background on hover */
 }
 .saveButtonContainer button:disabled {
     background: #ccc; /* Gray background when disabled */
@@ -294,29 +377,42 @@ input[type="number"] {
     cursor: pointer;
 }
 
-.showHelpContainer {
-    position: fixed;
-    top: 50px;
-    left: 250px;
-    border-radius: 5px;
-    border-style: solid;
+.settings__theme-select {
+    min-width: 150px;
 }
 
-.lookAndFeelInputs {
+.settings__inputs-group--left,
+.settings__inputs-group--right  {
+    flex: 1; /* Distribute space equally between columns */
     padding: 20px;
-    background: #dfdfdf; /* Light gray background */
     height: 166px;
 }
 
-.lookAndFeelInputs label {
+.settings__inputs-group--left label {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
 
-.lookAndFeelInputs input[type="checkbox"] {
-    margin-right: 10px;
+.settings__inputs-group--left input[type="checkbox"] {
+    margin-right: 0.5rem;
     transform: scale(1.2);
+}
+
+.settings__inputs-group--right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+}
+
+.settings__inputs-group--right label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.settings__inputs-group--right span {
+    margin-right: 0.5rem;
 }
 
 .reLoginTimeInput {
@@ -325,46 +421,26 @@ input[type="number"] {
     text-align: right;
 }
 
-.lookAndFeelInputs .reLoginTimeInput {
+.settings__inputs_group__left .reLoginTimeInput {
     margin-right: 10px;
     width: 100px;
     padding-right: 5px;
 }
 
-.version {
+.footer__version {
     margin-left: 10px;
 }
 
-.navbarSettingsSection {
-    margin-left: 150px;
-}
-
-.showLookFeelSectionPartButton {
-    background-color: #ccc;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 5px;
-}
-
-.LookAndFeelHeader {
-    display: flex;
-    justify-content: center;
-    padding: 4px;
-    font-size: 16px;
-}
-
-.headerSettingsSection {
+.settings__header {
     align-items: center;
     width: 645px;
-    padding: 5px;
+    height: 40px;
     display: flex;
-    justify-content: space-between;
-    background-color: white;
-    padding-left: 10px;
+    justify-content: center;
+    background-color: var(--color-white);
 }
 
-.headerSettingsSectionContainer {
+.settings__header-container {
     display: flex;
 }
 .invalidURLMessage {
@@ -386,20 +462,18 @@ input[type="number"] {
 }
 
 .grid-btn {
-    background-color: #2f6690;
-    color: white; /* White text */
     padding: 8px 10px; /* Some padding */
+    background: transparent;
     font-size: 16px; /* Set a font size */
     cursor: pointer; /* Mouse pointer on hover */
     border: none;
 }
 
 .grid-btn:hover {
-    background-color: #3a7ca5; /* Add background color as needed */
+    background-color: var(--footer-color-light); /* Add background color as needed */
 }
 .btn {
-    background-color: #3a7ca5;
-    color: white; /* White text */
+    background-color: var(--color-white); /* White text */
     padding: 8px 10px; /* Some padding */
     font-size: 16px; /* Set a font size */
     cursor: pointer; /* Mouse pointer on hover */
@@ -407,14 +481,13 @@ input[type="number"] {
 }
 
 .addEntryButton {
-    /* width: 100%; */
     width: 645px;
-    height: 35px;
+    height: 40px;
 }
 
 /* Darker background on mouse-over */
 .btn:hover {
-    background-color: #16425b; /* Add background color as needed */
+    background-color: var(--footer-color-light); /* Add background color as needed */
 }
 
 .dragOverlay {

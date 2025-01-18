@@ -7,10 +7,11 @@ export default function Settings({
     settings,
     onSetSettings,
 }: {
-    settings: SettingsType;
-    onSetSettings: (settings: SettingsType) => void;
-}) {
+        settings: SettingsType;
+        onSetSettings: (settings: SettingsType) => void;
+    }) {
     const [isChanged, setIsChanged] = useState(false);
+    const [selectedTheme, setSelectedTheme] = useState("Light");
 
     const errorConfig = {
         position: "top-right",
@@ -23,11 +24,33 @@ export default function Settings({
         theme: "dark",
     };
 
+    const themes = [
+        { name: "Light" },
+    ];
+
+
+    const applyTheme = (themeName: string) => {
+        console.log("Applying theme: ", themeName);
+        // Remove existing theme classes
+        document.body.classList.remove(...document.body.classList);
+        // Add the new theme class
+        const themeClass = `theme-${themeName.toLowerCase().replace(" ", "-")}`;
+        console.log("Theme class added: ", themeClass);
+        document.body.classList.add(themeClass);
+    };
+
+    const handleThemeChange = (themeName: string) => {
+        console.log("Theme changed to: ", themeName);
+        setSelectedTheme(themeName);
+        applyTheme(themeName);
+        setIsChanged(true);
+    };
+
     const handleSave = async () => {
         if (
             settings.UseReLoginFeature &&
-            ((settings.MillisecondsToWaitTillRelogin && settings.MillisecondsToWaitTillRelogin < 500) ||
-                (settings.MillisecondsToWaitTillRelogin && settings.MillisecondsToWaitTillRelogin > 10000))
+                ((settings.MillisecondsToWaitTillRelogin && settings.MillisecondsToWaitTillRelogin < 500) ||
+                    (settings.MillisecondsToWaitTillRelogin && settings.MillisecondsToWaitTillRelogin > 10000))
         ) {
             // @ts-ignore
             return toast.error("Value must be between 500 - 10000", errorConfig as ToastOptions<unknown>);
@@ -92,85 +115,101 @@ export default function Settings({
                 theme="dark"
             />
             <div className="settings">
-                <header className="headerSettingsSection">
-                    <div className="headerSettingsSectionContainer">
-                        <img src="images/icon-48.png" alt="Logo" className="logo" />
-                        <div className="settings-text">Settings</div>
+                <header className="settings__header">
+                    <div className="settings__header-container">
+                        <img src="images/icon-48.png" alt="Logo" className="settings__logo" />
+                        <div className="settings__title">Settings</div>
                     </div>
                 </header>
 
-                <main className="mainSettingsSection">
-                        <>
-                            <div className="lookAndFeelInputs">
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="ShowProfileNameInLabel"
-                                        checked={settings.ShowProfileNameInLabel}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    <span className="spanInput">Show Profile Name in Label?</span>
-                                    <a
-                                        className="informationIconLink"
-                                        href="https://lkalabis.github.io/SF-Switcher/pages/settings#label"
-                                        target="_blank"
-                                    >
-                                        <i className="informationIcon fa fa-question-circle" aria-hidden="true"></i>
-                                    </a>
-                                </label>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="ShowTooltip"
-                                        checked={settings.ShowTooltip}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    <span className="spanInput">Show Tooltip?</span>
-                                    <a
-                                        className="informationIconLink"
-                                        href="https://lkalabis.github.io/SF-Switcher/pages/settings#tooltips"
-                                        target="_blank"
-                                    >
-                                        <i className="informationIcon fa fa-question-circle" aria-hidden="true"></i>
-                                    </a>
-                                </label>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="UseReLoginFeature"
-                                        checked={settings.UseReLoginFeature}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    <span className="spanInput">Use Re-Login feature?</span>
-                                    <a
-                                        className="informationIconLink"
-                                        href="https://lkalabis.github.io/SF-Switcher/pages/settings#relogin"
-                                        target="_blank"
-                                    >
-                                        <i className="informationIcon fa fa-question-circle" aria-hidden="true"></i>
-                                    </a>
-                                </label>
-                                {settings.UseReLoginFeature && (
-                                    <label>
-                                        <input
-                                            className="reLoginTimeInput"
-                                            name="MillisecondsToWaitTillRelogin"
-                                            type="number"
-                                            min="500"
-                                            value={settings.MillisecondsToWaitTillRelogin}
-                                            max="10000"
-                                            onChange={(e) => handleNumberChange(e)}
-                                            placeholder="500-10000"
-                                        />
-                                    </label>
-                                )}
-                                <div className="saveButtonContainer">
-                                    <button disabled={!isChanged} onClick={handleSave}>
-                                        Save
-                                    </button>
-                                </div>
-                            </div>
-                        </>
+                <main className="settings__main">
+                    <div className="settings__inputs-group--left">
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="ShowProfileNameInLabel"
+                                checked={settings.ShowProfileNameInLabel}
+                                onChange={handleCheckboxChange}
+                            />
+                            <span className="spanInput">Show Profile Name in Label?</span>
+                            <a
+                                className="informationIconLink"
+                                href="https://lkalabis.github.io/SF-Switcher/pages/settings#label"
+                                target="_blank"
+                            >
+                                <i className="informationIcon fa fa-question-circle" aria-hidden="true"></i>
+                            </a>
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="ShowTooltip"
+                                checked={settings.ShowTooltip}
+                                onChange={handleCheckboxChange}
+                            />
+                            <span className="spanInput">Show Tooltip?</span>
+                            <a
+                                className="informationIconLink"
+                                href="https://lkalabis.github.io/SF-Switcher/pages/settings#tooltips"
+                                target="_blank"
+                            >
+                                <i className="informationIcon fa fa-question-circle" aria-hidden="true"></i>
+                            </a>
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="UseReLoginFeature"
+                                checked={settings.UseReLoginFeature}
+                                onChange={handleCheckboxChange}
+                            />
+                            <span className="spanInput">Use Re-Login feature?</span>
+                            <a
+                                className="informationIconLink"
+                                href="https://lkalabis.github.io/SF-Switcher/pages/settings#relogin"
+                                target="_blank"
+                            >
+                                <i className="informationIcon fa fa-question-circle" aria-hidden="true"></i>
+                            </a>
+                        </label>
+                        {settings.UseReLoginFeature && (
+                            <label>
+                                <input
+                                    className="reLoginTimeInput"
+                                    name="MillisecondsToWaitTillRelogin"
+                                    type="number"
+                                    min="500"
+                                    value={settings.MillisecondsToWaitTillRelogin}
+                                    max="10000"
+                                    onChange={(e) => handleNumberChange(e)}
+                                    placeholder="500-10000"
+                                />
+                            </label>
+                        )}
+                    </div>
+                    <div className="settings__inputs-group--right">
+                        <label>
+                            <span>Theme:</span>
+                            <select className="settings__theme-select"
+                                value={selectedTheme}
+                                onChange={(e) => handleThemeChange(e.target.value)}
+                            >
+                                {themes.map((theme) => (
+                                    <option key={theme.name} value={theme.name}>
+                                        {theme.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </label>
+
+                    </div>
+
+
+                    <div className="saveButtonContainer">
+                        <button disabled={!isChanged} onClick={handleSave}>
+                            Save
+                        </button>
+                    </div>
                 </main>
             </div>
         </>
