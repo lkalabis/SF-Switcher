@@ -26,21 +26,19 @@ export default function Settings({
 
     const themes = [
         { name: "Light" },
+        { name: "Dark" },
     ];
 
 
     const applyTheme = (themeName: string) => {
-        console.log("Applying theme: ", themeName);
         // Remove existing theme classes
         document.body.classList.remove(...document.body.classList);
         // Add the new theme class
         const themeClass = `theme-${themeName.toLowerCase().replace(" ", "-")}`;
-        console.log("Theme class added: ", themeClass);
         document.body.classList.add(themeClass);
     };
 
     const handleThemeChange = (themeName: string) => {
-        console.log("Theme changed to: ", themeName);
         setSelectedTheme(themeName);
         applyTheme(themeName);
         setIsChanged(true);
@@ -58,7 +56,7 @@ export default function Settings({
 
         chrome.storage.local.get("sf-user-switcher", (result) => {
             // Get the existing data
-            let data = result["sf-user-switcher"];
+            const data = result["sf-user-switcher"];
 
             // Update the settings part
             data.settings = settings;
@@ -206,9 +204,9 @@ export default function Settings({
 
 
                     <div className="saveButtonContainer">
-                        <button disabled={!isChanged} onClick={handleSave}>
-                            Save
-                        </button>
+                        <button disabled={!isChanged} onClick={handleSave} className="settings__save-button">
+    Save
+</button>
                     </div>
                 </main>
             </div>

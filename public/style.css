@@ -12,6 +12,18 @@
     --spacing-small: 5px;
     --spacing-medium: 10px;
     --spacing-large: 20px;
+    --text-color: #333;
+    --settings__header-color-dark: #D7D5DC;
+    --settings__header-color: #fff;
+    --settings__tite-color: black;
+    --footer__settings__icon--home: url('images/home-black.png');
+    --footer__settings__icon--settings: url('images/settings-black.png');
+    --icon-color: black;
+    --background-color: var(--background-color-light);
+    --background-color-header-button: var(--color-white);
+    --background-color-header-addButton: white;
+    --background-color-header-ediotButton: white;
+    --header-button-color: white;
 }
 
 
@@ -25,21 +37,47 @@ html {
 
 .theme-light {
     --background-color: var(--background-color-light);
+    --background-color-header-button: var(--color-white);
     --text-color: var(--color-2);
     --button-color: var(--color-11);
     --hover-color: var(--color-20);
     --border-color: var(--color-22);
     --highlight-color: var(--color-16);
+    --text-color: var(--color-black);
+    --footer-color: var(--footer-color-light);
+    --footer-version-color: var(--color-black);
+    --footer__settings__icon--home: url('images/home-black.png');
+    --footer__settings__icon--settings: url('images/settings-black.png');
+    --icon-color: black;
+    --grid-button__hover: var(--footer-color-light);
+    --background-color-header-addButton: white;
+    --background-color-header-editButton: white;
+    --header-button-color: white;
 }
 
 /* Dark Theme */
 .theme-dark {
-    --background-color: var(--color-black);
+    --background-color: #202020;
+    --background-color-header-button: var(--color-black);
     --text-color: var(--color-2)fff;
     --button-color: var(--color-11);
     --hover-color: var(--color-20);
     --border-color: var(--color-22);
     --highlight-color: var(--color-16);
+    --text-color: var(--color-white);
+    --settings__header-color: black;
+    --settings__tite-color: white;
+    --footer-color: #282A23;
+    --footer-version-color: var(--color-white);
+    --footer__links__a-color: var(--color-white);
+    --footer__settings__icon--home: url('images/home-white.png');
+    --footer__settings__icon--settings: url('images/settings-white.png');
+    --icon-color: white;
+    --grid-button__hover: #282A23;
+    --background-color-header-addButton: black;
+    --background-color-header-editButton: black;
+    --header-button-color: black;
+}
 }
 
 *,
@@ -58,7 +96,6 @@ body {
     display: flex;
     width: 645px;
     text-rendering: optimizeSpeed;
-    /* background-color: var(--color-blue-main); */
     background-color: var(--background-color);
 }
 
@@ -76,8 +113,8 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 2px 10px;
-    background-color: var(--footer-color-light);
-    width: 645px;
+    background-color: var(--footer-color);
+    width: 625px;
 }
 
 .footer__settings {
@@ -94,11 +131,21 @@ body {
 .footer__settings-icon {
     width: 15px;
     height: 15px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.footer__settings-icon--home{
+    background-image: var(--footer__settings__icon--home);
+}
+.footer__settings-icon--settings {
+    background-image: var(--footer__settings__icon--settings);
 }
 
 .footer__version {
     margin-left: 10px;
-    color: var(--color-black);
+    color: var(--footer-version-color);
     font-size: 12px;
 }
 
@@ -142,7 +189,7 @@ body {
 
 .footer__links a {
     text-decoration: none;
-    color: #333; /* Adjust color as needed */
+    color: var(--footer__links__a-color); /* Adjust color as needed */
 }
 
 .footer__links img {
@@ -155,22 +202,22 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 220px;
+    background-color: var(--background-color);
 }
 
 .addButtonContainer {
-    /* margin-top: 4px; */
+    background-color: var(--background-color-header-addButton);
     width: 100%;
-    background-color: var(--color-white);
 }
 
 .editButtonContainer {
     display: flex;
-    background-color: #3a7ca5; /* Add background color as needed */
+    background-color: var(--background-color-header-editButton); /* Add background color as needed */
 }
 
 .gridContainer {
     flex-direction: column;
-    background-color: var(--background-color-light);
+    background-color: var(--background-color);
     display: flex;
     height: 200px;
 }
@@ -208,6 +255,15 @@ body {
 
 .line {
     margin-bottom: 5px; /* Adjust spacing between lines as needed */
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px / 1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    color: var(--icon-color); /* Adjust icon color as needed */
 }
 
 .name {
@@ -336,18 +392,20 @@ input[type="number"] {
 .settings__title {
     margin-left: 12px;
     font-size: large;
+    color: var(--settings__tite-color);
 }
 
 .settings__main {
     display: flex;
     height: 200px;
-    background-color: var(--background-color-light);
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 .saveButtonContainer {
     position: fixed;
     bottom: 35px;
-    margin-left: 253px;
+    margin-left: 270px;
 }
 
 .saveButtonContainer button {
@@ -366,6 +424,11 @@ input[type="number"] {
 .saveButtonContainer button:disabled {
     background: #ccc; /* Gray background when disabled */
     cursor: not-allowed;
+}
+
+.information {
+    text-decoration: none;
+    color: inherit;
 }
 
 .informationIconLink {
@@ -437,7 +500,7 @@ input[type="number"] {
     height: 40px;
     display: flex;
     justify-content: center;
-    background-color: var(--color-white);
+    background-color: var(--settings__header-color);
 }
 
 .settings__header-container {
@@ -470,10 +533,10 @@ input[type="number"] {
 }
 
 .grid-btn:hover {
-    background-color: var(--footer-color-light); /* Add background color as needed */
+    background-color: var(--grid-button__hover); /* Add background color as needed */
 }
 .btn {
-    background-color: var(--color-white); /* White text */
+    background-color: var(--header-button-color); /* White text */
     padding: 8px 10px; /* Some padding */
     font-size: 16px; /* Set a font size */
     cursor: pointer; /* Mouse pointer on hover */
@@ -483,11 +546,12 @@ input[type="number"] {
 .addEntryButton {
     width: 645px;
     height: 40px;
+    background-color: var(--background-color-header-button);
 }
 
 /* Darker background on mouse-over */
 .btn:hover {
-    background-color: var(--footer-color-light); /* Add background color as needed */
+    background-color: var(--grid-button__hover); /* Add background color as needed */
 }
 
 .dragOverlay {

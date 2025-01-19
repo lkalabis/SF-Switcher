@@ -13,11 +13,12 @@ export default function Footer({
             <footer className="footer">
                 <div className="footer__settings">
                     <button className="footer__settings-button" title="Settings Icon" onClick={onShowSetings}>
-                        <img
-                            className="footer__settings-icon"
-                            src={doShowSettings === true ? "images/home.png" : "images/settings.png"}
-                            alt="Settings Icon"
-                        />
+                        <div
+                className={`footer__settings-icon ${
+                    doShowSettings ? "footer__settings-icon--home" : "footer__settings-icon--settings"
+                }`}
+                aria-label="Settings Icon"
+            ></div>
                     </button>
                     <div className="footer__version">{APP_VERSION}</div>
                 </div>
