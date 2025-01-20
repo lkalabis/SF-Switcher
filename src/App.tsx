@@ -47,6 +47,7 @@ export default function App() {
         ShowTooltip: true,
         UseReLoginFeature: true,
         MillisecondsToWaitTillRelogin: 1000,
+        SelectedTheme: "Light",
     });
 
     const sensors = useSensors(
@@ -67,6 +68,13 @@ export default function App() {
             const storedEntries = result[STORAGE_KEY] || {};
             setSettings(result[STORAGE_KEY].settings || {});
 
+            const savedSettings = result["sf-user-switcher"]?.settings;
+            if (savedSettings.SelectedTheme) {
+                applyTheme(savedSettings.SelectedTheme || "Light");
+            } else {
+                applyTheme("Light");
+            }
+
             const transformedEntries = transformEntries(currentOrgInfo, storedEntries);
             if (transformedEntries.length === 0) {
                 addEntry();
@@ -82,6 +90,12 @@ export default function App() {
             setShowEditButtonContainer(false);
         }
     }
+
+    const applyTheme = (themeName: string) => {
+        document.body.classList.remove(...document.body.classList);
+        const themeClass = `theme-${themeName.toLowerCase().replace(" ", "-")}`;
+        document.body.classList.add(themeClass);
+    };
 
     // @ts-ignore
     const handleDragEnd = async (event) => {

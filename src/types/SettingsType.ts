@@ -3,4 +3,5 @@ export interface SettingsType {
     ShowProfileNameInLabel: boolean;
     UseReLoginFeature: boolean;
     MillisecondsToWaitTillRelogin?: number;
+    SelectedTheme: string;
 }

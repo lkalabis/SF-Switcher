@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SettingsType } from "../types/SettingsType";
 import { ToastContainer, ToastOptions, toast } from "react-toastify";
 import { toastConfig } from "../utils/helper";
@@ -11,7 +11,6 @@ export default function Settings({
         onSetSettings: (settings: SettingsType) => void;
     }) {
     const [isChanged, setIsChanged] = useState(false);
-    const [selectedTheme, setSelectedTheme] = useState("Light");
 
     const errorConfig = {
         position: "top-right",
@@ -39,10 +38,25 @@ export default function Settings({
     };
 
     const handleThemeChange = (themeName: string) => {
-        setSelectedTheme(themeName);
+        // @ts-ignore
+        onSetSettings((prevSettings) => ({
+            ...prevSettings,
+            SelectedTheme: themeName,
+        }));
         applyTheme(themeName);
         setIsChanged(true);
     };
+
+    useEffect(() => {
+        // Load settings, including SelectedTheme, from storage on component mount
+        chrome.storage.local.get("sf-user-switcher", (result) => {
+            const savedSettings = result["sf-user-switcher"]?.settings;
+            if (savedSettings) {
+                onSetSettings(savedSettings);
+                applyTheme(savedSettings.SelectedTheme || "Light");
+            }
+        });
+    }, [onSetSettings]);
 
     const handleSave = async () => {
         if (
@@ -55,11 +69,8 @@ export default function Settings({
         }
 
         chrome.storage.local.get("sf-user-switcher", (result) => {
-            // Get the existing data
-            const data = result["sf-user-switcher"];
-
-            // Update the settings part
-            data.settings = settings;
+            const data = result["sf-user-switcher"] || {};
+            data.settings = { ...settings };
 
             if (!settings.UseReLoginFeature) {
                 data.loginURLs = [];
@@ -189,7 +200,7 @@ export default function Settings({
                         <label>
                             <span>Theme:</span>
                             <select className="settings__theme-select"
-                                value={selectedTheme}
+                                value={settings.SelectedTheme}
                                 onChange={(e) => handleThemeChange(e.target.value)}
                             >
                                 {themes.map((theme) => (
