@@ -388,10 +388,8 @@ export default function App() {
                         <div className="gridContainer">
                             {!isValidURL ? (
                                 <div className="invalidURLMessage">
-                                    <h3>Invalid URL</h3>
-                                    <p>
-                                        This extension only works on Salesforce domains. Please navigate to a valid
-                                        Salesforce domain.
+                                    <h3>{t("invalidURLHeader")}</h3>
+                                    <p>{t("invalidURLMessage")}
                                     </p>
                                 </div>
                             ) : (
