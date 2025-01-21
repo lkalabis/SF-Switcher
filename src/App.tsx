@@ -28,6 +28,7 @@ import {
     useSensors,
 } from "@dnd-kit/core";
 import { arrayMove, SortableContext, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import { useTranslation } from "react-i18next"; 
 
 export default function App() {
     const [showAddEntryForm, setShowAddEntryForm] = useState(false);
@@ -48,7 +49,9 @@ export default function App() {
         UseReLoginFeature: true,
         MillisecondsToWaitTillRelogin: 1000,
         SelectedTheme: "Light",
+        SelectedLanguage: "en",
     });
+    const { t, i18n } = useTranslation(); // Hook for translations
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -73,6 +76,9 @@ export default function App() {
                 applyTheme(savedSettings.SelectedTheme || "Light");
             } else {
                 applyTheme("Light");
+            }
+            if (savedSettings.SelectedLanguage) {
+                i18n.changeLanguage(savedSettings.SelectedLanguage);
             }
 
             const transformedEntries = transformEntries(currentOrgInfo, storedEntries);
@@ -175,7 +181,7 @@ export default function App() {
 
     const saveNewEntry = async (newEntry: User) => {
         if (!newEntry.Id) {
-            return toast.error("This is not a valid User", {
+            return toast.error(t("errorInvalidUser"), {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -197,7 +203,7 @@ export default function App() {
         if (currentOrg) {
             await writeNewEntryToStorage(newEntry, currentOrg);
             await fetchData();
-            toast.success("Entry Saved", toastConfig as ToastOptions<unknown>);
+            toast.success(t("entrySavedMessage"), toastConfig as ToastOptions<unknown>);
         }
     };
 

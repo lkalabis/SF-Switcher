@@ -1,5 +1,6 @@
 import React from "react";
-import { APP_VERSION, APP_ABOUT, ABOUT_URL, EMAIL, CHANGELOG, CHANGELOG_URL } from "../utils/constants";
+import { APP_VERSION, ABOUT_URL, EMAIL, CHANGELOG, CHANGELOG_URL } from "../utils/constants";
+import { useTranslation } from "react-i18next";
 
 export default function Footer({
     onShowSetings,
@@ -8,6 +9,8 @@ export default function Footer({
         onShowSetings: () => void;
         doShowSettings: boolean;
     }) {
+    const { t } = useTranslation(); // Hook for translations
+
     return (
         <>
             <footer className="footer">
@@ -25,7 +28,7 @@ export default function Footer({
 
                 <div className="footer__links">
                     <a className="footer__link footer__link--about" href={ABOUT_URL} title="About" target="_blank">
-                        {APP_ABOUT}
+                        {t("footerAbout")}
                     </a>
                     <a className="footer__link footer__link--email" href={EMAIL} title="Email">
                         <i className="fa fa-envelope"></i>

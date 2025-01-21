@@ -1,6 +1,5 @@
 const APP_VERSION = "V 0.75";
 const APP_AUTHOR = "Lukas Kalabis";
-const APP_ABOUT = "About";
 const ABOUT_URL = "https://lkalabis.github.io/SF-Switcher";
 const CHANGELOG = "Changelog";
 const CHANGELOG_URL = "https://lkalabis.github.io/SF-Switcher/pages/changelog";
@@ -26,7 +25,6 @@ export {
     PRODUCTION_URL,
     CHANGELOG_URL,
     LOADING_MESSAGE,
-    APP_ABOUT,
     ABOUT_URL,
     EMAIL,
     LOGOUT_URL,

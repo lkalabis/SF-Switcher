@@ -4,4 +4,5 @@ export interface SettingsType {
     UseReLoginFeature: boolean;
     MillisecondsToWaitTillRelogin?: number;
     SelectedTheme: string;
+    SelectedLanguage: string;
 }

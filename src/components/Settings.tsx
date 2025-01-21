@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { SettingsType } from "../types/SettingsType";
 import { ToastContainer, ToastOptions, toast } from "react-toastify";
 import { toastConfig } from "../utils/helper";
+import { useTranslation } from "react-i18next";
 
 export default function Settings({
     settings,
@@ -10,6 +11,7 @@ export default function Settings({
         settings: SettingsType;
         onSetSettings: (settings: SettingsType) => void;
     }) {
+    const { t, i18n } = useTranslation(); // Hook for translations
     const [isChanged, setIsChanged] = useState(false);
 
     const errorConfig = {
@@ -28,6 +30,20 @@ export default function Settings({
         { name: "Dark" },
     ];
 
+    const languages = [
+        { val: "en", name: "English" },
+        { val: "de", name: "Deutsch" },
+        { val: "es", name: "Español" },
+        { val: "fr", name: "Français" },
+        { val: "it", name: "Italiano" },
+        { val: "nl", name: "Nederlands" },
+        { val: "pl", name: "Polski" },
+        { val: "pt", name: "Português" },
+    ];
+    
+    const applyLanguage = (languageName: string) => {
+        i18n.changeLanguage(languageName.toLowerCase());
+    };
 
     const applyTheme = (themeName: string) => {
         // Remove existing theme classes
@@ -36,6 +52,16 @@ export default function Settings({
         const themeClass = `theme-${themeName.toLowerCase().replace(" ", "-")}`;
         document.body.classList.add(themeClass);
     };
+
+    const handleLanguageChange = (languageName: string) => {
+        // @ts-ignore
+        onSetSettings((prevSettings) => ({
+            ...prevSettings,
+            SelectedLanguage: languageName,
+        }));
+        applyLanguage(languageName);
+        setIsChanged(true);
+    }
 
     const handleThemeChange = (themeName: string) => {
         // @ts-ignore
@@ -65,7 +91,7 @@ export default function Settings({
                     (settings.MillisecondsToWaitTillRelogin && settings.MillisecondsToWaitTillRelogin > 10000))
         ) {
             // @ts-ignore
-            return toast.error("Value must be between 500 - 10000", errorConfig as ToastOptions<unknown>);
+            return toast.error(t("valueError"), errorConfig as ToastOptions<unknown>);
         }
 
         chrome.storage.local.get("sf-user-switcher", (result) => {
@@ -78,9 +104,9 @@ export default function Settings({
             // Set the updated data
             chrome.storage.local.set({ "sf-user-switcher": data }, () => {
                 if (chrome.runtime.lastError) {
-                    return toast.error("The settings couln't be saved", errorConfig as ToastOptions<unknown>);
+                    return toast.error(t("saveError"), errorConfig as ToastOptions<unknown>);
                 }
-                toast.success("Settings Saved", toastConfig as ToastOptions<unknown>);
+                toast.success(t('saveSuccess'), toastConfig as ToastOptions<unknown>);
             });
         });
         setIsChanged(false);
@@ -127,7 +153,7 @@ export default function Settings({
                 <header className="settings__header">
                     <div className="settings__header-container">
                         <img src="images/icon-48.png" alt="Logo" className="settings__logo" />
-                        <div className="settings__title">Settings</div>
+                        <div className="settings__title">{t("settingsTitle")}</div>
                     </div>
                 </header>
 
@@ -140,7 +166,7 @@ export default function Settings({
                                 checked={settings.ShowProfileNameInLabel}
                                 onChange={handleCheckboxChange}
                             />
-                            <span className="spanInput">Show Profile Name in Label?</span>
+                            <span className="spanInput">{t("showProfileName")}</span>
                             <a
                                 className="informationIconLink"
                                 href="https://lkalabis.github.io/SF-Switcher/pages/settings#label"
@@ -156,7 +182,7 @@ export default function Settings({
                                 checked={settings.ShowTooltip}
                                 onChange={handleCheckboxChange}
                             />
-                            <span className="spanInput">Show Tooltip?</span>
+                            <span className="spanInput">{t('showTooltip')}</span>
                             <a
                                 className="informationIconLink"
                                 href="https://lkalabis.github.io/SF-Switcher/pages/settings#tooltips"
@@ -172,7 +198,7 @@ export default function Settings({
                                 checked={settings.UseReLoginFeature}
                                 onChange={handleCheckboxChange}
                             />
-                            <span className="spanInput">Use Re-Login feature?</span>
+                            <span className="spanInput">{t("useReLogin")}</span>
                             <a
                                 className="informationIconLink"
                                 href="https://lkalabis.github.io/SF-Switcher/pages/settings#relogin"
@@ -198,7 +224,7 @@ export default function Settings({
                     </div>
                     <div className="settings__inputs-group--right">
                         <label>
-                            <span>Theme:</span>
+                            <span>{t("theme")}</span>
                             <select className="settings__theme-select"
                                 value={settings.SelectedTheme}
                                 onChange={(e) => handleThemeChange(e.target.value)}
@@ -210,13 +236,24 @@ export default function Settings({
                                 ))}
                             </select>
                         </label>
+                        <label>
+                            <span>{t("language")}</span>
+                            <select className="settings__theme-select" 
+                            value={settings.SelectedLanguage} onChange={(e) => handleLanguageChange(e.target.value)} >
 
+                                {languages.map((language) => (
+                                    <option key={language.name} value={language.val}>
+                                        {language.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </label>
                     </div>
 
 
                     <div className="saveButtonContainer">
                         <button disabled={!isChanged} onClick={handleSave} className="settings__save-button">
-    Save
+    {t("save")}
 </button>
                     </div>
                 </main>

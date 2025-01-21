@@ -6,6 +6,8 @@ import { User } from "../types/User";
 import { EntryFormProps } from "../types/EntryProps";
 import { createUUID } from "../utils/helper";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
+
 const LIMIT = 3;
 
 export default function EntryForm({
@@ -20,7 +22,7 @@ export default function EntryForm({
     currentOrg,
 }: EntryFormProps) {
     const [filteredEntries, setFilteredEntries] = useState<User[]>([]);
-
+    const { t } = useTranslation(); // Hook for translations
     const [newEntry, setNewEntry] = useState<User>(record);
 
     const [showEntrySettings, setShowEntrySettings] = useState(false);
@@ -76,7 +78,7 @@ export default function EntryForm({
     const handleSaveOnEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
             if (newEntry.Username === "" || newEntry.Id === "") {
-                return toast.error("This is not a valid User", {
+                return toast.error(t("errorInvalidUser"), {
                     position: "top-right",
                     autoClose: 2000,
                     hideProgressBar: false,
@@ -102,7 +104,7 @@ export default function EntryForm({
     const updateExistingEntry = () => {
         if (Object.keys(newEntry).length !== 0) {
             if (newEntry.Username === "" || newEntry.Id === "") {
-                return toast.error("This is not a valid User", {
+                return toast.error(t("errorInvalidUser"), {
                     position: "top-right",
                     autoClose: 2000,
                     hideProgressBar: false,
@@ -163,7 +165,7 @@ export default function EntryForm({
                     type="text"
                     name="Label"
                     value={newEntry.Label}
-                    placeholder="Label"
+                    placeholder={t('inputLabelPlaceholder')}
                     onChange={handleLabelChange}
                     onKeyDown={(e) => handleSaveOnEnter(e)}
                  />
@@ -172,7 +174,7 @@ export default function EntryForm({
                     type="text"
                     name="Username"
                     value={newEntry.Username}
-                    placeholder="Search by Username, Name, or Email"
+                    placeholder={t('inputUsernamePlaceholder')}
                     onChange={handleUsernameChange}
                     onKeyDown={(e) => handleSaveOnEnter(e)}
                 />
