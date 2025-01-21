@@ -6,6 +6,11 @@ layout: default
 
 All notable changes to this project will be documented in this file.
 
+## [0.76] - 21.01.2025
+-   🚀 Add i18n support (EN, DE, ES, FR, IT, PT, PL, NL)
+-   🚀 New Styling
+-   🚀 Add Theme selection (Light/Dark) - additional themes will be added soon.
+
 ## [0.75] - 15.01.2025
 
 -   🎯 Some minor styling/css adjustments
