@@ -219,7 +219,7 @@ body {
     flex-direction: column;
     background-color: var(--background-color);
     display: flex;
-    min-height: 220px;
+    height: 200px;
 }
 
 .grid {

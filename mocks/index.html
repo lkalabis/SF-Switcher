@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grouped Entries Plugin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-light">
+    <div class="container">
+        <header class="settings__header">
+            <div class="settings__header-container">
+                <h1>Grouped Entries</h1>
+            </div>
+        </header>
+
+        <main class="settings__main">
+            <div class="group">
+                <div class="group-header settings__header">
+                    <h3>Group 1</h3>
+                    <button class="btn" onclick="toggleGroup(1)">Toggle</button>
+                </div>
+                <div class="group-entries" id="group-1">
+                    <div class="entry grid">
+                        <div class="labelUsernameContainer">
+                            <div class="labelEntry">Entry 1</div>
+                            <div class="usernameEntry">Username1</div>
+                        </div>
+                        <div class="buttons">
+                            <button title="Edit" class="grid-btn"><i class="fa fa-pencil"></i></button>
+                            <button title="Delete" class="grid-btn"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="entry grid">
+                        <div class="labelUsernameContainer">
+                            <div class="labelEntry">Entry 2</div>
+                            <div class="usernameEntry">Username2</div>
+                        </div>
+                        <div class="buttons">
+                            <button title="Edit" class="grid-btn"><i class="fa fa-pencil"></i></button>
+                            <button title="Delete" class="grid-btn"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group">
+                <div class="group-header settings__header">
+                    <h3>Group 2</h3>
+                    <button class="btn" onclick="toggleGroup(2)">Toggle</button>
+                </div>
+                <div class="group-entries" id="group-2">
+                    <div class="entry grid">
+                        <div class="labelUsernameContainer">
+                            <div class="labelEntry">Entry A</div>
+                            <div class="usernameEntry">UsernameA</div>
+                        </div>
+                        <div class="buttons">
+                            <button title="Edit" class="grid-btn"><i class="fa fa-pencil"></i></button>
+                            <button title="Delete" class="grid-btn"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="entry grid">
+                        <div class="labelUsernameContainer">
+                            <div class="labelEntry">Entry B</div>
+                            <div class="usernameEntry">UsernameB</div>
+                        </div>
+                        <div class="buttons">
+                            <button title="Edit" class="grid-btn"><i class="fa fa-pencil"></i></button>
+                            <button title="Delete" class="grid-btn"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer__settings">
+                <button class="footer__settings-button" title="Settings Icon">
+                    <div class="footer__settings-icon footer__settings-icon--settings"></div>
+                </button>
+                <div class="footer__version">v1.0.0</div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function toggleGroup(groupId) {
+            const groupEntries = document.getElementById(`group-${groupId}`);
+            groupEntries.style.display = groupEntries.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
