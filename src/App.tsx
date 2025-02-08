@@ -18,16 +18,6 @@ import { LOADING_MESSAGE, STORAGE_KEY } from "./utils/constants";
 import { ToastContainer, ToastOptions, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Settings from "./components/Settings";
-import {
-    DndContext,
-    DragOverlay,
-    closestCenter,
-    KeyboardSensor,
-    PointerSensor,
-    useSensor,
-    useSensors,
-} from "@dnd-kit/core";
-import { arrayMove, SortableContext, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { useTranslation } from "react-i18next"; 
 
 export default function App() {
@@ -50,15 +40,60 @@ export default function App() {
         MillisecondsToWaitTillRelogin: 1000,
         SelectedTheme: "Light",
         SelectedLanguage: "en",
+        ShowUserLink: false,
     });
     const { t, i18n } = useTranslation(); // Hook for translations
+    const [draggedItem, setDraggedItem] = useState<string | null>(null);
+    const [dropTarget, setDropTarget] = useState<string | null>(null);
 
-    const sensors = useSensors(
-        useSensor(PointerSensor),
-        useSensor(KeyboardSensor, {
-            coordinateGetter: sortableKeyboardCoordinates,
-        }),
-    );
+
+    const onDragStart = (event: React.DragEvent<HTMLDivElement>, entryId: string) => {
+        setDraggedItem(entryId);
+    };
+
+    const onDragEnd = () => {
+        setDraggedItem(null);
+        setDropTarget(null);
+    };
+
+    const onDrop = async(event: React.DragEvent<HTMLDivElement>, targetId: string) => {
+        event.preventDefault();
+        if (!draggedItem || draggedItem === targetId) return;
+
+        // Find indexes of dragged and target entries
+        const draggedIndex = entries.findIndex((entry) => entry.Id === draggedItem);
+        const targetIndex = entries.findIndex((entry) => entry.Id === targetId);
+
+        if (draggedIndex === -1 || targetIndex === -1) return;
+
+        // Swap the items in the array
+        const newEntries = [...entries];
+        const [movedItem] = newEntries.splice(draggedIndex, 1);
+        newEntries.splice(targetIndex, 0, movedItem);
+
+        setEntries(newEntries);
+        setDraggedItem(null);
+        setDropTarget(null);
+
+        // Write the new order to storage
+        if (currentOrg) {
+            try {
+                await writeAllEntriesToStorage(newEntries, currentOrg);
+            } catch (error) {
+                console.error("Error saving new entry order:", error);
+            }
+        }
+
+    };
+
+    const onDragOver = (event: React.DragEvent<HTMLDivElement>, targetId: string) => {
+        event.preventDefault();
+
+        // Ensure we only set dropTarget if it's different
+        if (dropTarget !== targetId) {
+            setDropTarget(targetId);
+        }
+    };
 
     async function fetchData() {
         try {
@@ -101,29 +136,6 @@ export default function App() {
         document.body.classList.remove(...document.body.classList);
         const themeClass = `theme-${themeName.toLowerCase().replace(" ", "-")}`;
         document.body.classList.add(themeClass);
-    };
-
-    // @ts-ignore
-    const handleDragEnd = async (event) => {
-        // setActiveId(null);
-        const { active, over } = event;
-
-        if (active.id !== over.id) {
-            const oldIndex = entries.findIndex((entry) => {
-                return entry.Id === active.id;
-            });
-            const newIndex = entries.findIndex((entry) => {
-                return entry.Id === over.id;
-            });
-
-            const a = arrayMove(entries, oldIndex, newIndex);
-            setEntries(a);
-
-            if (currentOrg) {
-                await writeAllEntriesToStorage(a, currentOrg);
-                await fetchData();
-            }
-        }
     };
 
     const transformEntries = (currentOrgInfo: OrgInfo | null, storedEntries: Record<string, any>): User[] => {
@@ -287,8 +299,8 @@ export default function App() {
                     const allUserEntries = storageData[currentOrg?.orgId].users;
                     // @ts-ignore
                     const updatedUserEntries = allUserEntries
-                        .slice(0, indexOfEntry)
-                        .concat(allUserEntries.slice(indexOfEntry + 1));
+                    .slice(0, indexOfEntry)
+                    .concat(allUserEntries.slice(indexOfEntry + 1));
                     // @ts-ignore
                     storageData[currentOrg?.orgId].users = updatedUserEntries;
                 }
@@ -361,16 +373,11 @@ export default function App() {
     };
     return (
         // @ts-ignore
-        <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
-        >
-            <div className="container">
-                {showSettings ? (
-                    // Render what you want to show when showSettings is true
-                    <Settings settings={settings} onSetSettings={setSettings} />
-                ) : (
+        <div className="container">
+            {showSettings ? (
+                // Render what you want to show when showSettings is true
+                <Settings settings={settings} onSetSettings={setSettings} />
+            ) : (
                     <>
                         <ToastContainer
                             position="top-right"
@@ -393,34 +400,39 @@ export default function App() {
                                     </p>
                                 </div>
                             ) : (
-                                <>
-                                    {loading ? (
-                                        LOADING_MESSAGE
-                                    ) : (
-                                        <>
-                                            <SortableContext items={entries}>
-                                                {entries?.map((entry) => (
-                                                    <Entry
-                                                        settings={settings}
-                                                        key={entry.Id}
-                                                        entry={entry}
-                                                        onDelete={deleteExistingEntry}
-                                                        onEdit={editEntry}
-                                                    />
-                                                ))}
-                                                <DragOverlay>
-                                                    <div className="dragOverlay" />
-                                                </DragOverlay>
-                                            </SortableContext>
-                                        </>
-                                    )}
-                                </>
-                            )}
+                                    <>
+                                        {loading ? (
+                                            LOADING_MESSAGE
+                                        ) : (
+                                                <>
+                                                    {entries?.map((entry) => (
+                                                        <React.Fragment key={entry.Id}>
+                                                            {/* 🔥 Show drop indicator BEFORE an entry when it's a target */}
+                                                            {dropTarget === entry.Id && <div className="drop-indicator"></div>}
+                                                            <Entry
+                                                                settings={settings}
+                                                                key={entry.Id}
+                                                                entry={entry}
+                                                                onDelete={deleteExistingEntry}
+                                                                onEdit={editEntry}
+                                                                onDragStart={onDragStart}
+                                                                onDragEnd={onDragEnd}
+                                                                onDrop={onDrop}
+                                                                isDragged={draggedItem === entry.Id}
+                                                                isDropTarget={dropTarget === entry.Id}
+                                                                onDragOver={onDragOver}
+                                                            />
+                                                        </React.Fragment>
+                                                    ))}
+                                                    {dropTarget === null && draggedItem && <div className="drop-indicator"></div>}
+                                                </>
+                                            )}
+                                    </>
+                                )}
                         </div>
                     </>
                 )}
-                <Footer doShowSettings={showSettings} onShowSetings={toggleView} />
-            </div>
-        </DndContext>
+            <Footer doShowSettings={showSettings} onShowSetings={toggleView} />
+        </div>
     );
 }

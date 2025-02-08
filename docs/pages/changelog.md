@@ -6,6 +6,11 @@ layout: default
 
 All notable changes to this project will be documented in this file.
 
+## [0.79] - 08.02.2025
+
+-   🚀 Add feature to jump directly to the User Record
+-   🚀 Improve Drag & Drop feature of entries. 
+
 ## [0.78] - 26.01.2025
 
 -   🎯 Minor styling/css adjustments

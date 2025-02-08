@@ -5,4 +5,5 @@ export interface SettingsType {
     MillisecondsToWaitTillRelogin?: number;
     SelectedTheme: string;
     SelectedLanguage: string;
+    ShowUserLink: boolean;
 }

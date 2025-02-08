@@ -191,6 +191,22 @@ export default function Settings({
                                 <i className="informationIcon fa fa-question-circle" aria-hidden="true"></i>
                             </a>
                         </label>
+                                                <label>
+                            <input
+                                type="checkbox"
+                                name="ShowUserLink"
+                                checked={settings.ShowUserLink}
+                                onChange={handleCheckboxChange}
+                            />
+                            <span className="spanInput">{t('showUserLink')}</span>
+                            <a
+                                className="informationIconLink"
+                                href="https://lkalabis.github.io/SF-Switcher/pages/settings#userlink"
+                                target="_blank"
+                            >
+                                <i className="informationIcon fa fa-question-circle" aria-hidden="true"></i>
+                            </a>
+                        </label>
                         <label>
                             <input
                                 type="checkbox"

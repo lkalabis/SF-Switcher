@@ -23,5 +23,5 @@ layout: default
 | 8   | Release Plugin for Firefox      | Done          | Medium   | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
 | 9   | Release Plugin for Edge         | Done          | Medium   | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
 | 10  | Allow import & export           | Open          | Medium   | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
-| 11  | Jump directly to User Record    | In Progress   | Medium   | JB                                                 |
+| 11  | Jump directly to User Record    | Done (V 0.79  | Medium   | JB                                                 |
 | 12  | Login as User in Incognito-Mode | Open          | Medium   | JB                                                 |
