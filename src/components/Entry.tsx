@@ -38,7 +38,6 @@ function Entry({
     };
 
     const openInNewTab = async () => {
-        console.log("openInNewTab");
         const currentURL = await getCurrentTabUrl();
         const modifiedUrl = getModifiedUrl(currentURL);
         const target = encodeURIComponent(currentURL.split(".com")[1]);
