@@ -143,11 +143,12 @@ body {
 
 .entry__userLink__icon {
     background-image: var(--entry__userLink__icon);
-    background-size: contain; /* Ensure the image fits */
+    background-size: contain; 
     background-position: center;
     background-repeat: no-repeat;
     width: 13px;
     height: 13px;
+    cursor: pointer;
 }
 
 .footer__settings-icon--home{
@@ -239,13 +240,12 @@ body {
 .grid {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 3px 0 3px 16px;
+    padding: 0px 0px 0px 5px;
 }
 .labelUsernameContainer {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
 }
 
 .editGrid {
@@ -339,7 +339,7 @@ body {
     background-color: var(--color-white);
 }
 .labelEntry {
-    width: 220px;
+    width: 245px;
     height: 24px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -348,7 +348,7 @@ body {
 .usernameEntry {
     display: flex;
     justify-content: space-between;
-    width: 280px;
+    width: 312px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -544,7 +544,7 @@ input[type="number"] {
 }
 
 .grid-btn {
-    padding: 8px 10px; /* Some padding */
+    padding: 8px 6px; /* Some padding */
     background: transparent;
     font-size: 16px; /* Set a font size */
     cursor: pointer; /* Mouse pointer on hover */
