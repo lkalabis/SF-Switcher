@@ -6,6 +6,10 @@ layout: default
 
 All notable changes to this project will be documented in this file.
 
+## [0.80] - 10.02.2025
+
+-   🎯 Minor styling/css adjustments
+
 ## [0.79] - 08.02.2025
 
 -   🚀 Add feature to jump directly to the User Record
