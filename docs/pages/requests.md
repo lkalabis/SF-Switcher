@@ -25,3 +25,4 @@ layout: default
 | 10  | Allow import & export           | Open          | Medium   | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
 | 11  | Jump directly to User Record    | Done (V 0.79  | Medium   | JB                                                 |
 | 12  | Login as User in Incognito-Mode | Open          | Medium   | JB                                                 |
+| 13  | Copy User Id to Clipboard from Tooltip | Open          | Medium   | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
