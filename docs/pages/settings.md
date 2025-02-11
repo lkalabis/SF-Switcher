@@ -51,3 +51,13 @@ If this feature is active you can see a small 'info' icon next to the username.
 If the mouse is on the 'info' element you can see additional information related to the user record.
 
 ![Tooltip View](../assets/img/tooltip2.png)
+
+### <a name="userLink">Link to User Record
+
+If this feature is active you can see a small 'user' icon next to the username.
+
+![Tooltip Setting](../assets/img/userLink0.png)
+![Plugin View](../assets/img/userLink1.png.png)
+
+If you click on the 'user' element you will be redirected to the user record in Salesforce.
+
