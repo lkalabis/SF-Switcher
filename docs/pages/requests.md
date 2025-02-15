@@ -26,3 +26,4 @@ layout: default
 | 11  | Jump directly to User Record    | Done (V 0.79  | Medium   | JB                                                 |
 | 12  | Login as User in Incognito-Mode | Open          | Medium   | JB                                                 |
 | 13  | Copy User Id to Clipboard from Tooltip | Open          | Medium   | [Lukas Kalabis](developer.kalabis.lukas@gmail.com) |
+| 14  | Show Users Audit Trail | Open          | Medium   | JB                                                 |
